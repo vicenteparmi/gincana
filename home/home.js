@@ -15,32 +15,11 @@ var firebaseConfig = {
 
 // Now my code ;D
 
-function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const auth = firebase.auth();
-
-  const callback = auth.signInWithEmailAndPassword(email, password);
-  callback.catch(e => console.log(e.message));
-}
-
-function signup() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const auth = firebase.auth();
-
-  const callback = auth.createUserWithEmailAndPassword(email, password);
-  callback.catch(e => console.log(e.message));
-}
-
 var popupShow = false;
+var signedIn = false;
 
 function popup() {
-
   var user = firebase.auth().currentUser;
-  if (user) {
-    signedIn = true;
-  }
 
   if (popupShow == false) {
     if (user) {
@@ -54,4 +33,23 @@ function popup() {
     document.getElementById("popupMenuLogged").className = "popupMenu hide";
     popupShow = false;
   }
+}
+
+function loadPage() {
+  var user = firebase.auth().currentUser;
+  var name, email, photoUrl, uid, emailVerified;
+
+  if (user != null) {
+    name = user.displayName;
+    email = user.email;
+    photoUrl = user.photoURL;
+    emailVerified = user.emailVerified;
+    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                     // this value to authenticate with your backend server, if
+                     // you have one. Use User.getToken() instead.
+  }
+
+  document.getElementById('userName').innerHTML = name;
+  document.getElementById('userEmail').innerHTML = email;
+  document.getElementById("userPhoto").src = photoURL;
 }

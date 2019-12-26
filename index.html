@@ -8,7 +8,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
-	<body>
+	<body onload="loadPage()">
 		<div id="header">
 			<img src="files/image/CAQUI.png"/ class="headerImage">
 			<text id="logo">Gincana CAQuí 2020</text>
@@ -16,18 +16,18 @@
 			<a class="menu" href="./updates.html">Atualizações</a>
 			<a class="menu" href="./send.html">Enviar Atividade</a>
 			<a class="menu" href="./about.html">Sobre</a>
-			<img class="loginMenu headerImage" src="files/image/unknownUser.png" onclick="popup()"/>
+			<img id="userPhoto" class="loginMenu headerImage" src="files/image/unknownUser.png" onclick="popup()"/>
 		</div>
 
 		<div id="popupMenu" class="popupMenu hide">
 			<text class="popupTitle">Anônimo</text><br>
-			<a class="popupItem" href="./login.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person</i>Entrar</text>
+			<a class="popupItem" href="./login.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person</i>Entrar</a>
 		</div>
 
 		<div id="popupMenuLogged" class="popupMenu hide">
-			<text class="popupTitle">Nome do Usuário</text><br>
-			<text class="popupSubitle">email@email.com</text><br><bR>
-			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configura��es</text><br>
+			<text class="popupTitle" id="userName">Nome do Usuário</text><br>
+			<text class="popupSubitle" id="userEmail" >email@email.com</text><br><bR>
+			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configurações</text><br>
 			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person_outline</i>Sair</text>
 		</div>
 
