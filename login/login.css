@@ -9,7 +9,6 @@ body {
   box-shadow: 0px 2px 5px rgba(0,0,0,0.28);
   padding-left: 3%;
   line-height: 60px;
-  position: fixed;
 }
 
 .headerImage {
@@ -52,45 +51,13 @@ body {
   cursor: pointer;
 }
 
-.popupMenu {
-  position: fixed;
-  top:70px;
-  right: 1%;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.28);
-  padding: 10px;
-  padding-right: 20px;
-  min-width: 20%;
+#firebaseui-auth-container {
+  margin-top: 30px;
 }
 
-.popupTitle {
-  font-weight: bold;
-  font-size: 18px;
-  width: 100%;
+h2, p {
+  text-align: center;
 }
-
-.popupSubitle {
-  color: dimgray;
-  font-size: 14px;
-}
-
-.popupItem {
-  transition-duration: 0.2s;
-  cursor: pointer;
-  color: black;
-  text-decoration: none;
-}
-
-.popupItem:hover {
-  padding-left: 10px;
-  text-decoration: underline;
-}
-
-.hide {
-  display: none;
-  position: fixed;
-  top: -1000%;
-}
-
 
 @font-face {
   font-family: 'Material Icons';

@@ -32,26 +32,3 @@ function signup() {
   const callback = auth.createUserWithEmailAndPassword(email, password);
   callback.catch(e => console.log(e.message));
 }
-
-var popupShow = false;
-
-function popup() {
-
-  var user = firebase.auth().currentUser;
-  if (user) {
-    signedIn = true;
-  }
-
-  if (popupShow == false) {
-    if (user) {
-      document.getElementById("popupMenuLogged").className = "popupMenu";
-    } else {
-      document.getElementById("popupMenu").className = "popupMenu";
-    }
-    popupShow = true;
-  } else {
-    document.getElementById("popupMenu").className = "popupMenu hide";
-    document.getElementById("popupMenuLogged").className = "popupMenu hide";
-    popupShow = false;
-  }
-}

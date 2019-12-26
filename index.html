@@ -1,12 +1,37 @@
-<!doctype= html> <!-- P�gina criada por Vicente Parmigiani em 26/12/2019 �s 11h-->
+<!doctype= html> <!-- Página criada por Vicente Parmigiani em 26/12/2019 às 11h-->
 <html lang="pt">
 	<head>
-		<title>Gincana CAQu�</title>
-		<link rel="icon" type="image/png" href="home/icon.png" />
+		<title>Gincana CAQuí</title>
+		<link rel="icon" type="image/png" href="files/image/CAQUI.png" />
 		<link rel="stylesheet" type="text/css" href="home/home.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div id="login">
+		<div id="header">
+			<img src="files/image/CAQUI.png"/ class="headerImage">
+			<text id="logo">Gincana CAQuí 2020</text>
+			<a class="menu menuSelected" href="./index.html">Início</a>
+			<a class="menu" href="./updates.html">Atualizações</a>
+			<a class="menu" href="./send.html">Enviar Atividade</a>
+			<a class="menu" href="./about.html">Sobre</a>
+			<img class="loginMenu headerImage" src="files/image/unknownUser.png" onclick="popup()"/>
+		</div>
+
+		<div id="popupMenu" class="popupMenu hide">
+			<text class="popupTitle">Anônimo</text><br>
+			<a class="popupItem" href="./login.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person</i>Entrar</text>
+		</div>
+
+		<div id="popupMenuLogged" class="popupMenu hide">
+			<text class="popupTitle">Nome do Usuário</text><br>
+			<text class="popupSubitle">email@email.com</text><br><bR>
+			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configura��es</text><br>
+			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person_outline</i>Sair</text>
+		</div>
+
+		<div id="login" hidden>
 			<text>Email:</text><input type="text" id="email"/>
 			<text>Senha</text><input type="password" id="password"/>
 			<button onclick="login()">Log In</button>
