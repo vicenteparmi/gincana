@@ -4,28 +4,24 @@
 		<title>Gincana CAQuí</title>
 		<link rel="icon" type="image/png" href="home/icon.png" />
 		<link rel="stylesheet" type="text/css" href="home/home.css">
-		<script src="home/home.js"></script>
 	</head>
 	<body>
+		<div id="login">
+			<text>Email:</text><input type="text" id="email"/>
+			<text>Senha</text><input type="password" id="password"/>
+			<button onclick="login()">Log In</button>
+			<button onclick="signup()">Sign Up</button>
+		</div>
+
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
 
 		<!-- TODO: Add SDKs for Firebase products that you want to use
 		     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 
-		<script>
-		  // Your web app's Firebase configuration
-		  var firebaseConfig = {
-		    apiKey: "AIzaSyA07lUMH1HyCjBi_eKe-4gaz1b9FhdSZiE",
-		    authDomain: "havarena-f3d87.firebaseapp.com",
-		    databaseURL: "https://havarena-f3d87.firebaseio.com",
-		    projectId: "havarena-f3d87",
-		    storageBucket: "havarena-f3d87.appspot.com",
-		    messagingSenderId: "259369291947",
-		    appId: "1:259369291947:web:6233862e160cc6bfce67ee"
-		  };
-		  // Initialize Firebase
-		  firebase.initializeApp(firebaseConfig);
-		</script>
+		<script type="text/javascript" src="home/home.js"></script>
 	</body>
 </html>
