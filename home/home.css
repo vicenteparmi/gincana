@@ -60,6 +60,8 @@ body {
   padding: 10px;
   padding-right: 20px;
   min-width: 20%;
+  border-radius: 4px;
+  transition-duration: 0.3s;
 }
 
 .popupTitle {

@@ -8,7 +8,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
-	<body onload="setTimeout(loadPage,500)">
+	<body>
 		<div id="header">
 			<img src="files/image/CAQUI.png"/ class="headerImage">
 			<text id="logo">Gincana CAQuí 2020</text>
@@ -20,7 +20,6 @@
 		</div>
 
 		<div id="popupMenu" class="popupMenu hide">
-			<text class="popupTitle">Anônimo</text><br>
 			<a class="popupItem" href="./login.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person</i>Entrar</a>
 		</div>
 
@@ -28,14 +27,7 @@
 			<text class="popupTitle" id="userName">Nome do Usuário</text><br>
 			<text class="popupSubitle" id="userEmail" >email@email.com</text><br><bR>
 			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configurações</text><br>
-			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person_outline</i>Sair</text>
-		</div>
-
-		<div id="login" hidden>
-			<text>Email:</text><input type="text" id="email"/>
-			<text>Senha</text><input type="password" id="password"/>
-			<button onclick="login()">Log In</button>
-			<button onclick="signup()">Sign Up</button>
+			<text class="popupItem" onclick="signOut()"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person_outline</i>Sair</text>
 		</div>
 
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -47,6 +39,6 @@
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 
-		<script type="text/javascript" src="home/home.js"></script>
+		<script type="text/javascript" src="home/home.js" onload="loadPage()"></script>
 	</body>
 </html>

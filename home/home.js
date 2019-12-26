@@ -33,6 +33,8 @@ function popup() {
     document.getElementById("popupMenuLogged").className = "popupMenu hide";
     popupShow = false;
   }
+
+  loadPage();
 }
 
 function loadPage() {
@@ -52,4 +54,14 @@ function loadPage() {
   document.getElementById('userName').innerHTML = name;
   document.getElementById('userEmail').innerHTML = email;
   document.getElementById("userPhoto").src = photoURL;
+
+}
+
+function signOut() {
+  firebase.auth().signOut().then(function() {
+    console.log('Signed Out');
+    location.reload();
+  }, function(error) {
+    console.error('Sign Out Error', error);
+  });
 }
