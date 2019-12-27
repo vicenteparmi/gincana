@@ -17,7 +17,11 @@
 			<a class="menu" href="./send.html">Enviar Atividade</a>
 			<a class="menu" href="./about.html">Sobre</a>
 		</div>
-		<div id="body">
+		<div class="card" id="teamCard">
+			<div id="teamImage" class="center"></div>
+			<h1 class="center">Equipe Hidrogênio</h1>
+		</div>
+		<div id="profileInfo" class="card">
 			<div id="profileImage">
 			</div>
 			<table>
@@ -29,13 +33,16 @@
 				</tr>
 				<tr>
 					<td>
-						<button type="button" name="button">Alterar Nome</button>
-						<button type="button" onclick="uploadPhoto()">Alterar Imagem</button>
+						<a class="button3" onclick="updateUserName()">Alterar Nome</a>
+						<a class="button3" onclick="uploadPhoto()">Alterar Imagem</a>
+						<div id="progressbar" class="hide">
+							<text id="progressInd">Uploading...</text>
+						  <div id="progressPercentage"></div>
+						</div>
 					</td>
 				</tr>
 			</table>
 		</div>
-
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
 

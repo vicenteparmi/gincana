@@ -58,6 +58,28 @@ function signOut() {
   });
 }
 
+// Update userName
+
+function updateUserName() {
+  var user = firebase.auth().currentUser;
+  var name = prompt("Qual o novo nome de usuário?", user.displayName);
+  if (name == null || name == "") {
+    name = user.displayName;
+  }
+
+  if (user) {
+    user.updateProfile({
+      displayName: name,
+    }).then(function() {
+      document.getElementById("userName").innerHTML = name;
+    }).catch(function(error) {
+      // An error happened.
+    });
+  } else {
+    // No user is signed in.
+  }
+}
+
 // Upload profile picture
 
 function uploadPhoto() {
@@ -89,13 +111,10 @@ function uploadPhoto() {
 };
 
 function storeProfileImage(path, img) {
-  // var storageRef = firebase.storage().ref();
-  // var imagesRef = storageRef.child(path);
-  // imagesRef.put(img).then(function(snapshot) {
-  //   console.log('Uploaded a file!');
-  // });
-
-////////////////////////////////////////////////////
+  const progressBar = document.getElementById('progressbar');
+  const progressPercentage = document.getElementById('progressPercentage');
+  const progressInd = document.getElementById('progressInd');
+  progressBar.className = "";
 
   const promises = [];
 
@@ -105,6 +124,8 @@ function storeProfileImage(path, img) {
   uploadTask.on('state_changed', snapshot => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log(progress);
+      progressPercentage.style.width = progress+"%";
+      progressInd.innerHTML = "Enviando imagem ("+Math.round(progress,2)+"%)"
   }, error => { console.log(error) }, () => {
       uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
           console.log(downloadURL);
@@ -114,6 +135,7 @@ function storeProfileImage(path, img) {
   Promise.all(promises).then(tasks => {
       console.log('Updating URL...');
       updateProfileURL();
+      progressBar.className = "hide";
   });
 }
 

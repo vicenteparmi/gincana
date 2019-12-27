@@ -1,23 +1,22 @@
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  background-color: #303f9f
 }
 
 #profileImage {
-  width: 10%;
-  padding-top: 10%;
-  border-radius: 100%;
+  width: 20%;
+  padding-top: 20%;
+  border-radius: 8px;
   background-image: url(../files/image/unknownUser.png);
   background-color: lightgray;
-  border-width: 1px;
-  border-color: black;
-  border-style: solid;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   position: relative;
   float: left;
   margin-right: 3%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #userName {
@@ -30,9 +29,36 @@ body {
   color: dimgray;
 }
 
-#body {
-  margin-top: 150px;
-  margin-left: 8%;
+#profileInfo {
+  margin-top: 120px;
+  margin-left: 50%;
+  width: 45%;
+}
+
+#teamCard {
+  float: left;
+  margin-left: 5%;
+  width: 40%;
+}
+
+#teamImage {
+  width: 30%;
+  padding-top: 30%;
+  background-color: #eeeeee;
+  margin-bottom: 25px;
+}
+
+.card {
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  transition-duration: 0.25s;
+}
+
+.center {
+  text-align: center;
+  margin: 0 auto;
 }
 
 #header {
@@ -44,6 +70,7 @@ body {
   position: fixed;
   top: 0%;
   left: 0%;
+  background-color: white
 }
 
 .headerImage {
@@ -73,52 +100,8 @@ body {
   font-weight: 600;
 }
 
-.loginMenu {
-  border-radius: 100%;
-  background-color: orange;
-  border-width: 1px;
-  border-color: black;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-  padding: 2px;
-  position: fixed;
-  right: 2%;
-  top: 7px;
-  cursor: pointer;
-}
-
-.popupMenu {
-  position: fixed;
-  top:70px;
-  right: 1%;
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.28);
-  padding: 10px;
-  padding-right: 20px;
-  min-width: 20%;
-  border-radius: 4px;
-  transition-duration: 0.3s;
-}
-
-.popupTitle {
-  font-weight: bold;
-  font-size: 18px;
-  width: 100%;
-}
-
-.popupSubitle {
-  color: dimgray;
-  font-size: 14px;
-}
-
-.popupItem {
-  transition-duration: 0.2s;
-  cursor: pointer;
-  color: black;
-  text-decoration: none;
-}
-
-.popupItem:hover {
-  padding-left: 10px;
-  text-decoration: underline;
+table {
+  min-height: 20%;
 }
 
 .hide {
@@ -127,6 +110,68 @@ body {
   top: -1000%;
 }
 
+/* Progress Bar */
+
+#progressbar {
+  background-color: orange;
+  border-radius: 13px;
+  /* (height of inner div) / 2 + padding */
+  padding: 2px;
+  margin-top: 12px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.18);
+}
+
+#progressbar>div {
+  background-color: white;
+  width: 40%;
+  /* Adjust with JavaScript */
+  height: 12px;
+  border-radius: 10px;
+  transition-duration: 0.2s;
+}
+
+#progressInd {
+  font-size: xx-small;
+  width: 100%;
+  text-align: center;
+  float: left;
+  line-height: 12px;
+  color: black;
+  font-weight: bold;
+}
+
+/* Buttons */
+
+a.button3{
+  display:inline-block;
+  padding:0.3em 1.0em;
+  margin:0.5em 0.25em 0.25em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:orange;
+  text-align:center;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-size: 80%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+a.button3:hover{
+  background-color:darkorange;
+}
+a.button3:active{
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+}
+@media all and (max-width:30em){
+  a.button3{
+    display:block;
+    margin:0.2em auto;
+ }
+}
+
+/* Google Icons */
 
 @font-face {
   font-family: 'Material Icons';
