@@ -38,7 +38,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
       document.getElementById('userName').innerHTML = name;
       document.getElementById('userEmail').innerHTML = email;
-      document.getElementById("profileImage").style.backgroundImage = photoURL;
+      document.getElementById("profileImage").style.backgroundImage = "url('"+photoURL+"')";;
     });
 
   } else {
@@ -80,32 +80,61 @@ function uploadPhoto() {
         content = readerEvent.target.result; // this is the content!
         document.querySelector('#profileImage').style.backgroundImage = "url('"+content+"')";
 
-        const imageUrl = getFileBlob(content);
+        var imageToUpload = dataURLtoFile(content, "profile.png");
+        storeProfileImage("user_photos/"+user.uid, imageToUpload);
 
-        console.log(imageUrl);
-        user.updateProfile({
-          photoURL: file
-        }).then(function() {
-          console.log("Sucesso");
+        console.log(extension);
+
+        var storage = firebase.storage();
+        var gsReference = storage.refFromURL('gs://havarena-f3d87.appspot.com/user_photos/'+user.uid+extension);
+        gsReference.getDownloadURL().then(function(url) {
+          console.log(url);
+          user.updateProfile({
+            photoURL: url
+          }).then(function() {
+            console.log("Sucesso");
+          }).catch(function(error) {
+            console.log("Fracasso");
+          });
         }).catch(function(error) {
-          console.log("Fracasso");
+          console.log(error);
         });
      }
    }
   input.click();
 };
 
-function imageIsLoaded() {
-  alert(this.src);  // blob url
-  // update width and height ...
+function storeProfileImage(path, img) {
+  var storageRef = firebase.storage().ref();
+  var imagesRef = storageRef.child(path);
+  imagesRef.put(img).then(function(snapshot) {
+    console.log('Uploaded a file!');
+  });
 }
 
-var getFileBlob = function (url, cb) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      xhr.responseType = "blob";
-      xhr.addEventListener('load', function() {
-        cb(xhr.response);
-      });
-      xhr.send();
-    };
+var extension;
+
+function dataURLtoFile(dataurl, filename) {
+
+    console.log(dataurl.charAt(11));
+    switch (dataurl.charAt(11)) {
+      case 'p':
+        extension = ".png";
+        break;
+      case 'j':
+        extension = ".jpg";
+        break;
+      case 't':
+        extension = ".tiff";
+      default:
+        alert("O arquivo é inválido");
+        uhsasuaUSIUSIUAH(hue);
+    }
+
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, {type:mime});
+}
