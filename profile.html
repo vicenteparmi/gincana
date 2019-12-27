@@ -1,9 +1,9 @@
-<!doctype= html> <!-- Página criada por Vicente Parmigiani em 26/12/2019 às 11h-->
+<!doctype= html>
 <html lang="pt">
 	<head>
-		<title>Gincana CAQuí</title>
+		<title>Perfil | Gincana CAQuí</title>
 		<link rel="icon" type="image/png" href="files/image/CAQUI.png" />
-		<link rel="stylesheet" type="text/css" href="home/home.css">
+		<link rel="stylesheet" type="text/css" href="profile/profile.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,22 +12,28 @@
 		<div id="header">
 			<img src="files/image/CAQUI.png"/ class="headerImage">
 			<text id="logo">Gincana CAQuí 2020</text>
-			<a class="menu menuSelected" href="./index.html">Início</a>
+			<a class="menu" href="./index.html">Início</a>
 			<a class="menu" href="./updates.html">Atualizações</a>
 			<a class="menu" href="./send.html">Enviar Atividade</a>
 			<a class="menu" href="./about.html">Sobre</a>
-			<img id="userPhoto" class="loginMenu headerImage" src="files/image/unknownUser.png" onclick="popup()"/>
 		</div>
-
-		<div id="popupMenu" class="popupMenu hide">
-			<a class="popupItem" href="./login.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person</i>Entrar</a>
-		</div>
-
-		<div id="popupMenuLogged" class="popupMenu hide">
-			<text class="popupTitle" id="userName">Nome do Usuário</text><br>
-			<text class="popupSubitle" id="userEmail" >email@email.com</text><br><bR>
-			<a class="popupItem" href="./profile.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configurações</a><br>
-			<text class="popupItem" onclick="signOut()"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person_outline</i>Sair</text>
+		<div id="body">
+			<div id="profileImage">
+			</div>
+			<table>
+				<tr>
+					<td id='userName'>
+				</tr>
+				<tr>
+					<td id="userEmail"></td>
+				</tr>
+				<tr>
+					<td>
+						<button type="button" name="button">Alterar Nome</button>
+						<button type="button" onclick="uploadPhoto()">Alterar Imagem</button>
+					</td>
+				</tr>
+			</table>
 		</div>
 
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -39,6 +45,6 @@
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 
-		<script type="text/javascript" src="home/home.js" onload="loadPage()"></script>
+		<script type="text/javascript" src="profile/profile.js"></script>
 	</body>
 </html>
