@@ -81,36 +81,60 @@ function uploadPhoto() {
         document.querySelector('#profileImage').style.backgroundImage = "url('"+content+"')";
 
         var imageToUpload = dataURLtoFile(content, "profile.png");
-        storeProfileImage("user_photos/"+user.uid, imageToUpload);
+        storeProfileImage("user_photos/"+user.uid+extension, imageToUpload);
 
-        console.log(extension);
-
-        var storage = firebase.storage();
-        var gsReference = storage.refFromURL('gs://havarena-f3d87.appspot.com/user_photos/'+user.uid+extension);
-        gsReference.getDownloadURL().then(function(url) {
-          console.log(url);
-          user.updateProfile({
-            photoURL: url
-          }).then(function() {
-            console.log("Sucesso");
-          }).catch(function(error) {
-            console.log("Fracasso");
-          });
-        }).catch(function(error) {
-          console.log(error);
-        });
      }
    }
   input.click();
 };
 
 function storeProfileImage(path, img) {
-  var storageRef = firebase.storage().ref();
-  var imagesRef = storageRef.child(path);
-  imagesRef.put(img).then(function(snapshot) {
-    console.log('Uploaded a file!');
+  // var storageRef = firebase.storage().ref();
+  // var imagesRef = storageRef.child(path);
+  // imagesRef.put(img).then(function(snapshot) {
+  //   console.log('Uploaded a file!');
+  // });
+
+////////////////////////////////////////////////////
+
+  const promises = [];
+
+  const uploadTask = firebase.storage().ref(path).put(img);
+  promises.push(uploadTask);
+
+  uploadTask.on('state_changed', snapshot => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(progress);
+  }, error => { console.log(error) }, () => {
+      uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+          console.log(downloadURL);
+      });
+  });
+
+  Promise.all(promises).then(tasks => {
+      console.log('Updating URL...');
+      updateProfileURL();
   });
 }
+
+function updateProfileURL() {
+  var user = firebase.auth().currentUser;
+  var storage = firebase.storage();
+  var gsReference = storage.refFromURL('gs://havarena-f3d87.appspot.com/user_photos/'+user.uid+extension);
+  gsReference.getDownloadURL().then(function(url) {
+    console.log(url);
+    user.updateProfile({
+      photoURL: url
+    }).then(function() {
+      console.log("Sucesso");
+    }).catch(function(error) {
+      console.log("Fracasso");
+    });
+  }).catch(function(error) {
+    console.log(error);
+  });
+}
+
 
 var extension;
 
