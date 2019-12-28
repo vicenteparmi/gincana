@@ -39,17 +39,21 @@ body {
   font-weight: 600;
 }
 
-.loginMenu {
+#userPhoto {
   border-radius: 100%;
-  background-color: orange;
-  border-width: 1px;
-  border-color: black;
+  background-color: gray;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
-  padding: 2px;
   position: fixed;
-  right: 2%;
-  top: 7px;
+  right: 2.5%;
+  top: 7.5px;
+  padding-top: 42px;
+  width: 42px;
   cursor: pointer;
+  background-image: url('../files/image/unknownUser.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition-duration: 0.5s;
 }
 
 .popupMenu {
@@ -62,6 +66,7 @@ body {
   min-width: 20%;
   border-radius: 4px;
   transition-duration: 0.3s;
+  z-index: 100;
 }
 
 .popupTitle {

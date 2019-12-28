@@ -16,9 +16,20 @@
 			<a class="menu menuSelected" href="./updates.html">Atualizações</a>
 			<a class="menu" href="./send.html">Enviar Atividade</a>
 			<a class="menu" href="./about.html">Sobre</a>
-			<img id="userPhoto" class="loginMenu headerImage" src="files/image/unknownUser.png" onclick="popup()"/>
+			<div id="userPhoto" onclick="popup()"/></div>
 		</div>
-
+		<div id="body">
+			<h1>Atualizações</h1>
+			<p>A lista abaixo mostra as atualizações mais recentes na pontuação de cada equipe.</p><br/>
+			<table width=90% id="table" onload="loadList()">
+				<tr>
+					<th>Pontos</th>
+					<th>Data</th>
+					<th>Descrição</th>
+					<th>Equipe</th>
+				</tr>
+			</table>
+		</div>
 		<div id="popupMenu" class="popupMenu hide">
 			<a class="popupItem" href="./login.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person</i>Entrar</a>
 		</div>
@@ -26,20 +37,9 @@
 		<div id="popupMenuLogged" class="popupMenu hide">
 			<text class="popupTitle" id="userName">Nome do Usuário</text><br>
 			<text class="popupSubitle" id="userEmail" >email@email.com</text><br><bR>
-			<text class="popupItem"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configurações</text><br>
+			<a class="popupItem" href="./profile.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configurações</a><br>
 			<text class="popupItem" onclick="signOut()"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person_outline</i>Sair</text>
 		</div>
-
-		<h1>Atualizações</h1>
-		<p>A lista abaixo mostra as atualizações mais recentes na pontuação de cada equipe.</p><br/>
-		<table width=90% id="table" onload="loadList()">
-			<tr>
-				<th>Pontos</th>
-				<th>Data</th>
-				<th>Descrição</th>
-				<th>Equipe</th>
-			</tr>
-		</table>
 
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>

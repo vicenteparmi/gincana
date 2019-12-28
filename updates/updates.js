@@ -67,19 +67,19 @@ function loadPage() {
   var user = firebase.auth().currentUser;
   var name, email, photoUrl, uid, emailVerified;
 
-  if (user != null) {
-    name = user.displayName;
-    email = user.email;
-    photoUrl = user.photoURL;
-    emailVerified = user.emailVerified;
-    uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                     // this value to authenticate with your backend server, if
-                     // you have one. Use User.getToken() instead.
-  }
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      name = user.displayName;
+      email = user.email;
+      photoUrl = user.photoURL;
+      emailVerified = user.emailVerified;
+      uid = user.uid;
 
-  document.getElementById('userName').innerHTML = name;
-  document.getElementById('userEmail').innerHTML = email;
-  document.getElementById("userPhoto").src = photoURL;
+      document.getElementById('userName').innerHTML = name;
+      document.getElementById('userEmail').innerHTML = email;
+      document.getElementById("userPhoto").style.backgroundImage = "url('"+photoUrl+"')";
+    }
+  });
 }
 
 function signOut() {
