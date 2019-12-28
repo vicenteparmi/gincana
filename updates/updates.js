@@ -16,29 +16,48 @@ var firebaseConfig = {
 // List update listener
 
 const table = document.getElementById("table");
-const dbRefList = firebase.database().ref("latest_changes").orderByChild("latest_changes");
+var dbRefList = firebase.database().ref("latest_changes").orderByChild("latest_changes").limitToLast(50);
+loadData();
 
-dbRefList.on('child_added', function(info){
-  const tr = document.createElement("tr");
+var databaseSize = 0;
 
-  const points = document.createElement("td");
-  const date = document.createElement("td");
-  const desc = document.createElement("td");
-  const team = document.createElement("td");
+function loadData() {
+  dbRefList.on('child_added', function(info){
+    const tr = document.createElement("tr");
 
-  points.innerText = info.child("points").val();
-  date.innerText = info.child("date").val();
-  desc.innerText = info.child("description").val();
-  team.innerText = info.child("team").val();
+    const points = document.createElement("td");
+    const date = document.createElement("td");
+    const desc = document.createElement("td");
+    const team = document.createElement("td");
 
-  tr.appendChild(points);
-  tr.appendChild(date);
-  tr.appendChild(desc);
-  tr.appendChild(team);
+    points.innerText = info.child("points").val();
+    date.innerText = info.child("date").val();
+    desc.innerText = info.child("description").val();
+    team.innerText = info.child("team").val();
 
-  table.appendChild(tr);
-});
+    tr.appendChild(points);
+    tr.appendChild(team);
+    tr.appendChild(desc);
+    tr.appendChild(date);
 
+    table.appendChild(tr);
+
+    databaseSize++;
+    needButton();
+  });
+}
+
+function needButton() {
+  if (databaseSize >= 50) {
+    document.getElementById('buttonExpand').className = "button3";
+  }
+}
+
+function expandData() {
+  table.innerHTML = "";
+  dbRefList = firebase.database().ref("latest_changes").orderByChild("latest_changes");
+  loadData();
+}
 // Default code below
 
 var popupShow = false;
