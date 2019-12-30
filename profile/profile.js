@@ -18,6 +18,7 @@ var firebaseConfig = {
 // teamSelector
 
 function selectTeam(team) {
+  debugger;
   user = firebase.auth().currentUser;
   const userId = user.uid
 
@@ -30,7 +31,7 @@ function selectTeam(team) {
     email: user.email
   });
     modal.style.display = "none";
-    setTeam(team+1);
+    setTeam(team);
   }
 }
 
@@ -81,7 +82,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 // Set team
 
 function setTeam(teamNumber) {
-  if (team > 0) {
+  if (teamNumber != null) {
     const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
     var teamName = teamNames[teamNumber-1];
 
