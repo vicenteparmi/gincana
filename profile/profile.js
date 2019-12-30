@@ -15,6 +15,26 @@ var firebaseConfig = {
 
 // Now my code ;D
 
+// teamSelector
+
+function selectTeam(team) {
+  user = firebase.auth().currentUser;
+  const userId = user.uid
+
+  if (team == 0) {
+    openModal();
+  } else {
+    firebase.database().ref('users/' + userId).set({
+    team: team,
+    name: user.displayName,
+    email: user.email
+  });
+    modal.style.display = "none";
+  }
+}
+
+// User stuff
+
 var popupShow = false;
 var signedIn = false;
 
@@ -24,7 +44,8 @@ var email;
 var photoUrl;
 var uid;
 
-var user = firebase.auth().currentUser;
+// TODO: Delete this if everything is ok
+//var user = firebase.auth().currentUser;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -38,7 +59,16 @@ firebase.auth().onAuthStateChanged(function(user) {
 
       document.getElementById('userName').innerHTML = name;
       document.getElementById('userEmail').innerHTML = email;
-      document.getElementById("profileImage").style.backgroundImage = "url('"+photoURL+"')";;
+      document.getElementById("profileImage").style.backgroundImage = "url('"+photoURL+"')";
+
+      // Get team
+      var team;
+      const currentUser1 = firebase.auth().currentUser;
+      var dbRef = firebase.database().ref('users/' + currentUser1.uid + "/team");
+      dbRef.on('value', function(snapshot) {
+        team = snapshot.val();
+        setTeam(team);
+      });
     });
 
   } else {
@@ -46,6 +76,18 @@ firebase.auth().onAuthStateChanged(function(user) {
     email = 'Usuário não conectado';
   }
 });
+
+// Set team
+
+function setTeam(teamNumber) {
+  const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
+  var teamName = teamNames[teamNumber-1];
+
+  document.getElementById("hasTeam").className = "";
+  document.getElementById("unknownTeam").className = "hide";
+  
+  document.getElementById('teamName').innerHTML = teamName;
+}
 
 // Sign out from profile
 
@@ -183,4 +225,23 @@ function dataURLtoFile(dataurl, filename) {
         u8arr[n] = bstr.charCodeAt(n);
     }
     return new File([u8arr], filename, {type:mime});
+}
+
+
+// Modal popup
+const modal = document.getElementById("myModal");
+function openModal() {
+  var span = document.getElementsByClassName("close")[0];
+
+  modal.style.display = "block";
+
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 }

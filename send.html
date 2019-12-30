@@ -1,0 +1,86 @@
+<!doctype= html> <!-- Página criada por Vicente Parmigiani em 26/12/2019 às 11h-->
+<html lang="pt">
+	<head>
+		<title>Gincana CAQuí</title>
+		<link rel="icon" type="image/png" href="files/image/CAQUI.png" />
+		<link rel="stylesheet" type="text/css" href="send/send.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div id="header">
+			<img src="files/image/CAQUI.png"/ class="headerImage">
+			<text id="logo">Gincana CAQuí 2020</text>
+			<a class="menu" href="./index.html">Início</a>
+			<a class="menu" href="./updates.html">Atualizações</a>
+			<a class="menu menuSelected" href="./send.html">Enviar Atividade</a>
+			<a class="menu" href="./about.html">Sobre</a>
+			<div id="userPhoto" onclick="popup()"/></div>
+		</div>
+
+		<div id="body">
+			<h1>Enviar atividade</h1>
+			<div id="insertPicture" onclick="uploadImage()">
+				<div id="cameraDiv" class="">
+					<i id="camera" class="material-icons" md-48 md-light>photo_camera</i><br/>
+					<text id="addText">Adicionar Imagem</text>
+				</div>
+			</div>
+			<h3>Selecione a atividade</h3>
+			<table>
+				<tr>
+					<td>
+						<label class="radio">
+							<input type="radio" name="0" value="0">
+							<span>Encontrar as esferas do dragão</span>
+						</label>
+					</td>
+					<td class="points">+100</td>
+				</tr>
+				<tr>
+					<td>
+						<label class="radio">
+							<input type="radio" name="0" value="0">
+							<span>Cortar o cabelo</span>
+						</label>
+					</td>
+					<td class="points">+800</td>
+				</tr>
+				<tr>
+					<td>
+						<label class="radio">
+							<input type="radio" name="0" value="0">
+							<span>Foto na Casa 3</span>
+						</label>
+					</td>
+					<td class="points">+80</td>
+				</tr>
+			</table>
+			<a id="" class="button3 buttonDisabled" onclick="send()">Enviar</a>
+			<span id="errorMessage" class="hide"></span>
+		</div>
+
+		<div id="popupMenu" class="popupMenu hide">
+			<a class="popupItem" href="./login.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person</i>Entrar</a>
+		</div>
+
+		<div id="popupMenuLogged" class="popupMenu hide">
+			<text class="popupTitle" id="userName">Nome do Usuário</text><br>
+			<text class="popupSubitle" id="userEmail" >email@email.com</text><br><bR>
+			<a class="popupItem" href="./profile.html"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">settings</i>Configurações</a><br>
+			<text class="popupItem" onclick="signOut()"><i class="material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">person_outline</i>Sair</text>
+		</div>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+		     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+
+		<script type="text/javascript" src="send/send.js" onload="loadPage()"></script>
+	</body>
+</html>

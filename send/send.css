@@ -1,0 +1,374 @@
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#header {
+  width: 100%;
+  height: 60px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.28);
+  padding-left: 3%;
+  line-height: 60px;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+}
+
+#body {
+  margin-left: 8%;
+  margin-top: 110px;
+}
+
+table {
+  min-width: 43%;
+}
+
+td {
+  padding: 5px 0 5px 0;
+}
+
+#insertPicture {
+  width: 32vw;
+  height: 18vw;
+  background-color: #ffecb3;
+  background-size: cover;
+  background-position: center;
+  margin-left: 3%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition-duration: 0.3s;
+  cursor: pointer;
+  color: chocolate;
+}
+
+#insertPicture:hover {
+  filter: opacity(0.8);
+}
+
+#camera {
+  font-size: 6vw;
+}
+
+#cameraDiv {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+}
+
+#cameraDiv.afterUpload {
+  filter: opacity(0);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
+  transition-duration: 0.2s;
+}
+
+#cameraDiv.afterUpload:hover {
+  filter: opacity(100);
+}
+
+#errorMessage {
+  color: red;
+  font-size: 1vw;
+  vertical-align: middle;
+  transition-duration: 0.2s;
+}
+
+#errorMessage.hide {
+  filter: opacity(0);
+  display: inherit;
+}
+
+.points {
+  color: green;
+  font-weight: bold;
+}
+
+.headerImage {
+  height: 40px;
+  vertical-align: middle;
+}
+
+#logo {
+  font-weight: bold;
+  margin-left: 0.5%
+}
+
+.menu {
+  color: dimgray;
+  margin-left: 2%;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menu:hover {
+  color: black;
+}
+
+.menuSelected {
+  color: black;
+  font-weight: 600;
+}
+
+#userPhoto {
+  border-radius: 100%;
+  background-color: gray;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
+  position: fixed;
+  right: 2.5%;
+  top: 7.5px;
+  padding-top: 42px;
+  width: 42px;
+  cursor: pointer;
+  background-image: url('../files/image/unknownUser.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition-duration: 0.5s;
+}
+
+.popupMenu {
+  position: fixed;
+  top:70px;
+  right: 1%;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.28);
+  padding: 10px;
+  padding-right: 20px;
+  min-width: 20%;
+  border-radius: 4px;
+  transition-duration: 0.3s;
+  z-index: 100;
+}
+
+.popupTitle {
+  font-weight: bold;
+  font-size: 18px;
+  width: 100%;
+}
+
+.popupSubitle {
+  color: dimgray;
+  font-size: 14px;
+}
+
+.popupItem {
+  transition-duration: 0.2s;
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+.popupItem:hover {
+  padding-left: 10px;
+  text-decoration: underline;
+}
+
+.hide {
+  display: none;
+  position: fixed;
+  top: -1000%;
+}
+
+/* Radio buttons */
+
+.radio {
+    z-index: 0;
+    position: relative;
+    display: inline-block;
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.87);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Input */
+.radio > input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    z-index: -1;
+    position: absolute;
+    left: -10px;
+    top: -8px;
+    display: block;
+    margin: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    outline: none;
+    opacity: 0;
+    transform: scale(1);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.2s;
+}
+
+/* Span */
+.radio > span {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Circle */
+.radio > span::before {
+    content: "";
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 2px 10px 2px 0;
+    border: solid 2px; /* Safari */
+    border-color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.6);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+    transition: border-color 0.2s;
+}
+
+/* Check */
+.radio > span::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #ff7800;
+    transform: translate(5px, 5px) scale(0);
+    transition: transform 0.2s;
+}
+
+/* Checked */
+.radio > input:checked {
+    background-color: #ff7800;
+}
+
+.radio > input:checked + span::before {
+    border-color: #ff7800;
+}
+
+.radio > input:checked + span::after {
+    transform: translate(5px, 5px) scale(1);
+}
+
+/* Hover, Focus */
+.radio:hover > input {
+    opacity: 0.04;
+}
+
+.radio > input:focus {
+    opacity: 0.12;
+}
+
+.radio:hover > input:focus {
+    opacity: 0.16;
+}
+
+/* Active */
+.radio > input:active {
+    opacity: 1;
+    transform: scale(0);
+    transition: transform 0s, opacity 0s;
+}
+
+.radio > input:active + span::before {
+    border-color: #ff7800;
+}
+
+/* Disabled */
+.radio > input:disabled {
+    opacity: 0;
+}
+
+.radio > input:disabled + span {
+    color: rgba(var(--pure-material-onsurface-rgb, 0, 0, 0), 0.38);
+    cursor: initial;
+}
+
+.radio > input:disabled + span::before {
+    border-color: currentColor;
+}
+
+.radio > input:disabled + span::after {
+    background-color: currentColor;
+}
+
+/* Buttons */
+
+/* Buttons */
+
+a.button3{
+  display:inline-block;
+  padding:0.3em 1.0em;
+  margin:0.5em 0.25em 0.25em 0;
+  border-radius:3em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:orange;
+  text-align:center;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-size: 1.5vw;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+a.button3:hover{
+  background-color:darkorange;
+}
+a.button3:active{
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
+}
+@media all and (max-width:30em){
+  a.button3{
+    display:block;
+    margin:0.2em auto;
+ }
+}
+
+a.buttonDisabled {
+  filter: opacity(0.6);
+}
+
+/* Google Icons */
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}

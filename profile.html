@@ -18,8 +18,16 @@
 			<a class="menu" href="./about.html">Sobre</a>
 		</div>
 		<div class="card" id="teamCard">
-			<div id="teamImage" class="center"></div>
-			<h1 class="center">Equipe Hidrogênio</h1>
+			<div id="hasTeam" class="hide">
+				<div id="teamImage" class="center"></div>
+				<h1 class="center" id="teamName">Equipe Hidrogênio</h1>
+				<a class="button3 center" onclick="selectTeam(0)">Alterar Equipe</a>
+			</div>
+			<div id="unknownTeam" class="">
+				<img src="files/image/unknownTeam.webp" class="unkTeamImg center" alt="Time desconhecido">
+				<p class="unkTeamTxt center">Você ainda não entrou em nenhuma equipe</p>
+					<a class="button3 center" onclick="selectTeam(0)">Selecionar Equipe</a>
+			</div>
 		</div>
 		<div id="profileInfo" class="card">
 			<div id="profileImage">
@@ -42,6 +50,74 @@
 					</td>
 				</tr>
 			</table>
+		</div>
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+    		<span class="close">&times;</span>
+				<h2>Selecione sua equipe</h2>
+				<table class="teamSelectorTable">
+					<tr>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(1)">
+								<img class="selImg" src="files/teams/1.png" alt="Time 1">
+								<p>Hidrogênio</p>
+							</div>
+						</td>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(2)">
+								<img class="selImg" src="files/teams/2.png" alt="Time 2">
+								<p>Hélio</p>
+							</div>
+						</td>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(3)">
+								<img class="selImg" src="files/teams/3.png" alt="Time 3">
+								<p>Lítio</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(4)">
+								<img class="selImg" src="files/teams/4.png" alt="Time 4">
+								<p>Berílio</p>
+							</div>
+						</td>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(5)">
+								<img class="selImg" src="files/teams/5.png" alt="Time 5">
+								<p>Boro</p>
+							</div>
+						</td>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(6)">
+								<img class="selImg" src="files/teams/6.png" alt="Time 6">
+								<p>Carbono</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(7)">
+								<img class="selImg" src="files/teams/7.png" alt="Time 7">
+								<p>Nitrogênio</p>
+							</div>
+						</td>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(8)">
+								<img class="selImg" src="files/teams/8.png" alt="Time 8">
+								<p>Oxigênio</p>
+							</div>
+						</td>
+						<td>
+							<div class="teamSelector" onclick="selectTeam(9)">
+								<img class="selImg" src="files/teams/9.png" alt="Time 9">
+								<p>Flúor</p>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
