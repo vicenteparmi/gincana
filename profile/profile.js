@@ -80,13 +80,15 @@ firebase.auth().onAuthStateChanged(function(user) {
 // Set team
 
 function setTeam(teamNumber) {
-  const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
-  var teamName = teamNames[teamNumber-1];
+  if (team > 0) {
+    const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
+    var teamName = teamNames[teamNumber-1];
 
-  document.getElementById("hasTeam").className = "";
-  document.getElementById("unknownTeam").className = "hide";
-  
-  document.getElementById('teamName').innerHTML = teamName;
+    document.getElementById("hasTeam").className = "";
+    document.getElementById("unknownTeam").className = "hide";
+
+    document.getElementById('teamName').innerHTML = teamName;
+  }
 }
 
 // Sign out from profile
