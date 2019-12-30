@@ -109,7 +109,7 @@ function signOut() {
 function updateUserName() {
   var user = firebase.auth().currentUser;
   var name = prompt("Qual o novo nome de usuário?", user.displayName);
-  if (name == null || name == "") {
+  if ((name == null || name == "") && name.length <= 25) {
     name = user.displayName;
   }
 
