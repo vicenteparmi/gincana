@@ -30,6 +30,7 @@ function selectTeam(team) {
     email: user.email
   });
     modal.style.display = "none";
+    setTeam(team+1);
   }
 }
 
