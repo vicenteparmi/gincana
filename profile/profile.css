@@ -78,9 +78,8 @@ td p {
 
 #profileInfo {
   width: 40vw;
-  height: 20vh;
-  vertical-align: top;
-  transform: translateY(50%);
+  position: absolute;
+  margin-top: 80px;
 }
 
 #teamCard {
@@ -116,13 +115,14 @@ td p {
   }
   #teamCard, #profileInfo {
     width: 86vw;
-    transform: translateY(0%);
+  }
+  #profileInfo {
+    margin-top: 2vw;
   }
   .card {
     display: block;
     margin-left: 3vw;
     margin-right: 3vw;
-    margin-top: 2vh;
     min-width: 15em;
   }
   #userName {
