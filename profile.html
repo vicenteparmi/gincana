@@ -18,12 +18,15 @@
 			<a class="menu" href="./about.html">Sobre</a>
 		</div>
 		<div class="card" id="teamCard">
-			<div id="hasTeam" class="hide">
+			<div id="loadingTeam" class="center">
+				<h1 style="margin: 20px;">Carregando informações...</h1>
+			</div>
+			<div id="hasTeam" class="hide center">
 				<div id="teamImage" class="center"></div>
 				<h1 class="center" id="teamName"></h1>
 				<a class="button3 center" onclick="selectTeam(0)">Alterar Equipe</a>
 			</div>
-			<div id="unknownTeam" class="center">
+			<div id="unknownTeam" class="hide center">
 				<img src="files/teams/unknown.png" class="unkTeamImg center" alt="Time desconhecido">
 				<p class="unkTeamTxt center">Você ainda não entrou em nenhuma equipe</p>
 					<a class="button3 center" onclick="selectTeam(0)">Selecionar Equipe</a>

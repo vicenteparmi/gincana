@@ -123,7 +123,13 @@ td p {
     margin-left: 3vw;
     margin-right: 3vw;
     margin-top: 2vh;
-    min-width: 20em;
+    min-width: 15em;
+  }
+  #userName {
+    font-size: 5vw;
+  }
+  #userEmail {
+    font-size: 2.6vw;
   }
 }
 

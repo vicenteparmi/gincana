@@ -88,13 +88,17 @@ function setTeam(teamNumber) {
     const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
     var teamName = teamNames[teamNumber-1];
 
-    document.getElementById("hasTeam").className = "";
-    document.getElementById("unknownTeam").className = "hide";
+    document.getElementById("hasTeam").className = "center";
+    document.getElementById("unknownTeam").className = "hide center";
+    document.getElementById("loadingTeam").className = "hide";
 
     document.getElementById('teamName').innerHTML = teamName;
 
     document.getElementById("teamImage").style.backgroundImage = "url('./files/teams/"+teamNumber+".png')"
     document.getElementById("body").style.backgroundColor = teamColors[teamNumber-1];
+  } else {
+    document.getElementById("unknownTeam").className = "center";
+    document.getElementById("loadingTeam").className = "hide";
   }
 }
 
@@ -116,18 +120,19 @@ function updateUserName() {
   var name = prompt("Qual o novo nome de usuário?", user.displayName);
   if ((name == null || name == "") && name.length <= 25) {
     name = user.displayName;
-  }
-
-  if (user) {
-    user.updateProfile({
-      displayName: name,
-    }).then(function() {
-      document.getElementById("userName").innerHTML = name;
-    }).catch(function(error) {
-      // An error happened.
-    });
+    if (user) {
+      user.updateProfile({
+        displayName: name,
+      }).then(function() {
+        document.getElementById("userName").innerHTML = name;
+      }).catch(function(error) {
+        console.log(error);
+      });
+    } else {
+      console.log("Nenhum usuário conectado.");
+    }
   } else {
-    // No user is signed in.
+    alert("O nome que você escolheu é muito grande, tente usar até 25 caracteres.")
   }
 }
 
