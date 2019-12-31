@@ -99,7 +99,6 @@ body {
   top: -1000%;
 }
 
-
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
@@ -134,4 +133,56 @@ body {
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+i.menuIcons {
+  display: none;
+}
+
+#menu, #menuHolder {
+  display: unset;
+}
+
+/* Mobile adjustments */
+
+@media all and (max-width: 43em) {
+  #menu {
+    background-color: white;
+    width: 60vw;
+    height: 100vh;
+    max-width: 16em;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.28);
+    display: block;
+    padding-left: 3vw;
+    padding-top: 30px;
+    position: absolute;
+    left: -65vw;
+    top: 0%;
+    transition-duration: 0.3s;
+  }
+  #menu.show {
+    left: 0%;
+  }
+  .menu {
+    display: block;
+  }
+  #menuHolder {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: -101;
+    transition-duration: 0.3s;
+    visibility: hidden;
+  }
+  #menuHolder.shadow {
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 101;
+    visibility: visible;
+  }
+  i.menuIcons {
+    display: inline-block;
+  }
 }

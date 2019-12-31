@@ -9,16 +9,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div id="header">
-			<img src="files/image/CAQUI.png"/ class="headerImage">
-			<text id="logo">Gincana CAQuí 2020</text>
-			<a class="menu" href="./index.html">Início</a>
-			<a class="menu" href="./updates.html">Atualizações</a>
-			<a class="menu menuSelected" href="./send.html">Enviar Atividade</a>
-			<a class="menu" href="./about.html">Sobre</a>
-			<div id="userPhoto" onclick="popup()"/></div>
-		</div>
-
 		<div id="body">
 			<h1>Enviar atividade</h1>
 			<div id="insertPicture" onclick="uploadImage()">
@@ -59,6 +49,21 @@
 			</table>
 			<a id="" class="button3 buttonDisabled" onclick="send()">Enviar</a>
 			<span id="errorMessage" class="hide"></span>
+		</div>
+
+		<div id="header">
+			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>
+			<img src="files/image/CAQUI.png"/ class="headerImage">
+			<text id="logo">Gincana CAQuí 2020</text>
+			<div id="menuHolder">
+				<div id="menu">
+					<a class="menu" href="./index.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">home</i>Início</a>
+					<a class="menu" href="./updates.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">cached</i>Atualizações</a>
+					<a class="menu menuSelected" href="./send.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">input</i>Enviar Atividade</a>
+					<a class="menu" href="./about.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">info</i>Sobre</a>
+				</div>
+			</div>
+			<div id="userPhoto" onclick="popup()"/></div>
 		</div>
 
 		<div id="popupMenu" class="popupMenu hide">

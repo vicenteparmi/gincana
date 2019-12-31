@@ -32,3 +32,27 @@ function signup() {
   const callback = auth.createUserWithEmailAndPassword(email, password);
   callback.catch(e => console.log(e.message));
 }
+
+var menuOpen = false;
+function openMenu() {
+  const menu = document.getElementById("menu");
+  const menuHolder = document.getElementById("menuHolder");
+  const sandwich = document.getElementById("sandwich");
+
+  if (menuOpen == false) {
+    menu.className = "show";
+    menuHolder.className = "shadow"
+    window.onclick = function() {
+      if (event.target != menu && event.target != sandwich) {
+        menu.className = "";
+        menuHolder.className = ""
+        menuOpen = false;
+      }
+    }
+    menuOpen = true;
+  } else {
+    menu.className = "";
+    menuHolder.className = ""
+    menuOpen = false;
+  }
+}
