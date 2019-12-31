@@ -65,17 +65,29 @@ var signedIn = false;
 
 function popup() {
   var user = firebase.auth().currentUser;
+  const popupLogged = document.getElementById("popupMenuLogged");
+  const popupMenu = document.getElementById("popupMenu");
+  const userPhoto = document.getElementById("userPhoto");
 
   if (popupShow == false) {
     if (user) {
-      document.getElementById("popupMenuLogged").className = "popupMenu";
+      popupLogged.className = "popupMenu";
     } else {
-      document.getElementById("popupMenu").className = "popupMenu";
+      popupMenu.className = "popupMenu";
     }
     popupShow = true;
+
+    window.onclick = function() {
+      if (event.target != popupMenu && event.target != popupLogged && event.target != userPhoto) {
+        popupMenu.className = "popupMenu hide";
+        popupLogged.className = "popupMenu hide";
+        popupShow = false;
+      }
+    }
+
   } else {
-    document.getElementById("popupMenu").className = "popupMenu hide";
-    document.getElementById("popupMenuLogged").className = "popupMenu hide";
+    popupMenu.className = "popupMenu hide";
+    popupLogged.className = "popupMenu hide";
     popupShow = false;
   }
 

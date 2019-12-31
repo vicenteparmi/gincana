@@ -18,7 +18,7 @@ var firebaseConfig = {
 // teamSelector
 
 function selectTeam(team) {
-  debugger;
+
   user = firebase.auth().currentUser;
   const userId = user.uid
 
@@ -82,14 +82,19 @@ firebase.auth().onAuthStateChanged(function(user) {
 // Set team
 
 function setTeam(teamNumber) {
+
   if (teamNumber != null) {
     const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
+    const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
     var teamName = teamNames[teamNumber-1];
 
     document.getElementById("hasTeam").className = "";
     document.getElementById("unknownTeam").className = "hide";
 
     document.getElementById('teamName').innerHTML = teamName;
+
+    document.getElementById("teamImage").style.backgroundImage = "url('./files/teams/"+teamNumber+".png')"
+    document.getElementById("body").style.backgroundColor = teamColors[teamNumber-1];
   }
 }
 

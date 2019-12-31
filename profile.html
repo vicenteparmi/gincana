@@ -8,7 +8,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
-	<body>
+	<body id="body">
 		<div id="header">
 			<img src="files/image/CAQUI.png"/ class="headerImage">
 			<text id="logo">Gincana CAQuí 2020</text>
@@ -20,11 +20,11 @@
 		<div class="card" id="teamCard">
 			<div id="hasTeam" class="hide">
 				<div id="teamImage" class="center"></div>
-				<h1 class="center" id="teamName">Equipe Hidrogênio</h1>
+				<h1 class="center" id="teamName"></h1>
 				<a class="button3 center" onclick="selectTeam(0)">Alterar Equipe</a>
 			</div>
-			<div id="unknownTeam" class="">
-				<img src="files/image/unknownTeam.webp" class="unkTeamImg center" alt="Time desconhecido">
+			<div id="unknownTeam" class="center">
+				<img src="files/teams/unknown.png" class="unkTeamImg center" alt="Time desconhecido">
 				<p class="unkTeamTxt center">Você ainda não entrou em nenhuma equipe</p>
 					<a class="button3 center" onclick="selectTeam(0)">Selecionar Equipe</a>
 			</div>
