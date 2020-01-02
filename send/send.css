@@ -12,6 +12,8 @@ body {
   position: fixed;
   top: 0%;
   left: 0%;
+  background-color: white;
+  z-index: 99;
 }
 
 #body {
@@ -174,6 +176,86 @@ td {
   top: -1000%;
 }
 
+.hidden {
+  visibility: hidden;
+  filter: opacity(0%);
+}
+
+h1 {
+  transition-duration: .2s;
+}
+
+/* Modal */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 100 auto;
+  padding: 30px;
+  width: 50vw;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Progress Bar */
+
+#progressbar {
+  background-color: orange;
+  border-radius: 13px;
+  /* (height of inner div) / 2 + padding */
+  padding: 2px;
+  margin-top: 12px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.18);
+}
+
+#progressbar>div {
+  background-color: white;
+  width: 40%;
+  /* Adjust with JavaScript */
+  height: 2vw;
+  border-radius: 10px;
+  transition-duration: 0.2s;
+}
+
+#progressInd {
+  font-size: 1.4vw;
+  width: 100%;
+  text-align: center;
+  float: left;
+  line-height: 2vw;
+  color: black;
+  font-weight: bold;
+}
+
 /* Radio buttons */
 
 .radio {
@@ -299,7 +381,6 @@ td {
     background-color: currentColor;
 }
 
-/* Buttons */
 
 /* Buttons */
 
@@ -327,8 +408,7 @@ a.button3:active{
 }
 @media all and (max-width:30em){
   a.button3{
-    display:block;
-    margin:0.2em auto;
+    font-size: 4vw;
  }
 }
 
@@ -348,6 +428,31 @@ a.buttonDisabled {
   }
   table {
     min-width: 94%;
+  }
+  #progressbar>div {
+    height: 4vw;
+    border-radius: 10vw;
+  }
+  #progressInd {
+    font-size: 3vw;
+    line-height: 4vw;
+  }
+  #progressbar {
+    padding: 3px;
+  }
+  #errorMessage {
+    font-size: 3.5vw;
+    display: block;
+  }
+  .modal-content {
+    margin: 0;
+    padding: 30px;
+    width: 86vw;
+    min-width: 15em;
+    border-radius: 0px;
+    z-index: 100;
+    margin-top: 60px;
+    min-height: -webkit-fill-available;
   }
 }
 

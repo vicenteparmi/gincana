@@ -18,7 +18,7 @@
 				</div>
 			</div>
 			<h3>Selecione a atividade</h3>
-			<table>
+			<table id="table">
 				<tr>
 					<td>
 						<label class="radio">
@@ -31,7 +31,7 @@
 				<tr>
 					<td>
 						<label class="radio">
-							<input type="radio" name="0" value="0">
+							<input type="radio" name="0" value="1">
 							<span>Cortar o cabelo</span>
 						</label>
 					</td>
@@ -40,15 +40,27 @@
 				<tr>
 					<td>
 						<label class="radio">
-							<input type="radio" name="0" value="0">
+							<input type="radio" name="0" value="2">
 							<span>Foto na Casa 3</span>
 						</label>
 					</td>
 					<td class="points">+80</td>
 				</tr>
 			</table>
-			<a id="" class="button3 buttonDisabled" onclick="send()">Enviar</a>
+			<a id="sendButton" class="button3 buttonDisabled" onclick="send()">Enviar</a>
 			<span id="errorMessage" class="hide"></span>
+		</div>
+
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<h1 id="sendingStatus">Enviando atividade...</h1>
+				<div id="progressbar" class="hide">
+					<text id="progressInd">Uploading...</text>
+					<div id="progressPercentage"></div>
+				</div>
+				<br/>
+				<a id="doneButton" class="button3 hidden">Concluir</a>
+			</div>
 		</div>
 
 		<div id="header">
@@ -85,6 +97,7 @@
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
 
 		<script type="text/javascript" src="send/send.js" onload="loadPage()"></script>
 	</body>

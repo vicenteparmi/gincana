@@ -15,18 +15,65 @@ var firebaseConfig = {
 
 // My code
 
+var team;
+
 function send() {
-  var user = firebase.auth().currentUser;
 
-  console.log(user.team);
+  // Test for error messages due to missing information
   const errorMessage = document.getElementById('errorMessage');
+  var allOk = false;
 
-  // TODO: ADD TEAM VARIABLE
-  //storeProfileImage("review/"+team+user.uid+extension, imageToUpload);
+  if (testforSend()[0] == true) {
+    allOk = true;
+    errorMessage.className = "hide";
+  } else {
+    errorMessage.innerHTML = "Termine de preencher as informações antes de enviar.";
+    errorMessage.className = "";
+  }
 
-  errorMessage.innerHTML = "Você precisa selecionar uma imagem antes.";
-  errorMessage.className = "";
+  if (allOk == true) {
+    const currentUser = firebase.auth().currentUser;
+    var taskValue = testforSend()[1];
+
+    firebase.database().ref('teams/'+team+"/tasks/"+taskValue).once('value').then(function(snapshot) {
+      if (snapshot.value == "Ok") {
+        alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
+      } else {
+        storeImage("review/"+team+"/"+taskValue+extension, imageToUpload);
+      }
+    });
+  }
 }
+
+// Listeners
+
+document.getElementById("table").addEventListener("click", function() {
+  testforSend();
+});
+
+function testforSend() {
+  var radioElement = document.getElementsByName('0');
+  const sendButton = document.getElementById('sendButton');
+  var radioValue = null;
+
+  var isRadioChecked = false;
+  for (var i = 0, length = radioElement.length; i < length; i++) {
+    if (radioElement[i].checked) {
+      isRadioChecked = true;
+      radioValue = radioElement[i].value;
+      break;
+    }
+  }
+
+  if (imageToUpload != null && isRadioChecked == true) {
+      sendButton.className = "button3";
+      return [true, radioValue];
+  } else {
+      console.log("Missing something");
+      return false;
+  }
+}
+
 
 // Send to cloud
 
@@ -54,12 +101,13 @@ function uploadImage() {
         document.getElementById('addText').innerHTML = "Alterar Imagem";
 
         imageToUpload = dataURLtoFile(content, "profile.png");
+        testforSend();
      }
    }
   input.click();
 };
 
-function storeProfileImage(path, img) {
+function storeImage(path, img) {
   const progressBar = document.getElementById('progressbar');
   const progressPercentage = document.getElementById('progressPercentage');
   const progressInd = document.getElementById('progressInd');
@@ -69,12 +117,13 @@ function storeProfileImage(path, img) {
 
   const uploadTask = firebase.storage().ref(path).put(img);
   promises.push(uploadTask);
+  openModal();
 
   uploadTask.on('state_changed', snapshot => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log(progress);
       progressPercentage.style.width = progress+"%";
-      progressInd.innerHTML = "Enviando imagem ("+Math.round(progress,2)+"%)"
+      progressInd.innerHTML = Math.round(progress,2)+"%";
   }, error => { console.log(error) }, () => {
       uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
           console.log(downloadURL);
@@ -82,9 +131,11 @@ function storeProfileImage(path, img) {
   });
 
   Promise.all(promises).then(tasks => {
-      console.log('Updating URL...');
-      updateProfileURL();
-      progressBar.className = "hide";
+      console.log('File uploaded');
+      document.getElementById("sendingStatus").innerHTML = "Atividade enviada"
+      const dbutton = document.getElementById('doneButton');
+      dbutton.className = "button3"
+      dbutton.onclick = function() {location.reload();}
   });
 }
 
@@ -164,6 +215,13 @@ function loadPage() {
       document.getElementById('userName').innerHTML = name;
       document.getElementById('userEmail').innerHTML = email;
       document.getElementById("userPhoto").style.backgroundImage = "url('"+photoUrl+"')";
+
+      // Get the team
+      const currentUser = firebase.auth().currentUser;
+      var dbRef = firebase.database().ref('users/' + currentUser.uid + "/team");
+      dbRef.on('value', function(snapshot) {
+        team = snapshot.val();
+      });
     }
   });
 }
@@ -199,4 +257,10 @@ function openMenu() {
     menuHolder.className = ""
     menuOpen = false;
   }
+}
+
+// Modal popup
+const modal = document.getElementById("myModal");
+function openModal() {
+  modal.style.display = "block";
 }
