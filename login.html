@@ -11,7 +11,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<br/>
 		<h2 width="33%">Entrar com sua conta na giancana</h2>
 		<p width="33%">Faça login para poder fazer upload de tarefas para a sua equipe</p>
 		<div id="firebaseui-auth-container"></div>
@@ -58,7 +57,7 @@
 				},
 				// Will use popup for IDP Providers sign-in flow instead of the default, redirect.
 				signInFlow: 'popup',
-				signInSuccessUrl: './index.html',
+				signInSuccessUrl: './profile.html',
 				signInOptions: [
 					// Leave the lines as is for the providers you want to offer your users.
 					firebase.auth.GoogleAuthProvider.PROVIDER_ID,
