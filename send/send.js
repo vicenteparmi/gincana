@@ -203,6 +203,10 @@ function popup() {
 function loadPage() {
   var user = firebase.auth().currentUser;
   var name, email, photoUrl, uid, emailVerified;
+  const loadMessage = document.getElementById("loading");
+  const errorUser = document.getElementById("noUser");
+  const errorTeam = document.getElementById("noTeam");
+  const errorNone = document.getElementById("body");
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -216,13 +220,22 @@ function loadPage() {
       document.getElementById('userEmail').innerHTML = email;
       document.getElementById("userPhoto").style.backgroundImage = "url('"+photoUrl+"')";
 
+      errorNone.className = "";
+
       // Get the team
       const currentUser = firebase.auth().currentUser;
       var dbRef = firebase.database().ref('users/' + currentUser.uid + "/team");
       dbRef.on('value', function(snapshot) {
         team = snapshot.val();
+        if (team == null) {
+          errorTeam.className = "";
+          errorNone.className = "hidden";
+        }
       });
+    } else {
+      errorUser.className = "";
     }
+    loadMessage.className = "hidden";
   });
 }
 

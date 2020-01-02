@@ -18,7 +18,7 @@ body {
 
 #body {
   margin-left: 8%;
-  margin-top: 110px;
+  margin-top: 80px;
 }
 
 table {
@@ -87,6 +87,13 @@ td {
 .points {
   color: green;
   font-weight: bold;
+}
+
+#noUser, #noTeam, #loading  {
+  margin-top: 100px;
+  padding-left: 5%;
+  padding-right: 5%;
+  transition-duration: 0.2s;
 }
 
 .headerImage {
@@ -176,9 +183,11 @@ td {
   top: -1000%;
 }
 
-.hidden {
+.hidden, #noUser.hidden, #noTeam.hidden, #loading.hidden, #body.hidden {
   visibility: hidden;
   filter: opacity(0%);
+  height: 0%;
+  margin-top: 0%;
 }
 
 h1 {

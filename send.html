@@ -9,7 +9,20 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div id="body">
+		<div id="loading">
+			<h1>Obtendo informações...</h1>
+		</div>
+		<div id="noUser" class="hidden">
+			<h1>Nenhum usuário conectado</h1>
+			<p>Para fazer o envio de atividades é necessário entrar com uma conta e selecionar um time.
+			Clique <a href="./login.html">aqui</a> para entrar ou se inscrever.</p>
+		</div>
+		<div id="noTeam" class="hidden">
+			<h1>Você ainda não possui um time</h1>
+			<p>Para fazer o envio de atividades é necessário selecionar uma equipe em
+				seu perfil. Clique <a href="./profile.html">aqui</a> para ser redirecionado.</p>
+		</div>
+		<div id="body" class="hidden">
 			<h1>Enviar atividade</h1>
 			<div id="insertPicture" onclick="uploadImage()">
 				<div id="cameraDiv" class="">
