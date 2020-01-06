@@ -36,10 +36,14 @@ function send() {
     var taskValue = testforSend()[1];
 
     firebase.database().ref('teams/'+team+"/tasks/"+taskValue).once('value').then(function(snapshot) {
-      if (snapshot.value == "Ok") {
-        alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
-      } else {
+      try {
+        if (snapshot.val().done == "Ok") {
+          alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
+        }
+      } catch (e) {
         storeImage("review/"+team+"/"+taskValue+extension, imageToUpload);
+      } finally {
+        // Nothing to do, I guess;
       }
     });
   }
