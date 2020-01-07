@@ -15,6 +15,72 @@ var firebaseConfig = {
 
 // My code
 
+var currentMode = null;
+
+function sti(id) {
+
+  const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,23];
+  const somePicsMode = [2,14,22,25,26,27];
+  const videoMode = [6,18];
+  const urlMode = [1];
+
+  const mode0Holder = document.getElementById('sendOnePhoto');
+  const mode1Holder = document.getElementById('sendMorePhotos');
+  const mode2Holder = document.getElementById('sendVideo');
+  const mode3Holder = document.getElementById('sendLink');
+
+  mode0Holder.className = "hidden";
+  mode1Holder.className = "hidden";
+  mode2Holder.className = "hidden";
+  mode3Holder.className = "hidden";
+
+  const nothingSelected = document.getElementById('nothingSelected');
+  nothingSelected.className = "hide";
+  const somethingSelected = document.getElementById('somethingSelected');
+  somethingSelected.className = "bodyItem";
+
+  const table = document.getElementById('table');
+  table.className = "afterClick";
+
+  try {
+    document.getElementsByClassName('selected')[0].className = "";
+  } finally {
+    document.getElementById(id).className = "selected";
+  }
+
+  var itemSelected = id.charAt(2) + id.charAt(3);
+  itemSelected = Number(itemSelected)+1
+
+  document.getElementById('activityName').innerHTML = 'Atividade '+itemSelected;
+
+  for (var i = 0; i < 28; i++) {
+    if (itemSelected == onePicMode[i]) {
+      currentMode = 0;
+      mode0Holder.className = "";
+      break;
+    } else if (itemSelected == somePicsMode[i]) {
+      currentMode = 1;
+      mode1Holder.className = "";
+      break;
+    } else if (itemSelected == videoMode[i]) {
+      currentMode = 2;
+      mode2Holder.className = "";
+      break;
+    } else if (itemSelected == urlMode[i]) {
+      currentMode = 3;
+      mode3Holder.className = "";
+      break;
+    }
+  }
+
+  console.log("Current Mode: "+currentMode);
+}
+
+function helpVideo() {
+  alert("Faça o upload do vídeo para algum serviço como Google Photos, YouTube ou Google Drive. Em seguida compartilhe o arquivo para obter o link. Em caso de mais dúvidas entre em contato na página 'sobre'.")
+}
+// Code before update
+
 var team;
 
 function send() {
@@ -51,9 +117,9 @@ function send() {
 
 // Listeners
 
-document.getElementById("table").addEventListener("click", function() {
-  testforSend();
-});
+// document.getElementById("table").addEventListener("click", function() {
+//   testforSend();
+// });
 
 function testforSend() {
   var radioElement = document.getElementsByName('0');

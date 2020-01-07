@@ -1,4 +1,4 @@
-<!doctype= html> <!-- Página criada por Vicente Parmigiani em 26/12/2019 às 11h-->
+<!doctype= html>
 <html lang="pt">
 	<head>
 		<title>Gincana CAQuí</title>
@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div id="loading">
+		<div id="loading" class="">
 			<h1>Obtendo informações...</h1>
 		</div>
 		<div id="noUser" class="hidden">
@@ -23,45 +23,155 @@
 				seu perfil. Clique <a href="./profile.html">aqui</a> para ser redirecionado.</p>
 		</div>
 		<div id="body" class="hidden">
-			<h1>Enviar atividade</h1>
-			<div id="insertPicture" onclick="uploadImage()">
-				<div id="cameraDiv" class="">
-					<i id="camera" class="material-icons" md-48 md-light>photo_camera</i><br/>
-					<text id="addText">Adicionar Imagem</text>
+			<div class="bodyItem">
+				<h1>Selecione a atividade</h1>
+				<table id="table">
+					<tr id="ti0" onclick="sti(this.id)">
+						<td>1. Postar foto com as #SemanaDeBoasVindas #QuímicaUFPR</td>
+						<td class="points">+20/foto</td>
+					</tr>
+					<tr id="ti1" onclick="sti(this.id)">
+						<td>2. Doar sangue (podem ser levadas pessoas de fora da equipe)</td>
+						<td class="points">+700/pessoa</td>
+					</tr>
+					<tr id="ti2" onclick="sti(this.id)">
+						<td>3. Doar cabelos (uma pessoa por equipe)</td>
+						<td class="points">+700</td>
+					</tr>
+					<tr id="ti4" onclick="sti(this.id)">
+						<td>5. Contar os degraus do prédio da PA</td>
+						<td class="points">+200</td>
+					</tr>
+					<tr id="ti5" onclick="sti(this.id)">
+						<td>6. Vídeo cantando parabéns no RU</td>
+						<td class="points">+400</td>
+					</tr>
+					<tr id="ti6" onclick="sti(this.id)">
+						<td>7. Ir até a pré-história</td>
+						<td class="points">+100</td>
+					</tr>
+					<tr id="ti7" onclick="sti(this.id)">
+						<td>8. Encontrar a biblioteca do biológicas</td>
+						<td class="points">+300</td>
+					</tr>
+					<tr id="ti8" onclick="sti(this.id)">
+						<td>9. Tirar foto com a ferradura do PET EQ</td>
+						<td class="points">+200</td>
+					</tr>
+					<tr id="ti9" onclick="sti(this.id)">
+						<td>10. Visitar o FIBRA e tirar foto com algum experimento</td>
+						<td class="points">+300</td>
+					</tr>
+					<tr id="ti10" onclick="sti(this.id)">
+						<td>11. Fazer o cadastro na biblioteca</td>
+						<td class="points">+100</td>
+					</tr>
+					<tr id="ti11" onclick="sti(this.id)">
+						<td>12. Encontrar a CASA 3</td>
+						<td class="points">+100</td>
+					</tr>
+					<tr id="ti12" onclick="sti(this.id)">
+						<td>13. Ir no auditório Gralha Azul</td>
+						<td class="points">+100</td>
+					</tr>
+					<tr id="ti13" onclick="sti(this.id)">
+						<td>14. Encontrar as esferas do dragão no Sociais Aplicadas</td>
+						<td class="points">+100/esfera</td>
+					</tr>
+					<tr id="ti14" onclick="sti(this.id)">
+						<td>15. Tirar foto da entrada (noturno), fazer trilha da floresta (diurno)</td>
+						<td class="points">+100</td>
+					</tr>
+					<tr id="ti15" onclick="sti(this.id)">
+						<td>16. Achar o prédio da UFPR no MusA</td>
+						<td class="points">+300</td>
+					</tr>
+					<tr id="ti16" onclick="sti(this.id)">
+						<td>17. Contar as janelas do prédio Rebouças</td>
+						<td class="points">+500</td>
+					</tr>
+					<tr id="ti17" onclick="sti(this.id)">
+						<td>18. Revezamento de vídeo nas rampas do prédio D. Pedro I</td>
+						<td class="points">+500</td>
+					</tr>
+					<tr id="ti18" onclick="sti(this.id)">
+						<td>19. Tirar uma selfie no intercampi</td>
+						<td class="points">+200</td>
+					</tr>
+					<tr id="ti19" onclick="sti(this.id)">
+						<td>20. Encontrar o CA de Música</td>
+						<td class="points">+200</td>
+					</tr>
+					<tr id="ti20" onclick="sti(this.id)">
+						<td>21. Fazer embaixadinhas no campo de futebol do SEPT</td>
+						<td class="points">+300</td>
+					</tr>
+					<tr id="ti21" onclick="sti(this.id)">
+						<td>22. Medir a passarela entre o hall do ADM e a biblioteca com palito de fósforo</td>
+						<td class="points">+500</td>
+					</tr>
+					<tr id="ti22" onclick="sti(this.id)">
+						<td>23. Tirar foto com a formanda Maria D. Barbosa</td>
+						<td class="points">+400</td>
+					</tr>
+					<tr id="ti24" onclick="sti(this.id)">
+						<td>25. Contar quantos hidrantes tem no Espinha de Peixe</td>
+						<td class="points">+400</td>
+					</tr>
+					<tr id="ti25" onclick="sti(this.id)">
+						<td>26. Abraçar pessoas na fila do RU (mínimo de 10)</td>
+						<td class="points">+300</td>
+					</tr>
+					<tr id="ti26" onclick="sti(this.id)">
+						<td>27. Raspar o cabelo</td>
+						<td class="points">+200</td>
+					</tr>
+				</table>
+				<span class="selected"></span>
+			</div>
+			<div class="bodyItem hide" id="somethingSelected">
+				<h1 id="activityName"></h1>
+				<p>The description will be here.</p>
+				<div id="sendOnePhoto" class="hidden">
+					<div id="insertPicture" onclick="uploadImage()">
+						<div id="cameraDiv" class="">
+							<i id="camera" class="material-icons" md-48 md-light>photo_camera</i><br/>
+							<text id="addText">Adicionar Imagem</text>
+						</div>
+					</div>
+				</div>
+				<div id="sendMorePhotos" class="hidden">
+					<!-- <div class="smallPicture">
+						<span class="closeSmallPic">&times </span>
+					</div> -->
+					<div id="insertSmallPicture">
+						<div id="cameraDiv2" class="">
+							<i id="camera2" class="material-icons" md-48 md-light>photo_camera</i><br/>
+							<text id="addText2">Adicionar Imagem</text>
+						</div>
+					</div>
+				</div>
+				<div id="sendVideo" class="hidden">
+					<h3>Link do vídeo:</h4>
+					<input type="text" name="" value="" style="width:40vw;"/>
+					<p class="infoTXT">Para não ocupar muito espaço em nossos servidores
+						 os vídeos para análise devem ser enviados através de links.
+						<i class="material-icons infoTXT" md-24 md-light style="vertical-align: middle; cursor:pointer;" onclick="helpVideo()">help</i></p>
+				</div>
+				<div id="sendLink" class="hidden">
+					<h3>Link do post:</h4>
+					<input type="text" name="" value="" style="width:40vw;"/>
+				</div>
+				<input type="text" name="answer" value="" class="hidden"/>
+				<a id="sendButton" class="button3 buttonDisabled" onclick="send()">Enviar</a>
+				<span id="errorMessage" class="hide"></span>
+			</div>
+			<div class="bodyItem" id="nothingSelected">
+				<div class="waitingToChoose center">
+					<img src="" alt="">
+					<h3>Escolha uma das atividades para enviar.</h3>
 				</div>
 			</div>
-			<h3>Selecione a atividade</h3>
-			<table id="table">
-				<tr>
-					<td>
-						<label class="radio">
-							<input type="radio" name="0" value="0">
-							<span>Encontrar as esferas do dragão</span>
-						</label>
-					</td>
-					<td class="points">+100</td>
-				</tr>
-				<tr>
-					<td>
-						<label class="radio">
-							<input type="radio" name="0" value="1">
-							<span>Cortar o cabelo</span>
-						</label>
-					</td>
-					<td class="points">+800</td>
-				</tr>
-				<tr>
-					<td>
-						<label class="radio">
-							<input type="radio" name="0" value="2">
-							<span>Foto na Casa 3</span>
-						</label>
-					</td>
-					<td class="points">+80</td>
-				</tr>
-			</table>
-			<a id="sendButton" class="button3 buttonDisabled" onclick="send()">Enviar</a>
-			<span id="errorMessage" class="hide"></span>
 		</div>
 
 		<div id="myModal" class="modal">
