@@ -17,9 +17,6 @@ var firebaseConfig = {
 
 // Get all images
 
-
-const body = document.getElementById('body');
-
 var storageRef = firebase.storage().ref().child('review');
 const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
@@ -44,7 +41,7 @@ db1Ref.on('child_added', function(data) {
   link.innerHTML = postURL;
   text.innerHTML = "URL: "
   text.appendChild(link);
-  text.innerHTML += "<br/>Equipe: "+teamNames[team]+" | Usuário: "+postUser+" | Data: "+postDate+"<br/>";
+  text.innerHTML += "<br/>Equipe: "+teamNames[team]+" | Usuário: "+postUser+" | Data: "+Date(postDate)+"<br/>";
   text.innerHTML += "<a id='a/"+team+"/"+postKey+"' onclick='validate1(true, this.id)' href='#'>Aceitar</a> | ";
   text.innerHTML += "<a id='a/"+team+"/"+postKey+"' onclick='validate1(false, this.id)' href='#'>Recusar</a>";
   div.appendChild(text);
@@ -86,6 +83,115 @@ function moveFbRecord(oldRef, newRef) {
                else if( typeof(console) !== 'undefined' && console.error ) {  console.error(error); }
           });
      });
+}
+
+// Posts from activities with more pictures;
+
+const listRef = firebase.storage().ref('review'); // Review path
+
+for (var i = 0; i < 10; i++) { // To select the team folder
+  listRefNow = listRef.child(i.toString());
+  listRefNow.listAll().then(function(res) { // List all contents on team folder
+    res.prefixes.forEach(function(folderRef) { // List folders on team folder
+      console.log(folderRef);
+      folderRef.listAll().then(function(res1) { // Open folder on team folder
+        res1.items.forEach(function(itemRef) { // Do something to each item
+          itemRef.getDownloadURL().then(function(url) {
+            console.log(url);
+            teamName = Number(url.charAt(82))-1;
+            activity = getActivity(url);
+
+            const activityHolder = document.getElementById('review'+activity);
+
+            const listItem = document.createElement('div');
+            const listItemDescription = document.createElement('p');
+            const validate = document.createElement('div');
+            const acceptButton = document.createElement('div');
+            const rejectButton = document.createElement('div');
+
+            listItem.style.backgroundColor = teamColors[teamName];
+            listItem.style.backgroundImage = "url('"+url+"')";
+            listItem.className = "imageToReview";
+            listItem.id = teamName+"/"+activity;
+
+            listItemDescription.innerHTML = "Equipe: " + teamNames[teamName];
+            listItemDescription.className = "listItemDescription"
+
+            validate.className = "validate";
+
+            acceptButton.className = "acceptButton";
+            acceptButton.id = teamName+"/"+activity;
+            acceptButton.onclick = function() {accept(this.id)};
+
+            rejectButton.className = "rejectButton";
+            rejectButton.id = teamName+"/"+activity;
+            rejectButton.onclick = function() {reject(this.id)};
+
+
+            validate.appendChild(acceptButton);
+            validate.appendChild(rejectButton);
+            listItem.appendChild(listItemDescription);
+            listItem.appendChild(validate);
+            activityHolder.appendChild(listItem);
+          }).catch(function(error) {
+            console.log(error);
+          });
+        })
+      })
+    });
+    // res.items.forEach(function(itemRef) {
+    //   itemRef.getDownloadURL().then(function(url) {
+    //     teamName = Number(url.charAt(82))-1;
+    //     activity = Number(url.charAt(86));
+    //
+    //     const listItem = document.createElement('div');
+    //     const listItemDescription = document.createElement('p');
+    //     const validate = document.createElement('div');
+    //     const acceptButton = document.createElement('div');
+    //     const rejectButton = document.createElement('div');
+    //
+    //     listItem.style.backgroundColor = teamColors[teamName];
+    //     listItem.style.backgroundImage = "url('"+url+"')";
+    //     listItem.className = "imageToReview";
+    //     listItem.id = teamName+"/"+activity;
+    //
+    //     listItemDescription.innerHTML = "Equipe: " + teamNames[teamName] + "<br/>Atividade: "+activity;
+    //     listItemDescription.className = "listItemDescription"
+    //
+    //     validate.className = "validate";
+    //
+    //     acceptButton.className = "acceptButton";
+    //     acceptButton.id = teamName+"/"+activity;
+    //     acceptButton.onclick = function() {accept(this.id)};
+    //
+    //     rejectButton.className = "rejectButton";
+    //     rejectButton.id = teamName+"/"+activity;
+    //     rejectButton.onclick = function() {reject(this.id)};
+    //
+    //
+    //     validate.appendChild(acceptButton);
+    //     validate.appendChild(rejectButton);
+    //     listItem.appendChild(listItemDescription);
+    //     listItem.appendChild(validate);
+    //     body.appendChild(listItem);
+    //   }).catch(function(error) {
+    //     console.log(error);
+    //   });
+    //   });
+  }).catch(function(error) {
+    console.log(error);
+  });
+}
+
+function getActivity(url) {
+  debugger;
+  var charAt87 = Number(url.charAt(87)).toString();
+  if (charAt87 != "NaN") {
+    var answer = url.charAt(86) + url.charAt(87);
+    return Number(answer);
+  } else {
+    return Number(url.charAt(86));
+  }
 }
 
 // for (var i = 0; i < 10; i++) {

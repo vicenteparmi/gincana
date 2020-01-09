@@ -102,7 +102,16 @@ function send() {
 
           break;
         case 1: // Some pics mode0Holder
-
+          for (var i = 0; i < imagesUploaded; i++) {
+            var image = document.getElementById('dpic/'+i);
+            if (image) {
+              var style = image.currentStyle || window.getComputedStyle(image, false);
+              var bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+              var file = dataURLtoFile(bi, "filename");
+              const imageId = Math.random();
+              storeImage('review/'+team+'/'+itemSelected+'/'+imageId+file[1], file[0]);
+            }
+          }
           break;
         case 2: // Video mode
 
@@ -195,13 +204,12 @@ function testforSend() {
 
 // Send to cloud
 
-var imageToUpload = null;
+var imageToUpload;
+
+// Load Image
 function uploadImage() {
   var input = document.createElement('input');
   input.type = 'file';
-
-  var user = firebase.auth().currentUser;
-
   input.onchange = e => {
 
      // getting a hold of the file reference
@@ -213,17 +221,62 @@ function uploadImage() {
 
      // here we tell the reader what to do when it's done reading...
      reader.onload = readerEvent => {
-        content = readerEvent.target.result; // this is the content!
+        content = readerEvent.target.result;
         document.querySelector('#insertPicture').style.backgroundImage = "url('"+content+"')";
         document.getElementById('cameraDiv').className = "afterUpload";
         document.getElementById('addText').innerHTML = "Alterar Imagem";
 
+        imageToUpload = null;
         imageToUpload = dataURLtoFile(content, "profile.png");
-        testforSend();
      }
    }
   input.click();
 };
+
+var imagesUploaded = 0;  // This variable is only useful to set a id to the items;
+
+function uploadOneMoreImage() {
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.onchange = e => {
+     var file = e.target.files[0];
+     var reader = new FileReader();
+     reader.readAsDataURL(file);
+     // here we tell the reader what to do when it's done reading...
+     reader.onload = readerEvent => {
+        content = readerEvent.target.result;
+
+        const span = document.getElementById('toUpload');
+        const imageDiv = document.createElement('div');
+        const closeButton = document.createElement('span');
+
+        imageDiv.className = "smallPicture";
+        imageDiv.style.backgroundImage = "url('"+content+"')";
+        imageDiv.id = "dpic/"+ imagesUploaded;
+
+        closeButton.className = "closeSmallPic"
+        closeButton.innerHTML = "&times";
+        closeButton.id = "spic/"+ imagesUploaded;
+        closeButton.onclick = function() {closeSmallPic(this.id)};
+
+        imageDiv.appendChild(closeButton);
+        span.appendChild(imageDiv);
+
+        imagesUploaded++;
+     }
+   }
+  input.click();
+};
+
+function closeSmallPic(id) {
+  debugger;
+  var data = id.split("/");
+  var id = Number(data[1]);
+
+  const span = document.getElementById('toUpload');
+  const child = document.getElementById('dpic/'+id);
+  span.removeChild(child);
+}
 
 function storeImage(path, img) {
   const progressBar = document.getElementById('progressbar');
@@ -280,7 +333,7 @@ function dataURLtoFile(dataurl, filename) {
     while(n--){
         u8arr[n] = bstr.charCodeAt(n);
     }
-    return new File([u8arr], filename, {type:mime});
+    return [new File([u8arr], filename, {type:mime}), extension];
 }
 
 // Default code below
