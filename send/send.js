@@ -16,6 +16,7 @@ var firebaseConfig = {
 // My code
 
 var currentMode = null;
+var itemSelected = -1;
 
 function sti(id) {
 
@@ -48,7 +49,7 @@ function sti(id) {
     document.getElementById(id).className = "selected";
   }
 
-  var itemSelected = id.charAt(2) + id.charAt(3);
+  itemSelected = id.charAt(2) + id.charAt(3);
   itemSelected = Number(itemSelected)+1
 
   document.getElementById('activityName').innerHTML = 'Atividade '+itemSelected;
@@ -85,11 +86,8 @@ var team;
 
 function send() {
 
-  // Test for error messages due to missing information
-  const errorMessage = document.getElementById('errorMessage');
   var allOk = false;
-
-  if (testforSend()[0] == true) {
+  if (testforSend() == true) {
     allOk = true;
     errorMessage.className = "hide";
   } else {
@@ -98,21 +96,70 @@ function send() {
   }
 
   if (allOk == true) {
-    const currentUser = firebase.auth().currentUser;
-    var taskValue = testforSend()[1];
+      const currentUser = firebase.auth().currentUser;
+      switch (currentMode) {
+        case 0: // One pic mode
 
-    firebase.database().ref('teams/'+team+"/tasks/"+taskValue).once('value').then(function(snapshot) {
-      try {
-        if (snapshot.val().done == "Ok") {
-          alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
-        }
-      } catch (e) {
-        storeImage("review/"+team+"/"+taskValue+extension, imageToUpload);
-      } finally {
-        // Nothing to do, I guess;
+          break;
+        case 1: // Some pics mode0Holder
+
+          break;
+        case 2: // Video mode
+
+          break;
+        case 3: // URL mode0Holder
+          const mode1input = document.getElementById('mode1input');
+          if (itemSelected == 1) {
+            var dbRef = firebase.database().ref('review/Activity 1').push();
+            dbRef.set({
+              team: team,
+              sentBy: currentUser.displayName,
+              sentOn: Date.now(),
+              url: mode1input.value
+            })
+            openModal();
+          }
+          document.getElementById('progressbar').className = "";
+          document.getElementById('progressPercentage').style.width = "100%";
+          document.getElementById('progressInd').innerHTML = "100%";
+          document.getElementById("sendingStatus").innerHTML = "Atividade enviada"
+          const dbutton = document.getElementById('doneButton');
+          dbutton.className = "button3"
+          dbutton.onclick = function() {location.reload();}
+          break;
+        default:
+
       }
-    });
   }
+
+  // // Test for error messages due to missing information
+  // const errorMessage = document.getElementById('errorMessage');
+  // var allOk = false;
+  //
+  // if (testforSend()[0] == true) {
+  //   allOk = true;
+  //   errorMessage.className = "hide";
+  // } else {
+  //   errorMessage.innerHTML = "Termine de preencher as informações antes de enviar.";
+  //   errorMessage.className = "";
+  // }
+  //
+  // if (allOk == true) {
+  //   const currentUser = firebase.auth().currentUser;
+  //   var taskValue = testforSend()[1];
+  //
+  //   firebase.database().ref('teams/'+team+"/tasks/"+taskValue).once('value').then(function(snapshot) {
+  //     try {
+  //       if (snapshot.val().done == "Ok") {
+  //         alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
+  //       }
+  //     } catch (e) {
+  //       storeImage("review/"+team+"/"+taskValue+extension, imageToUpload);
+  //     } finally {
+  //       // Nothing to do, I guess;
+  //     }
+  //   });
+  // }
 }
 
 // Listeners
@@ -122,26 +169,27 @@ function send() {
 // });
 
 function testforSend() {
-  var radioElement = document.getElementsByName('0');
-  const sendButton = document.getElementById('sendButton');
-  var radioValue = null;
+  // const sendButton = document.getElementById('sendButton');
+  // var radioValue = null;
+  //
+  // var isRadioChecked = false;
+  // for (var i = 0, length = radioElement.length; i < length; i++) {
+  //   if (radioElement[i].checked) {
+  //     isRadioChecked = true;
+  //     radioValue = radioElement[i].value;
+  //     break;
+  //   }
+  // }
+  //
+  // if (imageToUpload != null && isRadioChecked == true) {
+  //     sendButton.className = "button3";
+  //     return [true, radioValue];
+  // } else {
+  //     console.log("Missing something");
+  //     return false;
+  // }
 
-  var isRadioChecked = false;
-  for (var i = 0, length = radioElement.length; i < length; i++) {
-    if (radioElement[i].checked) {
-      isRadioChecked = true;
-      radioValue = radioElement[i].value;
-      break;
-    }
-  }
-
-  if (imageToUpload != null && isRadioChecked == true) {
-      sendButton.className = "button3";
-      return [true, radioValue];
-  } else {
-      console.log("Missing something");
-      return false;
-  }
+  return true;
 }
 
 

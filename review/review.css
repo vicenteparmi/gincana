@@ -21,6 +21,10 @@ body {
   margin-top: 100px;
 }
 
+.reviewBox {
+  padding-bottom: 10px;
+}
+
 .imageToReview {
   width: 20vw;
   height: 20vw;
@@ -73,6 +77,10 @@ body {
   height: 2vw;
   background-color: red;
   border-radius: 4px;
+}
+
+a {
+  cursor: pointer;
 }
 
 .headerImage {
