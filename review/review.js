@@ -57,7 +57,7 @@ function validate1(status, id) {
   var data = id.split("/");
   var oldRef = firebase.database().ref('review/Activity 1/'+data[2]);
   var newRef = firebase.database().ref('approved/Activity 1/'+data[2]);
-  var teamRef = firebase.database().ref('teams/'+(Number(data[1])+1));
+  var teamRef = firebase.database().ref('teams/'+data[1]);
   if (status == true) {
     moveFbRecord(oldRef, newRef); // Move activity location
     teamRef.transaction(function(tra) { // Update team punctuation
