@@ -20,7 +20,7 @@ var firebaseConfig = {
 var storageRef = firebase.storage().ref().child('review');
 const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
-const points = [20];
+const points = [20,700,700,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,400,300,200];
 
 // Getting posts from activity 1
 
@@ -97,9 +97,10 @@ for (var i = 0; i < 10; i++) { // To select the team folder
       folderRef.listAll().then(function(res1) { // Open folder on team folder
         res1.items.forEach(function(itemRef) { // Do something to each item
           itemRef.getDownloadURL().then(function(url) {
-            console.log(url);
+
             teamName = Number(url.charAt(82))-1;
             activity = getActivity(url);
+            imageName = itemRef.toString().slice(-22);
 
             const activityHolder = document.getElementById('review'+activity);
 
@@ -112,7 +113,7 @@ for (var i = 0; i < 10; i++) { // To select the team folder
             listItem.style.backgroundColor = teamColors[teamName];
             listItem.style.backgroundImage = "url('"+url+"')";
             listItem.className = "imageToReview";
-            listItem.id = teamName+"/"+activity;
+            listItem.id = teamName+"/"+activity+"/"+imageName;
 
             listItemDescription.innerHTML = "Equipe: " + teamNames[teamName];
             listItemDescription.className = "listItemDescription"
@@ -120,11 +121,11 @@ for (var i = 0; i < 10; i++) { // To select the team folder
             validate.className = "validate";
 
             acceptButton.className = "acceptButton";
-            acceptButton.id = teamName+"/"+activity;
+            acceptButton.id = teamName+"/"+activity+"/"+imageName;
             acceptButton.onclick = function() {accept(this.id)};
 
             rejectButton.className = "rejectButton";
-            rejectButton.id = teamName+"/"+activity;
+            rejectButton.id = teamName+"/"+activity+"/"+imageName;
             rejectButton.onclick = function() {reject(this.id)};
 
 
@@ -245,47 +246,63 @@ function getActivity(url) {
 //   });
 // }
 //
-// function accept(id) {
-//   var teamActivity = id.split('/');
-//   var database = firebase.database();
-//   teamActivity[0]++;
-//
-//   firebase.database().ref('teams/'+teamActivity[0]+"/tasks/"+teamActivity[1]).set({
-//     done: "Ok",
-//     time: Date.now()
-//   });
-//
-//   deleteFile(teamActivity);
-//
-//   document.getElementById(id).style.display = "none";
-// }
-//
-// function reject(id) {
-//   var teamActivity = id.split('/');
-//   teamActivity[0]++;
-//   deleteFile(teamActivity);
-//   document.getElementById(id).style.display = "none";
-// }
+function accept(id) {
+  debugger;
+  var teamActivity = id.split('/');  // [team/activity/filename]
+  teamActivity[0]++; // Be careful, this might not be useful;
 
-function deleteFile(teamActivity) {
-  var delRef1 = firebase.storage().ref("review/"+teamActivity[0]+"/"+teamActivity[1]+".jpg");
-  var delRef2 = firebase.storage().ref("review/"+teamActivity[0]+"/"+teamActivity[1]+".png");
-  var delRef3 = firebase.storage().ref("review/"+teamActivity[0]+"/"+teamActivity[1]+".tiff");
+  var storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
+  storageRef.getDownloadURL().then(function(url) {
+    var a = document.createElement('a');
+    a.href = url;
+    a.target = "_blank";
+    a.download = "file";
+    a.click();
 
-  delRef1.delete().then(function() {
-  console.log("File deleted successfully! [jpg]");
+    // TODO: File delete and downloadnot working yet
+    setTimeout(deleteFile(teamActivity, storageRef), 5000);
+    document.getElementById(id).style.display = "none";
+
+    teamRef.transaction(function(tra) { // Update team punctuation
+      if (tra) {
+        if (tra.points) {
+          tra.points += points[teamActivity[1]];
+        } else {
+          tra.points += points[teamActivity[1]];
+          if (!tra.points) {
+            tra.points += points[teamActivity[1]];
+          }
+        }
+      }
+      return tra;
+    })
+
   }).catch(function(error) {
-    console.log("Uh-oh, an error occurred! [jpg] Error:"+error);
+    console.log(error);
   });
-  delRef2.delete().then(function() {
-  console.log("File deleted successfully! [png]");
+
+  // The following code must be used only when one photo is submitted
+
+  // var database = firebase.database();
+  // firebase.database().ref('teams/'+teamActivity[0]+"/tasks/"+teamActivity[1]).set({
+  //   done: "Ok",
+  //   time: Date.now()
+  // });
+
+}
+
+function reject(id) {
+  var teamActivity = id.split('/');
+  teamActivity[0]++;
+  deleteFile(teamActivity);
+  document.getElementById(id).style.display = "none";
+}
+
+function deleteFile(teamActivity, ref) {
+  ref.delete().then(function() {
+  console.log("File deleted successfully!");
   }).catch(function(error) {
-    console.log("Uh-oh, an error occurred! [png] Error:"+error);
-  });
-  delRef3.delete().then(function() {
-  console.log("File deleted successfully! [tiff]");
-  }).catch(function(error) {
-    console.log("Uh-oh, an error occurred! [tiff] Error:"+error);
+    console.log("Uh-oh, an error occurred! Error:"+error);
   });
 }
 

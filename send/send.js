@@ -20,8 +20,8 @@ var itemSelected = -1;
 
 function sti(id) {
 
-  const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,23];
-  const somePicsMode = [2,14,22,25,26,27];
+  const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
+  const somePicsMode = [2,14,26,27];
   const videoMode = [6,18];
   const urlMode = [1];
 
@@ -99,7 +99,11 @@ function send() {
       const currentUser = firebase.auth().currentUser;
       switch (currentMode) {
         case 0: // One pic mode
-
+          var image = document.getElementById('insertPicture');
+          var style = image.currentStyle || window.getComputedStyle(image, false);
+          var bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+          var file = dataURLtoFile(bi, "filename");
+          storeImage('review/'+team+'/'+itemSelected+'/'+itemSelected+file[1], file[0]);
           break;
         case 1: // Some pics mode0Holder
           for (var i = 0; i < imagesUploaded; i++) {
