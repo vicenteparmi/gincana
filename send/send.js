@@ -100,7 +100,7 @@ function send() {
       const currentUser = firebase.auth().currentUser;
       switch (currentMode) {
         case 0: // One pic mode
-          firebase.database().ref('teams/'+team+"/tasks/"+itemSelected).once('value').then(function(snapshot) {
+          firebase.database().ref('teams/'+(team-1)+"/tasks/"+itemSelected).once('value').then(function(snapshot) {
             try {
               if (snapshot.val().done == "Ok") {
                 alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
@@ -129,25 +129,34 @@ function send() {
           }
           break;
         case 2: // Video mode
-          debugger;
-          const mode2input = document.getElementById('mode2input');
-          if (itemSelected == 6 || itemSelected == 18) {
-            var dbRef = firebase.database().ref("review/Activity "+itemSelected).push();
-            dbRef.set({
-              team: team,
-              sentBy: currentUser.displayName,
-              sentOn: Date.now(),
-              url: mode2input.value
-            })
-            openModal();
-          }
-          document.getElementById('progressbar').className = "";
-          document.getElementById('progressPercentage').style.width = "100%";
-          document.getElementById('progressInd').innerHTML = "100%";
-          document.getElementById("sendingStatus").innerHTML = "Atividade enviada"
-          const dbutton2 = document.getElementById('doneButton');
-          dbutton2.className = "button3"
-          dbutton2.onclick = function() {location.reload();}
+          firebase.database().ref('teams/'+(team-1)+"/tasks/"+itemSelected).once('value').then(function(snapshot) {
+            try {
+              if (snapshot.val().done == "Ok") {
+                alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
+              }
+            } catch (e) {
+              alert(e);
+              const mode2input = document.getElementById('mode2input');
+              if (itemSelected == 6 || itemSelected == 18) {
+                var dbRef = firebase.database().ref("review/Activity "+itemSelected).push();
+                dbRef.set({
+                  team: team,
+                  sentBy: currentUser.displayName,
+                  sentOn: Date.now(),
+                  url: mode2input.value
+                })
+                openModal();
+              }
+              document.getElementById('progressbar').className = "";
+              document.getElementById('progressPercentage').style.width = "100%";
+              document.getElementById('progressInd').innerHTML = "100%";
+              document.getElementById("sendingStatus").innerHTML = "Atividade enviada"
+              const dbutton2 = document.getElementById('doneButton');
+              dbutton2.className = "button3"
+              dbutton2.onclick = function() {location.reload();}
+            } finally {
+              // Nothing to do, I guess;
+            }});
           break;
         case 3: // URL mode0Holder
           const mode1input = document.getElementById('mode1input');

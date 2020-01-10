@@ -96,6 +96,12 @@ function validateURL(status, id, activity) {
       }
       return tra;
     })
+    if (activity == 6 || activity == 18) {
+      firebase.database().ref('teams/'+(Number((data[1])-1))+"/tasks/"+activity).set({
+        done: "Ok",
+        time: Date.now()
+      });
+    }
   } else {
     oldRef.remove();
   }
