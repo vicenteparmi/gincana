@@ -20,7 +20,7 @@ var firebaseConfig = {
 var storageRef = firebase.storage().ref().child('review');
 const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
-const points = [20,700,700,,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,,400,300,200];
+const points = [20,700,700,0,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,0,400,300,200];
 
 // Getting posts from activity 1 and videos
 
@@ -80,32 +80,47 @@ function validateURL(status, id, activity) {
   var data = id.split("/");
   var oldRef = firebase.database().ref("review/Activity "+activity+"/"+data[2]);
   var newRef = firebase.database().ref("approved/Activity "+activity+"/"+data[2]);
-  var teamRef = firebase.database().ref('teams/'+Number((data[1])-1));
   if (status == true) {
     moveFbRecord(oldRef, newRef); // Move activity location
+    var teamRef = firebase.database().ref('teams/'+(Number(data[1])-1));
     teamRef.transaction(function(tra) { // Update team punctuation
       if (tra) {
         if (tra.points) {
-          tra.points += points[(Number(data[1])-1)];
+          tra.points += points[(activity-1)];
         } else {
-          tra.points += points[(Number(data[1])-1)];
+          tra.points += points[(activity-1)];
           if (!tra.points) {
-            tra.points += points[(Number(data[1])-1)];
+            tra.points += points[(activity-1)];
           }
         }
       }
       return tra;
-    })
-    if (activity == 6 || activity == 18) {
-      firebase.database().ref('teams/'+(Number((data[1])-1))+"/tasks/"+activity).set({
-        done: "Ok",
-        time: Date.now()
-      });
-    }
+    });
+
+    /*
+      Obs: Some errors were happening while adding the "ok" to the activity list,
+      so it has been removed from here. Maybe in the future there will be a button
+      to add it manually.
+    */
+
   } else {
     oldRef.remove();
   }
   document.getElementById('d/'+data[1]+'/'+data[2]+'/'+data[3]).style.display = "none";
+}
+
+function markAsDone(team, activity) {
+  if (activity == 6) {
+    firebase.database().ref('teams/'+team+"/tasks/6").set({
+      done: "Ok",
+      time: Date.now()
+    });
+  } else if (activity == 18) {
+    firebase.database().ref('teams/'+team+"/tasks/18").set({
+      done: "Ok",
+      time: Date.now()
+    });
+  }
 }
 
 function moveFbRecord(oldRef, newRef) {

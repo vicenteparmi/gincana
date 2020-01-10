@@ -135,7 +135,6 @@ function send() {
                 alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
               }
             } catch (e) {
-              alert(e);
               const mode2input = document.getElementById('mode2input');
               if (itemSelected == 6 || itemSelected == 18) {
                 var dbRef = firebase.database().ref("review/Activity "+itemSelected).push();
