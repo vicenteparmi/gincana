@@ -20,7 +20,7 @@ var firebaseConfig = {
 var storageRef = firebase.storage().ref().child('review');
 const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
-const points = [20,700,700,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,400,300,200];
+const points = [20,700,700,,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,,400,300,200];
 
 // Getting posts from activity 1
 
@@ -100,7 +100,7 @@ for (var i = 0; i < 10; i++) { // To select the team folder
 
             teamName = Number(url.charAt(82))-1;
             activity = getActivity(url);
-            imageName = itemRef.toString().slice(-22);
+            imageName = getImageName(itemRef);
 
             const activityHolder = document.getElementById('review'+activity);
 
@@ -185,7 +185,6 @@ for (var i = 0; i < 10; i++) { // To select the team folder
 }
 
 function getActivity(url) {
-  debugger;
   var charAt87 = Number(url.charAt(87)).toString();
   if (charAt87 != "NaN") {
     var answer = url.charAt(86) + url.charAt(87);
@@ -193,6 +192,15 @@ function getActivity(url) {
   } else {
     return Number(url.charAt(86));
   }
+}
+
+function getImageName(itemRef) {
+  var imageName = itemRef.toString().slice(-22);
+  var split = imageName.split('/');
+  if (split.length > 1) {
+    imageName = split[split.length - 1];
+  }
+  return imageName;
 }
 
 // for (var i = 0; i < 10; i++) {
@@ -247,10 +255,9 @@ function getActivity(url) {
 // }
 //
 function accept(id) {
-  debugger;
   var teamActivity = id.split('/');  // [team/activity/filename]
   teamActivity[0]++; // Be careful, this might not be useful;
-
+console.log(('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]));
   var storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
   storageRef.getDownloadURL().then(function(url) {
     var a = document.createElement('a');
@@ -263,32 +270,35 @@ function accept(id) {
     setTimeout(deleteFile(teamActivity, storageRef), 5000);
     document.getElementById(id).style.display = "none";
 
+    debugger;
+    var teamRef = firebase.database().ref('teams/'+(Number(teamActivity[0])-1));
     teamRef.transaction(function(tra) { // Update team punctuation
       if (tra) {
         if (tra.points) {
-          tra.points += points[teamActivity[1]];
+          tra.points += points[(Number(teamActivity[1])-1)];
         } else {
-          tra.points += points[teamActivity[1]];
+          tra.points += points[(Number(teamActivity[1])-1)];
           if (!tra.points) {
-            tra.points += points[teamActivity[1]];
+            tra.points += points[(Number(teamActivity[1])-1)];
           }
         }
       }
       return tra;
     })
-
   }).catch(function(error) {
     console.log(error);
   });
 
   // The following code must be used only when one photo is submitted
-
-  // var database = firebase.database();
-  // firebase.database().ref('teams/'+teamActivity[0]+"/tasks/"+teamActivity[1]).set({
-  //   done: "Ok",
-  //   time: Date.now()
-  // });
-
+  const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
+  for (var i = 0; i < onePicMode.length; i++) {
+    if (teamActivity[1] == onePicMode[i]) {
+      firebase.database().ref('teams/'+(Number(teamActivity[0])-1)+"/tasks/"+teamActivity[1]).set({
+        done: "Ok",
+        time: Date.now()
+      });
+    }
+  }
 }
 
 function reject(id) {

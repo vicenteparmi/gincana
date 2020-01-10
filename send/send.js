@@ -80,6 +80,7 @@ function sti(id) {
 function helpVideo() {
   alert("Faça o upload do vídeo para algum serviço como Google Photos, YouTube ou Google Drive. Em seguida compartilhe o arquivo para obter o link. Em caso de mais dúvidas entre em contato na página 'sobre'.")
 }
+
 // Code before update
 
 var team;
@@ -99,11 +100,21 @@ function send() {
       const currentUser = firebase.auth().currentUser;
       switch (currentMode) {
         case 0: // One pic mode
-          var image = document.getElementById('insertPicture');
-          var style = image.currentStyle || window.getComputedStyle(image, false);
-          var bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
-          var file = dataURLtoFile(bi, "filename");
-          storeImage('review/'+team+'/'+itemSelected+'/'+itemSelected+file[1], file[0]);
+          firebase.database().ref('teams/'+team+"/tasks/"+itemSelected).once('value').then(function(snapshot) {
+            try {
+              if (snapshot.val().done == "Ok") {
+                alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
+              }
+            } catch (e) {
+              var image = document.getElementById('insertPicture');
+              var style = image.currentStyle || window.getComputedStyle(image, false);
+              var bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+              var file = dataURLtoFile(bi, "filename");
+              storeImage('review/'+team+'/'+itemSelected+'/'+itemSelected+file[1], file[0]);
+            } finally {
+              // Nothing to do, I guess;
+            }
+          });
           break;
         case 1: // Some pics mode0Holder
           for (var i = 0; i < imagesUploaded; i++) {
