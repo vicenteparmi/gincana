@@ -129,7 +129,25 @@ function send() {
           }
           break;
         case 2: // Video mode
-
+          debugger;
+          const mode2input = document.getElementById('mode2input');
+          if (itemSelected == 6 || itemSelected == 18) {
+            var dbRef = firebase.database().ref("review/Activity "+itemSelected).push();
+            dbRef.set({
+              team: team,
+              sentBy: currentUser.displayName,
+              sentOn: Date.now(),
+              url: mode2input.value
+            })
+            openModal();
+          }
+          document.getElementById('progressbar').className = "";
+          document.getElementById('progressPercentage').style.width = "100%";
+          document.getElementById('progressInd').innerHTML = "100%";
+          document.getElementById("sendingStatus").innerHTML = "Atividade enviada"
+          const dbutton2 = document.getElementById('doneButton');
+          dbutton2.className = "button3"
+          dbutton2.onclick = function() {location.reload();}
           break;
         case 3: // URL mode0Holder
           const mode1input = document.getElementById('mode1input');

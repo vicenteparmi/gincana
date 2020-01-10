@@ -22,7 +22,7 @@ const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
 const points = [20,700,700,,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,,400,300,200];
 
-// Getting posts from activity 1
+// Getting posts from activity 1 and videos
 
 var db1Ref = firebase.database().ref('review/Activity 1');
 db1Ref.on('child_added', function(data) {
@@ -32,7 +32,33 @@ db1Ref.on('child_added', function(data) {
   var postDate = data.val().sentOn;
   var team = data.val().team;
 
-  const span = document.getElementById('review1');
+  populateURL(postKey, postURL, postUser, postDate, team, 1);
+});
+
+var db2Ref = firebase.database().ref('review/Activity 6');
+db2Ref.on('child_added', function(data) {
+  var postKey = data.key;
+  var postURL = data.val().url;
+  var postUser = data.val().sentBy;
+  var postDate = data.val().sentOn;
+  var team = data.val().team;
+
+  populateURL(postKey, postURL, postUser, postDate, team, 6);
+});
+
+var db3Ref = firebase.database().ref('review/Activity 18');
+db3Ref.on('child_added', function(data) {
+  var postKey = data.key;
+  var postURL = data.val().url;
+  var postUser = data.val().sentBy;
+  var postDate = data.val().sentOn;
+  var team = data.val().team;
+
+  populateURL(postKey, postURL, postUser, postDate, team, 18);
+});
+
+function populateURL(postKey, postURL, postUser, postDate, team, activity) {
+  const span = document.getElementById('review'+activity);
   const div = document.createElement('div');
   const text = document.createElement('p');
   const link = document.createElement('a');
@@ -41,30 +67,30 @@ db1Ref.on('child_added', function(data) {
   link.innerHTML = postURL;
   text.innerHTML = "URL: "
   text.appendChild(link);
-  text.innerHTML += "<br/>Equipe: "+teamNames[team]+" | Usuário: "+postUser+" | Data: "+Date(postDate)+"<br/>";
-  text.innerHTML += "<a id='a/"+team+"/"+postKey+"' onclick='validate1(true, this.id)' href='#'>Aceitar</a> | ";
-  text.innerHTML += "<a id='a/"+team+"/"+postKey+"' onclick='validate1(false, this.id)' href='#'>Recusar</a>";
+  text.innerHTML += "<br/>Equipe: "+teamNames[team-1]+" | Usuário: "+postUser+" | Data: "+Date(postDate)+"<br/>";
+  text.innerHTML += "<a id='a/"+team+"/"+postKey+"/"+activity+"' onclick='validateURL(true, this.id, "+activity+")' href='#'>Aceitar</a> | ";
+  text.innerHTML += "<a id='a/"+team+"/"+postKey+"/"+activity+"' onclick='validateURL(false, this.id, "+activity+")' href='#'>Recusar</a>";
   div.appendChild(text);
-  div.id = "d/"+team+"/"+postKey;
+  div.id = "d/"+team+"/"+postKey+"/"+activity;
 
   span.appendChild(div);
-});
+}
 
-function validate1(status, id) {
+function validateURL(status, id, activity) {
   var data = id.split("/");
-  var oldRef = firebase.database().ref('review/Activity 1/'+data[2]);
-  var newRef = firebase.database().ref('approved/Activity 1/'+data[2]);
-  var teamRef = firebase.database().ref('teams/'+data[1]);
+  var oldRef = firebase.database().ref("review/Activity "+activity+"/"+data[2]);
+  var newRef = firebase.database().ref("approved/Activity "+activity+"/"+data[2]);
+  var teamRef = firebase.database().ref('teams/'+Number((data[1])-1));
   if (status == true) {
     moveFbRecord(oldRef, newRef); // Move activity location
     teamRef.transaction(function(tra) { // Update team punctuation
       if (tra) {
         if (tra.points) {
-          tra.points += points[0];
+          tra.points += points[(Number(data[1])-1)];
         } else {
-          tra.points += points[0];
+          tra.points += points[(Number(data[1])-1)];
           if (!tra.points) {
-            tra.points += points[0];
+            tra.points += points[(Number(data[1])-1)];
           }
         }
       }
@@ -73,7 +99,7 @@ function validate1(status, id) {
   } else {
     oldRef.remove();
   }
-  document.getElementById('d/'+data[1]+'/'+data[2]).style.display = "none";
+  document.getElementById('d/'+data[1]+'/'+data[2]+'/'+data[3]).style.display = "none";
 }
 
 function moveFbRecord(oldRef, newRef) {
@@ -140,45 +166,6 @@ for (var i = 0; i < 10; i++) { // To select the team folder
         })
       })
     });
-    // res.items.forEach(function(itemRef) {
-    //   itemRef.getDownloadURL().then(function(url) {
-    //     teamName = Number(url.charAt(82))-1;
-    //     activity = Number(url.charAt(86));
-    //
-    //     const listItem = document.createElement('div');
-    //     const listItemDescription = document.createElement('p');
-    //     const validate = document.createElement('div');
-    //     const acceptButton = document.createElement('div');
-    //     const rejectButton = document.createElement('div');
-    //
-    //     listItem.style.backgroundColor = teamColors[teamName];
-    //     listItem.style.backgroundImage = "url('"+url+"')";
-    //     listItem.className = "imageToReview";
-    //     listItem.id = teamName+"/"+activity;
-    //
-    //     listItemDescription.innerHTML = "Equipe: " + teamNames[teamName] + "<br/>Atividade: "+activity;
-    //     listItemDescription.className = "listItemDescription"
-    //
-    //     validate.className = "validate";
-    //
-    //     acceptButton.className = "acceptButton";
-    //     acceptButton.id = teamName+"/"+activity;
-    //     acceptButton.onclick = function() {accept(this.id)};
-    //
-    //     rejectButton.className = "rejectButton";
-    //     rejectButton.id = teamName+"/"+activity;
-    //     rejectButton.onclick = function() {reject(this.id)};
-    //
-    //
-    //     validate.appendChild(acceptButton);
-    //     validate.appendChild(rejectButton);
-    //     listItem.appendChild(listItemDescription);
-    //     listItem.appendChild(validate);
-    //     body.appendChild(listItem);
-    //   }).catch(function(error) {
-    //     console.log(error);
-    //   });
-    //   });
   }).catch(function(error) {
     console.log(error);
   });
@@ -203,61 +190,9 @@ function getImageName(itemRef) {
   return imageName;
 }
 
-// for (var i = 0; i < 10; i++) {
-//
-//   listRefNow = listRef.child(i.toString());
-//   listRefNow.listAll().then(function(res) {
-//     res.prefixes.forEach(function(folderRef) {
-//       console.log(folderRef);
-//     });
-//     res.items.forEach(function(itemRef) {
-//       itemRef.getDownloadURL().then(function(url) {
-//         teamName = Number(url.charAt(82))-1;
-//         activity = Number(url.charAt(86));
-//
-//         const listItem = document.createElement('div');
-//         const listItemDescription = document.createElement('p');
-//         const validate = document.createElement('div');
-//         const acceptButton = document.createElement('div');
-//         const rejectButton = document.createElement('div');
-//
-//         listItem.style.backgroundColor = teamColors[teamName];
-//         listItem.style.backgroundImage = "url('"+url+"')";
-//         listItem.className = "imageToReview";
-//         listItem.id = teamName+"/"+activity;
-//
-//         listItemDescription.innerHTML = "Equipe: " + teamNames[teamName] + "<br/>Atividade: "+activity;
-//         listItemDescription.className = "listItemDescription"
-//
-//         validate.className = "validate";
-//
-//         acceptButton.className = "acceptButton";
-//         acceptButton.id = teamName+"/"+activity;
-//         acceptButton.onclick = function() {accept(this.id)};
-//
-//         rejectButton.className = "rejectButton";
-//         rejectButton.id = teamName+"/"+activity;
-//         rejectButton.onclick = function() {reject(this.id)};
-//
-//
-//         validate.appendChild(acceptButton);
-//         validate.appendChild(rejectButton);
-//         listItem.appendChild(listItemDescription);
-//         listItem.appendChild(validate);
-//         body.appendChild(listItem);
-//       }).catch(function(error) {
-//         console.log(error);
-//       });
-//     });
-//   }).catch(function(error) {
-//     console.log(error);
-//   });
-// }
-//
 function accept(id) {
   var teamActivity = id.split('/');  // [team/activity/filename]
   teamActivity[0]++; // Be careful, this might not be useful;
-console.log(('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]));
   var storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
   storageRef.getDownloadURL().then(function(url) {
     var a = document.createElement('a');
@@ -266,11 +201,10 @@ console.log(('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]))
     a.download = "file";
     a.click();
 
-    // TODO: File delete and downloadnot working yet
+    // File delete
     setTimeout(deleteFile(teamActivity, storageRef), 5000);
     document.getElementById(id).style.display = "none";
 
-    debugger;
     var teamRef = firebase.database().ref('teams/'+(Number(teamActivity[0])-1));
     teamRef.transaction(function(tra) { // Update team punctuation
       if (tra) {
@@ -304,7 +238,8 @@ console.log(('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]))
 function reject(id) {
   var teamActivity = id.split('/');
   teamActivity[0]++;
-  deleteFile(teamActivity);
+  const storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
+  deleteFile(teamActivity, storageRef);
   document.getElementById(id).style.display = "none";
 }
 
