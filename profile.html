@@ -34,16 +34,27 @@
 					<td id="userEmail"></td>
 				</tr>
 				<tr>
+					<td class="verify">
+						<span id="verified" class="hide">Conta verificada 🗹</span>
+						<a id="toVerify" class="hide" onclick="verifyAccount()">Verificar conta</a>
+					</td>
+				<tr>
 					<td>
-						<a class="button3" onclick="updateUserName()">Alterar Nome</a>
-						<a class="button3" onclick="uploadPhoto()">Alterar Imagem</a>
 						<div id="progressbar" class="hide">
 							<text id="progressInd">Uploading...</text>
 						  <div id="progressPercentage"></div>
 						</div>
 					</td>
 				</tr>
-			</table>
+			</table><br/>
+			<div>
+				<h3 style="margin-bottom:10px; margin-top: 10px;">Configurações de usuário</h3>
+				<a class="button3" onclick="updateUserName()">Alterar Nome</a>
+				<a class="button3" onclick="uploadPhoto()">Alterar Imagem</a>
+				<a class="button3" onclick="changePassword()">Alterar Senha</a>
+				<a class="button3" onclick="signOut()">Sair</a>
+				<a class="button3" onclick="uploadPhoto()" style="background-color:#ff4400">Apagar Conta</a>
+			</div>
 		</div>
 		<div id="myModal" class="modal">
 			<div class="modal-content">

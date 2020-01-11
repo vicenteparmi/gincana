@@ -76,6 +76,16 @@ td p {
   color: dimgray;
 }
 
+#verified {
+  font-size: 1vw;
+  color: hsla(122, 79%, 29%, 0.69);
+}
+
+#toVerify {
+  font-size: 1.2vw;
+  color: #d81313;
+}
+
 #profileInfo {
   width: 40vw;
   position: absolute;
@@ -101,7 +111,7 @@ td p {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   transition-duration: 0.25s;
-  display: inline-flex;
+  display: inline-block;
   margin-left: 3%
 }
 
@@ -284,6 +294,12 @@ a.button3:active{
   }
   #userEmail {
     font-size: 2.6vw;
+  }
+  #verified {
+    font-size: 2.6vw;
+  }
+  #toVerify {
+    font-size: 3vw;
   }
   .modal-content {
     margin: 0;

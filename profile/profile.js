@@ -56,6 +56,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       name = profile.displayName;
       email = profile.email;
       photoURL = profile.photoURL;
+      emailVerified = user.emailVerified;
 
       console.log(profile.photoURL);
 
@@ -71,6 +72,15 @@ firebase.auth().onAuthStateChanged(function(user) {
         team = snapshot.val();
         setTeam(team);
       });
+
+      // Get verified
+
+      if (emailVerified == true) {
+        document.getElementById('verified').className = '';
+      } else {
+        document.getElementById('toVerify').className = '';
+      }
+
     });
 
   } else {
@@ -102,15 +112,42 @@ function setTeam(teamNumber) {
   }
 }
 
+// Verify account
+
+function verifyAccount() {
+  var user = firebase.auth().currentUser;
+  firebase.auth().languageCode = 'pt';
+  user.sendEmailVerification().then(function() {
+    alert('Email enviado, abra sua caixa de entrada para continuar.');
+  }).catch(function(error) {
+    console.log(error);
+  });
+}
+
 // Sign out from profile
 
 function signOut() {
   firebase.auth().signOut().then(function() {
     console.log('Signed Out');
-    location.reload();
+    location.replace('./index.html');
   }, function(error) {
     console.error('Sign Out Error', error);
   });
+}
+
+// Update password
+
+function changePassword() {
+  var auth = firebase.auth();
+  var emailAddress = prompt('Insira o email de sua conta abaixo. Enviaremos um link para redefinir sua senha.', '');
+
+  if (emailAddress != null) {
+    auth.sendPasswordResetEmail(emailAddress).then(function() {
+      alert('Email enviado!');
+    }).catch(function(error) {
+      alert('Não foi possível enviar o email. Verifique suas informações e tente novamente.');
+    });
+  }
 }
 
 // Update userName
@@ -165,6 +202,25 @@ function uploadPhoto() {
    }
   input.click();
 };
+
+// Delete account
+
+function deleteAccount() {
+  var user = firebase.auth().currentUser;
+  var userIsSure = confirm('Você tem certeza que deseja apagar sua conta? Essa ação é irreversível.');
+  if (userIsSure == true) {
+    user.delete().then(function() {
+      alert('Sua conta foi apagada com sucesso.');
+      location.replace('./index.html');
+    }).catch(function(error) {
+      alert('Não foi possível apagar a conta. Saia e faça login novamente.');
+    });
+  } else {
+    alert('A conta não foi apagada.');
+  }
+}
+
+// Profile picture handle
 
 function storeProfileImage(path, img) {
   const progressBar = document.getElementById('progressbar');
