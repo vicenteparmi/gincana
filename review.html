@@ -63,6 +63,16 @@
 			<span id="review26" class="reviewBox"></span>
 			<h3>Atividade 27 | Raspar o cabelo</h3>
 			<span id="review27" class="reviewBox"></span>
+			<br/><div class="markAsDone">
+				<p>Insira o número da equipe e a atividade a ser marcada como concluída na
+					base de dados:<br/>
+					<input type="number" min="1" max="9" id="masdTeam" placeholder="Equipe">
+					<input type="number" min="1" max="27" id="masdActivity" placeholder="Atividade">
+					<button type="button" name="button" class="button3" onclick="markAsDone(0)">Marcar como OK</button>
+					<button type="button" name="button" class="button3" onclick="markAsDone(1)">Remover registro</button>
+				</p>
+
+			</div>
 		</div>
 		<div id="header">
 			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>

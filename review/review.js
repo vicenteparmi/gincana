@@ -109,17 +109,25 @@ function validateURL(status, id, activity) {
   document.getElementById('d/'+data[1]+'/'+data[2]+'/'+data[3]).style.display = "none";
 }
 
-function markAsDone(team, activity) {
-  if (activity == 6) {
-    firebase.database().ref('teams/'+team+"/tasks/6").set({
-      done: "Ok",
-      time: Date.now()
-    });
-  } else if (activity == 18) {
-    firebase.database().ref('teams/'+team+"/tasks/18").set({
-      done: "Ok",
-      time: Date.now()
-    });
+function markAsDone(mode) {
+  const masdTeam = document.getElementById('masdTeam');
+  const masdActivity = document.getElementById('masdActivity');
+
+  var theTeam = Number(masdTeam.value) - 1;
+  var theActivity = Number(masdActivity.value);
+
+  if (theTeam >= 1 && theActivity >= 1) {
+    if (mode == 0) {
+      firebase.database().ref('teams/'+theTeam+"/tasks/"+theActivity).set({
+        done: "Ok",
+        time: Date.now()
+      });
+    } else {
+      firebase.database().ref('teams/'+theTeam+"/tasks/"+theActivity).remove();
+    }
+    alert('Atividade atualizada.');
+  } else {
+    alert('Preencha os campos ao lado anted de enviar.');
   }
 }
 
