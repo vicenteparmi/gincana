@@ -74,6 +74,8 @@ function sti(id) {
     }
   }
 
+  document.getElementById('description').innerHTML = descriptions[Number(itemSelected)-1];
+
   console.log("Current Mode: "+currentMode);
 }
 
@@ -209,6 +211,7 @@ function testforSend() {
 
 // Add description to tasks
 readTextFile('send/descriptions.txt');
+var descriptions = [];
 
 function readTextFile(file) {
   var rawFile = new XMLHttpRequest();
@@ -220,7 +223,7 @@ function readTextFile(file) {
            if(rawFile.status === 200 || rawFile.status == 0)
            {
                var allText = rawFile.responseText;
-               alert(allText);
+               description = allText.split('\n');
            }
        }
    }
