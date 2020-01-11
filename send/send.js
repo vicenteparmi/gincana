@@ -181,42 +181,7 @@ function send() {
 
       }
   }
-
-  // // Test for error messages due to missing information
-  // const errorMessage = document.getElementById('errorMessage');
-  // var allOk = false;
-  //
-  // if (testforSend()[0] == true) {
-  //   allOk = true;
-  //   errorMessage.className = "hide";
-  // } else {
-  //   errorMessage.innerHTML = "Termine de preencher as informações antes de enviar.";
-  //   errorMessage.className = "";
-  // }
-  //
-  // if (allOk == true) {
-  //   const currentUser = firebase.auth().currentUser;
-  //   var taskValue = testforSend()[1];
-  //
-  //   firebase.database().ref('teams/'+team+"/tasks/"+taskValue).once('value').then(function(snapshot) {
-  //     try {
-  //       if (snapshot.val().done == "Ok") {
-  //         alert("Esta atividade já foi aprovada. Faça o envio de uma atividade diferente.");
-  //       }
-  //     } catch (e) {
-  //       storeImage("review/"+team+"/"+taskValue+extension, imageToUpload);
-  //     } finally {
-  //       // Nothing to do, I guess;
-  //     }
-  //   });
-  // }
 }
-
-// Listeners
-
-// document.getElementById("table").addEventListener("click", function() {
-//   testforSend();
-// });
 
 function testforSend() {
   // const sendButton = document.getElementById('sendButton');
@@ -240,6 +205,26 @@ function testforSend() {
   // }
 
   return true;
+}
+
+// Add description to tasks
+readTextFile('send/descriptions.txt');
+
+function readTextFile(file) {
+  var rawFile = new XMLHttpRequest();
+   rawFile.open("GET", file, false);
+   rawFile.onreadystatechange = function ()
+   {
+       if(rawFile.readyState === 4)
+       {
+           if(rawFile.status === 200 || rawFile.status == 0)
+           {
+               var allText = rawFile.responseText;
+               alert(allText);
+           }
+       }
+   }
+   rawFile.send(null);
 }
 
 
