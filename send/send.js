@@ -209,28 +209,6 @@ function testforSend() {
   return true;
 }
 
-// Add description to tasks
-readTextFile('send/descriptions.txt');
-var descriptions = [];
-
-function readTextFile(file) {
-  var rawFile = new XMLHttpRequest();
-   rawFile.open("GET", file, false);
-   rawFile.onreadystatechange = function ()
-   {
-       if(rawFile.readyState === 4)
-       {
-           if(rawFile.status === 200 || rawFile.status == 0)
-           {
-               var allText = rawFile.responseText;
-               descriptions = allText.split('\n');
-           }
-       }
-   }
-   rawFile.send(null);
-}
-
-
 // Send to cloud
 
 var imageToUpload;
