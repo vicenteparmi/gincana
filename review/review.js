@@ -262,6 +262,17 @@ function accept(id) {
       }
       return tra;
     })
+
+    // Move database records
+    for (var i = 0; i < 28; i++) {
+      debugger;
+      if (teamActivity[1] == needsInput[i]) {
+        var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[0]);
+        var newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[0]);
+        moveFbRecord(oldRef000, newRef000);
+      }
+    }
+
   }).catch(function(error) {
     console.log(error);
   });
