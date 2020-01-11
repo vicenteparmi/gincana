@@ -18,12 +18,13 @@ var firebaseConfig = {
 var currentMode = null;
 var itemSelected = -1;
 
-function sti(id) {
+const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
+const somePicsMode = [2,14,26,27];
+const videoMode = [6,18];
+const urlMode = [1];
+const needsInput = [5,17,22,25];
 
-  const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
-  const somePicsMode = [2,14,26,27];
-  const videoMode = [6,18];
-  const urlMode = [1];
+function sti(id) {
 
   const mode0Holder = document.getElementById('sendOnePhoto');
   const mode1Holder = document.getElementById('sendMorePhotos');
@@ -71,6 +72,15 @@ function sti(id) {
       currentMode = 3;
       mode3Holder.className = "";
       break;
+    }
+  }
+
+  const taskAnswer = document.getElementById('taskAnswer');
+  taskAnswer.className = 'hidden';
+
+  for (var i = 0; i < 28; i++) {
+    if (itemSelected == needsInput[i]) {
+      taskAnswer.className = "";
     }
   }
 
@@ -180,7 +190,18 @@ function send() {
           dbutton.onclick = function() {location.reload();}
           break;
         default:
+      }
 
+      const taskAnswer = document.getElementById('taskAnswerValue').value;
+
+      for (var i = 0; i < 28; i++) {
+        if (itemSelected == needsInput[i]) {
+          firebase.database().ref('review/Activity '+itemSelected+'/'+team).set({
+              number: taskAnswer,
+              sentBy: currentUser.displayName,
+              sentOn: Date.now(),
+          })
+        }
       }
   }
 }

@@ -21,6 +21,7 @@ var storageRef = firebase.storage().ref().child('review');
 const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
 const points = [20,700,700,0,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,0,400,30,200];
+const needsInput = [5,17,22,25];
 
 // Getting posts from activity 1 and videos
 
@@ -157,6 +158,18 @@ for (var i = 0; i < 10; i++) { // To select the team folder
             activity = getActivity(url);
             imageName = getImageName(itemRef);
 
+            var inputValue = "Não é necessária" // For activities that need input;
+
+            for (var i = 0; i < 28; i++) {
+              if (activity == needsInput[i]) {
+                firebase.database().ref('review/Activity '+activity+'/'+(teamName+1)).once('value').then(function(snapshot) {
+                  var inputValue = snapshot.val().number;
+                  const p = document.getElementById("p/"+teamName+"/"+activity+"/"+imageName);
+                  p.innerHTML += "<br/>Resposta: " + inputValue;
+                });
+              }
+            }
+
             const activityHolder = document.getElementById('review'+activity);
 
             const listItem = document.createElement('div');
@@ -172,6 +185,7 @@ for (var i = 0; i < 10; i++) { // To select the team folder
 
             listItemDescription.innerHTML = "Equipe: " + teamNames[teamName];
             listItemDescription.className = "listItemDescription"
+            listItemDescription.id = "p/"+teamName+"/"+activity+"/"+imageName;
 
             validate.className = "validate";
 
@@ -211,7 +225,6 @@ function getActivity(url) {
 }
 
 function getImageName(itemRef) {
-  debugger;
   var imageName = itemRef.toString().slice(-23);
   var split = imageName.split('/');
   if (split.length > 1) {
