@@ -20,7 +20,7 @@ var firebaseConfig = {
 var storageRef = firebase.storage().ref().child('review');
 const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
-const points = [20,700,700,0,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,0,400,300,200];
+const points = [20,700,700,0,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,0,400,30,200];
 
 // Getting posts from activity 1 and videos
 
@@ -211,7 +211,8 @@ function getActivity(url) {
 }
 
 function getImageName(itemRef) {
-  var imageName = itemRef.toString().slice(-22);
+  debugger;
+  var imageName = itemRef.toString().slice(-23);
   var split = imageName.split('/');
   if (split.length > 1) {
     imageName = split[split.length - 1];
