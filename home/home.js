@@ -13,7 +13,46 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
-// Now my code ;D
+// Constants
+
+const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
+const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
+
+// Load Pictures
+
+loadPic();
+
+function loadPic() {
+  for (var i = 1; i <= 6; i++) {
+    try {
+      document.getElementById('p'+i).className = 'podium loaded p'+i;
+    } catch (e) {
+      console.log(e);
+    } finally {
+      continue;
+    }
+  }
+}
+
+// Background color according to teams
+
+function defineBgColor(team) {
+  document.getElementById('bluebody').style.backgroundColor = teamColors[team-1];
+}
+
+// Header shadow
+
+headerShadow();
+function headerShadow() {
+	if (document.body.scrollTop == 0 || document.documentElement.scrollTop == 0){
+		document.getElementById("header").className = "headerNoShadow";
+	}
+  if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
+		document.getElementById("header").className = "";
+	}
+}
+
+// Default code
 
 var popupShow = false;
 var signedIn = false;
@@ -49,6 +88,8 @@ function popup() {
   loadPage();
 }
 
+var team;
+
 function loadPage() {
   var user = firebase.auth().currentUser;
   var name, email, photoUrl, uid, emailVerified;
@@ -64,6 +105,14 @@ function loadPage() {
       document.getElementById('userName').innerHTML = name;
       document.getElementById('userEmail').innerHTML = email;
       document.getElementById("userPhoto").style.backgroundImage = "url('"+photoUrl+"')";
+
+      // Define team
+      const currentUser = firebase.auth().currentUser;
+      var dbRef = firebase.database().ref('users/' + currentUser.uid + "/team");
+      dbRef.on('value', function(snapshot) {
+        team = snapshot.val();
+        // defineBgColor(team); Still haven't decided if this will be kept
+      });
     }
   });
 }

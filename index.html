@@ -8,8 +8,66 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
-	<body>
-		<div id="header">
+	<body onscroll="headerShadow()">
+		<div id="body">
+			<div class="prebody">
+				<div class="podium p1" id='p1'>
+					<div class="p1stNumber podiumMainNumber">1º</div>
+					<div class="podiumImage" id="podium1stImage"></div>
+					<span class="teamName">Hidrogênio</span>
+					<span class="teamPoints">1820 pontos</span>
+				</div>
+				<div class="podium p2" id='p2'>
+					<div class="p2ndNumber podiumMainNumber">2º</div>
+					<div class="podiumImage"></div>
+					<span class="teamName">Hélio</span>
+					<span class="teamPoints">1200 pontos</span>
+				</div>
+				<div class="podium p3" id='p3'>
+					<div class="p3rdNumber podiumMainNumber">3º</div>
+					<div class="podiumImage"></div>
+					<span class="teamName">Lítio</span>
+					<span class="teamPoints">300 pontos</span>
+				</div>
+			</div>
+			<div id="bluebody">
+				<div class="roundTop"></div>
+				<div class="podiumHolder">
+					<div class="leaderBoard center pos4">
+						<span class="position">4º</span>
+						<span	class="teamNameList">Berílio</span>
+						<span class="teamPointsList">230 pontos</span>
+					</div>
+					<div class="leaderBoard center pos5">
+						<span class="position">5º</span>
+						<span	class="teamNameList">Boro</span>
+						<span class="teamPointsList">222 pontos</span>
+					</div>
+					<div class="leaderBoard center pos6">
+						<span class="position">6º</span>
+						<span	class="teamNameList">Carbono</span>
+						<span class="teamPointsList">190 pontos</span>
+					</div>
+					<div class="leaderBoard center pos7">
+						<span class="position">7º</span>
+						<span	class="teamNameList">Nitrogênio</span>
+						<span class="teamPointsList">160 pontos</span>
+					</div>
+					<div class="leaderBoard center pos8">
+						<span class="position">8º</span>
+						<span	class="teamNameList">Oxigênio</span>
+						<span class="teamPointsList">120 pontos</span>
+					</div>
+					<div class="leaderBoard center pos9">
+						<span class="position">9º</span>
+						<span	class="teamNameList">Flúor</span>
+						<span class="teamPointsList">20 pontos</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="header" class="headerNoShadow">
 			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>
 			<img src="files/image/CAQUI.png"/ class="headerImage">
 			<text id="logo">Gincana CAQuí 2020</text>

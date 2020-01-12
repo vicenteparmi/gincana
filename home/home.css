@@ -1,6 +1,194 @@
+.prebody {
+  height: 66vh;
+  width: 100%;
+}
+
+.podium {
+  position: absolute;
+  z-index: 3;
+  transition-duration: 0.5s;
+  filter: opacity(0);
+  padding-top: 50px;
+}
+
+.podiumImage {
+  width: 35vh;
+  height: 35vh;
+  background-image: url('../files/teams/1.png');
+  background-size: contain;
+  transition-duration: 0.3s;
+}
+
+.teamName {
+  color: white;
+  font-size: 20pt;
+  text-align: center;
+  display: block;
+  text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.3s;
+}
+
+.teamPoints {
+  text-align: center;
+  display: block;
+  color: #00ff00;
+  transition-duration: 0.3s;
+}
+
+.p1 {
+  left: 50%;
+  top: 18vh;
+  transform: translate(-50%, 0%);
+}
+
+.p2 {
+  left: 25%;
+  top: 23vh;
+  transform: translate(-50%, 0%);
+}
+
+.p3 {
+  right: 25%;
+  top: 23vh;
+  transform: translate(50%, 0%);
+}
+
+.podiumMainNumber {
+  border-radius: 100%;
+  width: 8vh;
+  height: 8vh;
+  position: absolute;
+  right: 0%;
+  top: 7%;
+  font-size: 4vh;
+  text-align: center;
+  line-height: 2;
+  font-weight: bold;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3)
+}
+
+.p1stNumber {
+  background: linear-gradient(to bottom right, #FFEB3B, #FF9800);
+}
+
+.p2ndNumber {
+  background: linear-gradient(to bottom right, #FAFAFA, #BDBDBD);
+}
+
+.p3rdNumber {
+  background: linear-gradient(to bottom, #BF360C, hsl(14, 87%, 26%));
+  color: white;
+}
+
+#bluebody {
+  background-color: #1c3295;
+  padding: 0px 5vw 40px 5vw;
+  min-height: 80vh;
+  width: 100%;
+}
+
+.roundTop {
+  width: 120%;
+  height: 40vw;
+  max-height: 280px;
+  border-radius: 100%;
+  background-color: inherit;
+  transform: translate(-13%, -50%);
+  z-index: -1;
+  position: absolute;
+}
+
+.podiumHolder {
+  padding-top: 50px;
+}
+
+.leaderBoard {
+  width: 50vw;
+  min-height: 50px;
+  background-color: white;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.38);
+  border-radius: 4px;
+  margin-bottom: 5px;
+  line-height: 3;
+  font-size: 14pt;
+  font-weight: bold;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-name: listLoadAnimation;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  overflow: hidden;
+}
+
+.position {
+  margin-left: 3vw;
+  margin-right: 3vw;
+  color: #3f51b5;
+}
+
+.teamPointsList {
+  float: right;
+  margin-right: 3vw;
+  color: #026602;
+  font-weight: normal;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+/* Positions for the list */
+
+.pos4 {
+  margin-top: 0px;
+  animation-delay: 0.0s;
+}
+
+.pos5 {
+  margin-top: 60px;
+  animation-delay: 0.1s;
+}
+
+.pos6 {
+  margin-top: 120px;
+  animation-delay: 0.2s;
+}
+
+.pos7 {
+  margin-top: 180px;
+  animation-delay: 0.3s;
+}
+
+.pos8 {
+  margin-top: 240px;
+  animation-delay: 0.4s;
+}
+
+.pos9 {
+  margin-top: 300px;
+  animation-delay: 0.5s;
+}
+
+/* Opening Animation */
+
+.podium.loaded {
+  filter: opacity(1);
+  padding-top: 0px;
+}
+
+@keyframes listLoadAnimation {
+  from {width: 0px; max-height: 50px}
+  to {width: 50vw; max-height:50px};
+}
+
+/* Default Style */
+
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
 }
 
 #header {
@@ -10,6 +198,16 @@ body {
   padding-left: 3%;
   line-height: 60px;
   position: fixed;
+  transition-duration: 0.3s;
+  top: 0%;
+  left: 0%;
+  z-index: 99;
+  background-color: white;
+}
+
+#header.headerNoShadow {
+  box-shadow: 0px 0px 0px rgba(0,0,0,0.0);
+  background-color: inherit;
 }
 
 .headerImage {
@@ -143,6 +341,16 @@ i.menuIcons {
   display: unset;
 }
 
+@media all and (max-width: 70em) {
+  .podiumImage {
+    width: 30vh;
+    height: 30vh;
+  }
+  .podium {
+    margin-top: 5vh;
+  }
+}
+
 /* Mobile adjustments */
 
 @media all and (max-width: 43em) {
@@ -184,5 +392,62 @@ i.menuIcons {
   }
   i.menuIcons {
     display: inline-block;
+  }
+  .podiumImage {
+    width: 20vh;
+    height: 20vh;
+  }
+  .podium {
+    margin-top: 17vh;
+  }
+}
+
+@media all and (max-width: 30em) {
+  #userPhoto {
+    right: 11.5%;
+  }
+  .prebody {
+    height: 40vh;
+  }
+  .bluebody {
+    min-height: 60vh;
+  }
+  .leaderBoard {
+    width: 90vw;
+  }
+  .podiumImage {
+    width: 18vh;
+    height: 18vh;
+  }
+  .roundTop {
+    max-height: 30vw;
+  }
+  .podiumMainNumber {
+    width: 5.5vh;
+    height: 5.5vh;
+    font-size: 2.75vh;
+  }
+  .podiumHolder {
+    padding-top: 34vh;
+  }
+  .teamName {
+    font-size: 14pt;
+  }
+  .p2, .p3 {
+    top: 45vh;
+  }
+  .p1 {
+    top: 12vh;
+  }
+  #podium1stImage {
+    width: 25vh;
+    height: 25vh;
+  }
+  .podium {
+    margin-top: 0vh;
+  }
+  @keyframes listLoadAnimation {
+    from {width: 0px; max-height: 50px}
+    to {width: 90vw; max-height:50px};
   }
 }
