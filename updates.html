@@ -8,22 +8,119 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
-	<body>
+	<body onscroll="headerShadow()">
 		<div id="body">
-			<h1>Equipes</h1>
-			<p>A lista abaixo mostra as atualizações mais recentes na pontuação de cada equipe.</p><br/>
-			<table width=90% id="table" onload="loadList()">
-				<tr>
-					<th>Pontos</th>
-					<th>Equipe</th>
-					<th>Descrição</th>
-					<th>Data de Aprovação</th>
-				</tr>
-			</table>
-			<a id="buttonExpand" class="button3 hide" onclick="expandData()">Mostrar tudo</a>
+			<div class="card team1">
+				<img class="teamImage" src="./files/teams/1.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Hidrogênio</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points1">5670</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList1"></div>
+			</div>
+			<div class="card team2">
+				<img class="teamImage" src="./files/teams/2.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Hélio</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points2">5700</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList2"></div>
+			</div>
+			<div class="card team3">
+				<img class="teamImage" src="./files/teams/3.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Lítio</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points3">2400</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList3"></div>
+			</div>
+			<div class="card team4">
+				<img class="teamImage" src="./files/teams/4.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Berílio</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points4">2850</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList4"></div>
+			</div>
+			<div class="card team5">
+				<img class="teamImage" src="./files/teams/5.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Boro</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points5">2640</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList5"></div>
+			</div>
+			<div class="card team6">
+				<img class="teamImage" src="./files/teams/6.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Carbono</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points6">5890</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList6"></div>
+			</div>
+			<div class="card team7">
+				<img class="teamImage" src="./files/teams/7.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Nitrogênio</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points7">5230</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList7"></div>
+			</div>
+			<div class="card team8">
+				<img class="teamImage" src="./files/teams/8.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Oxigênio</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points8">2380</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList8"></div>
+			</div>
+			<div class="card team9">
+				<img class="teamImage" src="./files/teams/9.png"></img>
+				<table>
+					<tr>
+						<td class="teamName">Flúor</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points9">6390</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList9"></div>
+			</div>
 		</div>
 
-		<div id="header">
+		<div id="header" class="headerNoShadow">
 			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>
 			<img src="files/image/CAQUI.png"/ class="headerImage">
 			<text id="logo">Gincana CAQuí 2020</text>
@@ -59,5 +156,6 @@
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 
 		<script type="text/javascript" src="updates/updates.js" onload="loadPage()"></script>
+		<script type="text/javascript" src="updates/activity_list.js"></script>
 	</body>
 </html>

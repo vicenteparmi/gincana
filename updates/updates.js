@@ -13,51 +13,18 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
-// List update listener
+// Header shadow
 
-const table = document.getElementById("table");
-var dbRefList = firebase.database().ref("latest_changes").orderByChild("latest_changes").limitToLast(50);
-loadData();
-
-var databaseSize = 0;
-
-function loadData() {
-  dbRefList.on('child_added', function(info){
-    const tr = document.createElement("tr");
-
-    const points = document.createElement("td");
-    const date = document.createElement("td");
-    const desc = document.createElement("td");
-    const team = document.createElement("td");
-
-    points.innerText = info.child("points").val();
-    date.innerText = info.child("date").val();
-    desc.innerText = info.child("description").val();
-    team.innerText = info.child("team").val();
-
-    tr.appendChild(points);
-    tr.appendChild(team);
-    tr.appendChild(desc);
-    tr.appendChild(date);
-
-    table.appendChild(tr);
-
-    databaseSize++;
-    needButton();
-  });
+headerShadow();
+function headerShadow() {
+	if (document.body.scrollTop == 0 || document.documentElement.scrollTop == 0){
+		document.getElementById("header").className = "headerNoShadow";
+	}
+  if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
+		document.getElementById("header").className = "";
+	}
 }
 
-function needButton() {
-  if (databaseSize >= 50) {
-    document.getElementById('buttonExpand').className = "button3";
-  }
-}
-
-function expandData() {
-  table.innerHTML = "";
-  dbRefList = firebase.database().ref("latest_changes").orderByChild("latest_changes");
-  loadData();
-}
 // Default code below
 
 var popupShow = false;
