@@ -316,6 +316,20 @@ function openModal() {
   }
 }
 
+// Header shadow
+
+headerShadow();
+function headerShadow() {
+	if (document.body.scrollTop == 0 || document.documentElement.scrollTop == 0){
+		document.getElementById("header").className = "headerNoShadow";
+	}
+  if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
+		document.getElementById("header").className = "";
+	}
+}
+
+// Modal
+
 var menuOpen = false;
 function openMenu() {
   const menu = document.getElementById("menu");

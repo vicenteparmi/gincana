@@ -8,14 +8,22 @@
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
-	<body id="body">
-		<div class="card" id="teamCard">
-			<div id="loadingTeam" class="center">
+	<body id="body" onscroll="headerShadow()">
+		<div class="card team1" id="teamCard">
+			<div id="loadingTeam" class="center hide">
 				<h1 style="margin: 20px;">Carregando informações...</h1>
 			</div>
-			<div id="hasTeam" class="hide center">
-				<div id="teamImage" class="center"></div>
-				<h1 class="center" id="teamName"></h1>
+			<div id="hasTeam" class="center">
+				<div id="teamImage"></div>
+				<table class="teamTable">
+					<tr>
+						<td class="teamName">Hidrogênio</td>
+					</tr>
+					<tr>
+						<td class="points"><span id="points">5670</span> pontos</td>
+					</tr>
+				</table>
+				<div id="activityList"></div>
 			</div>
 			<div id="unknownTeam" class="hide center">
 				<img src="files/teams/unknown.png" class="unkTeamImg center" alt="Time desconhecido">
@@ -28,7 +36,7 @@
 			</div>
 			<table>
 				<tr>
-					<td id='userName'>
+					<td id='userName'></td>
 				</tr>
 				<tr>
 					<td id="userEmail"></td>
@@ -46,7 +54,7 @@
 						</div>
 					</td>
 				</tr>
-			</table><br/>
+			</table>
 			<div>
 				<h3 style="margin-bottom:10px; margin-top: 10px;">Configurações de usuário</h3>
 				<a class="button3" onclick="updateUserName()">Alterar Nome</a>
@@ -130,7 +138,7 @@
 			</div>
 		</div>
 
-		<div id="header">
+		<div id="header" class="headerNoShadow">
 			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>
 			<img src="files/image/CAQUI.png"/ class="headerImage">
 			<text id="logo">Gincana CAQuí 2020</text>
@@ -154,5 +162,6 @@
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
 
 		<script type="text/javascript" src="profile/profile.js"></script>
+		<script type="text/javascript" src="profile/activity_list.js"></script>
 	</body>
 </html>
