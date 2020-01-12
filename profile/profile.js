@@ -168,8 +168,10 @@ function updateUserName() {
     } else {
       console.log("Nenhum usuário conectado.");
     }
-  } else {
+  } else if (name.length > 25) {
     alert("O nome que você escolheu é muito grande, tente usar até 25 caracteres.")
+  } else {
+    alert("Ocorreu um erro, tente novamente em alguns instantes.")
   }
 }
 

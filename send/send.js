@@ -207,27 +207,52 @@ function send() {
 }
 
 function testforSend() {
-  // const sendButton = document.getElementById('sendButton');
-  // var radioValue = null;
-  //
-  // var isRadioChecked = false;
-  // for (var i = 0, length = radioElement.length; i < length; i++) {
-  //   if (radioElement[i].checked) {
-  //     isRadioChecked = true;
-  //     radioValue = radioElement[i].value;
-  //     break;
-  //   }
-  // }
-  //
-  // if (imageToUpload != null && isRadioChecked == true) {
-  //     sendButton.className = "button3";
-  //     return [true, radioValue];
-  // } else {
-  //     console.log("Missing something");
-  //     return false;
-  // }
+  var inputAnswer = document.getElementById('taskAnswerValue').value;
+  for (var i = 0; i < needsInput.length; i++) {
+    if (itemSelected == needsInput[i]) {
+      if (inputAnswer == "") {
+        inputAnswer = "34863484647867412972416";
+      }
+    }
+  }
 
-  return true;
+  switch (currentMode) {
+    case 0: // One pic mode
+      const image = document.getElementById('insertPicture');
+      var style = image.currentStyle || window.getComputedStyle(image, false);
+      var bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+      if (bi != "" && inputAnswer != '34863484647867412972416') {
+        return true;
+      } else {
+        return false;
+      }
+      break;
+    case 1: // Some pics mode
+      if (imagesUploaded > 0 && inputAnswer != '34863484647867412972416') {
+        return true;
+      } else {
+        return false;
+      }
+      break;
+    case 2: // Video
+      const videoInput = document.getElementById('mode2input').value;
+      if (videoInput != '') {
+        return true;
+      } else {
+        return false;
+      }
+      break;
+    case 3: // URL
+      const urlInput = document.getElementById('mode1input').value;
+      if (urlInput != '') {
+        return true;
+      } else {
+        return false;
+      }
+      break;
+    default:
+      return false;
+  }
 }
 
 // Send to cloud
@@ -364,6 +389,18 @@ function dataURLtoFile(dataurl, filename) {
     return [new File([u8arr], filename, {type:mime}), extension];
 }
 
+// Verify account
+
+function verifyAccount() {
+  var user = firebase.auth().currentUser;
+  firebase.auth().languageCode = 'pt';
+  user.sendEmailVerification().then(function() {
+    alert('Email enviado, abra sua caixa de entrada para continuar.');
+  }).catch(function(error) {
+    alert('Não foi possível enviar um email para a verificação. Código de erro: '+error);
+  });
+}
+
 // Default code below
 
 var popupShow = false;
@@ -431,6 +468,14 @@ function loadPage() {
           errorNone.className = "hidden";
         }
       });
+
+      // Test for verification (I think it's working)
+
+      if (emailVerified != true) {
+        document.getElementById('noVer').className = '';
+        errorNone.className = "hidden";
+      }
+
     } else {
       errorUser.className = "";
     }

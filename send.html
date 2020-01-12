@@ -15,13 +15,19 @@
 		</div>
 		<div id="noUser" class="hidden">
 			<h1>Nenhum usuário conectado</h1>
-			<p>Para fazer o envio de atividades é necessário entrar com uma conta e selecionar um time.
-			Clique <a href="./login.html">aqui</a> para entrar ou se inscrever.</p>
+			<p>Para fazer o envio de atividades é necessário entrar com uma conta,
+				verificá-la e selecionar um time. Clique <a href="./login.html">aqui</a>
+				 para entrar ou se inscrever.</p>
 		</div>
 		<div id="noTeam" class="hidden">
 			<h1>Você ainda não possui um time</h1>
 			<p>Para fazer o envio de atividades é necessário selecionar uma equipe em
 				seu perfil. Clique <a href="./profile.html">aqui</a> para ser redirecionado.</p>
+		</div>
+		<div id="noVer" class="hidden">
+			<h1>Verifique sua conta</h1>
+			<p>Para evitar span, apenas contas verificadas podem realizar p envio de atividades.
+				Clique <a href="#" onclick="verifyAccount()">aqui</a> para receber um email de verificação.</p>
 		</div>
 		<div id="body" class="hidden">
 			<div class="bodyItem">
@@ -142,11 +148,7 @@
 					</div>
 				</div>
 				<div id="sendMorePhotos" class="hidden">
-					<span id="toUpload">
-						<!-- <div class="smallPicture">
-							<span class="closeSmallPic">&times </span>
-						</div> -->
-					</span>
+					<span id="toUpload"></span>
 					<div id="insertSmallPicture" onclick="uploadOneMoreImage()">
 						<div id="cameraDiv2" class="">
 							<i id="camera2" class="material-icons" md-48 md-light>photo_camera</i><br/>
@@ -167,7 +169,7 @@
 				</div>
 				<p id="taskAnswer">Resposta da atividade: <input type="number" id='taskAnswerValue' min='1'/></p>
 				<br/>
-				<a id="sendButton" class="button3 buttonDisabled" onclick="send()">Enviar</a>
+				<a id="sendButton" class="button3" onclick="send()">Enviar</a>
 				<span id="errorMessage" class="hide"></span>
 			</div>
 			<div class="bodyItem" id="nothingSelected">
