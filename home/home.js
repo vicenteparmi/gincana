@@ -18,23 +18,70 @@ var firebaseConfig = {
 const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
 
-// Load Pictures
+// Load Teams
+var fbTeamData = [[],[],[],[],[],[],[],[],[]];
 
-loadPic();
+function loadLeaderborad() {
 
-function loadPic() {
-  for (var i = 1; i <= 6; i++) {
-    try {
-      document.getElementById('p'+i).className = 'podium loaded p'+i;
-    } catch (e) {
-      console.log(e);
-    } finally {
-      continue;
+  var fbRef = firebase.database().ref('teams');
+  fbRef.on('child_added', function(snapshot) {
+    var tn = snapshot.key;
+    fbTeamData[tn][1] = snapshot.val().name;
+    fbTeamData[tn][0] = snapshot.val().points;
+    fbTeamData[tn][0] = fbTeamData[tn][0].toString().padStart(6, "0");
+  });
+  fbRef.on('child_changed', function(snapshot) {
+    var tn = snapshot.key;
+    fbTeamData[tn][1] = snapshot.val().name;
+    fbTeamData[tn][0] = snapshot.val().points;
+    fbTeamData[tn][0] = fbTeamData[tn][0].toString().padStart(6, "0");
+    updateLB();
+  });
+
+  firebase.database().ref('/teams/8').once('value').then(function(snapshot) {
+    inflateLB();
+  });
+
+}
+
+function inflateLB() {
+  var lbOrder = fbTeamData.sort().reverse();
+  const lbHolder = document.getElementById('podiumHolder');
+
+  for (var i = 3; i < lbOrder.length; i++) {
+    const lbDiv = document.createElement('div');
+    const spanName = document.createElement('span');
+    const spanPoints = document.createElement('span');
+    const spanPosition = document.createElement('span');
+
+    lbDiv.className = 'leaderBoard center pos'+i;
+    spanName.innerHTML = lbOrder[i][1];
+    spanPoints.innerHTML = lbOrder[i][0].replace(/^0+/, '')+" pontos";
+    spanPosition.innerHTML = (i+1)+'º';
+
+    if (lbOrder[i][0] == '000000') {
+      spanPoints.innerHTML = "Sem pontos";
     }
+
+    lbDiv.id = 'lbd'+i;
+
+    spanName.className = 'teamNameList';
+    spanPoints.className = 'teamPointsList';
+    spanPosition.className = 'position';
+
+    lbDiv.appendChild(spanPosition);
+    lbDiv.appendChild(spanName);
+    lbDiv.appendChild(spanPoints);
+
+    lbHolder.appendChild(lbDiv);
   }
 }
 
-// Background color according to teams
+function updateLB() {
+
+}
+
+// Background color according to teams (maybe that will go away)
 
 function defineBgColor(team) {
   document.getElementById('bluebody').style.backgroundColor = teamColors[team-1];
@@ -115,6 +162,8 @@ function loadPage() {
       });
     }
   });
+
+  loadLeaderborad();
 }
 
 function signOut() {
