@@ -225,7 +225,7 @@ h2 {
   background: linear-gradient(to bottom right, #FFC107, #FFB300);
 }
 .team5 {
-  background: linear-gradient(to bottom right, #94007e, #610052);
+  background: linear-gradient(to bottom right, #8b14b3, #610d7b);
 }
 .team6 {
   background: linear-gradient(to bottom right, #666666, #4d4d4d);
@@ -391,6 +391,7 @@ a.button3:active{
     display: block;
     margin-bottom: 5vw;
     margin-right: 0px;
+    position: absolute;
   }
   #teamImage {
     width: 30vw;
@@ -402,11 +403,11 @@ a.button3:active{
   .points {
     font-size: 5.5vw;
   }
-  table {
+  #teamTable {
     margin-top: 4vw;
   }
-  .card:hover {
-    transform: scale(1.0);
+  #teamCard {
+    margin-top: 21em;
   }
 }
 

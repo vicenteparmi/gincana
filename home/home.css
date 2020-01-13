@@ -186,8 +186,8 @@
 }
 
 @keyframes listLoadAnimation {
-  from {width: 0px; max-height: 50px}
-  to {width: 50vw; max-height:50px};
+  from {width: 0px; max-height: 56px}
+  to {width: 50vw; max-height:56px};
 }
 
 /* Default Style */
@@ -454,7 +454,7 @@ i.menuIcons {
     margin-top: 0vh;
   }
   @keyframes listLoadAnimation {
-    from {width: 0px; max-height: 50px}
-    to {width: 90vw; max-height:50px};
+    from {width: 0px; max-height: 56px}
+    to {width: 90vw; max-height:56px};
   }
 }
