@@ -12,26 +12,7 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-
-// Logo Animation
-
-var state = 1;
-setInterval('changeLogo()', 3000);
-
-function changeLogo() {
-  const logo = document.getElementById('teamsAnimation');
-  logo.style.backgroundImage = "url('./files/teams/"+state+".png')";
-  state++;
-  if (state >= 10) {
-    state = 1;
-  }
-}
-
-// Version control
-
-document.getElementById('version').innerHTML = version;
-document.getElementById('lastUpdated').innerHTML = lastUpdated;
-
+  
 // Default code
 
 headerShadow();
