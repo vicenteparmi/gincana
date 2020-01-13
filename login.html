@@ -15,6 +15,7 @@
 		<p width="33%">Faça login para poder fazer upload de tarefas para a sua equipe</p>
 		<div id="firebaseui-auth-container"></div>
 		<div id="loader">Carregando...</div>
+		<p style="font-size: small; color: gray;">Ao continuar você indica que aceita<br/>nossa <a href='privacy_police.html'>política de privacidade.</a></p>
 
 		<div id="header">
 			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>
@@ -63,10 +64,8 @@
 					firebase.auth.GoogleAuthProvider.PROVIDER_ID,
 					firebase.auth.EmailAuthProvider.PROVIDER_ID
 				],
-				// Terms of service url.
-				tosUrl: 'google.com',
 				// Privacy policy url.
-				privacyPolicyUrl: 'google.com'
+				privacyPolicyUrl: 'privacy_police.html'
 			};
 			// The start method will wait until the DOM is loaded.
 			ui.start('#firebaseui-auth-container', uiConfig);
