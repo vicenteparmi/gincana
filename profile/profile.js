@@ -71,6 +71,19 @@ firebase.auth().onAuthStateChanged(function(user) {
       dbRef.on('value', function(snapshot) {
         team = snapshot.val();
         setTeam(team);
+
+        // Update activity list
+
+        const fbRef = firebase.database().ref('teams/'+(team-1)+'/tasks');
+        fbRef.on('child_added', function(snap) {
+          var taskNumber = snap.key;
+          var done = snap.val().done;
+
+          if (done == 'Ok') {
+            document.getElementById('li/'+taskNumber).className = 'done';
+          }
+        });
+
       });
 
       // Get verified
@@ -105,7 +118,11 @@ function setTeam(teamNumber) {
     document.getElementById('teamName').innerHTML = teamName;
 
     document.getElementById("teamImage").style.backgroundImage = "url('./files/teams/"+teamNumber+".png')"
-    document.getElementById("body").style.backgroundColor = teamColors[teamNumber-1];
+    document.getElementById("teamCard").className = "card team"+teamNumber;
+
+    firebase.database().ref('teams/'+(teamNumber-1)).once('value').then(function(snap) {
+      document.getElementById('points').innerHTML = snap.val().points;
+    })
   } else {
     document.getElementById("unknownTeam").className = "center";
     document.getElementById("loadingTeam").className = "hide";

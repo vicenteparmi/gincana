@@ -212,6 +212,11 @@ h2 {
 
 /* team gradients */
 
+.team0 {
+  background: linear-gradient(to bottom right, #616161, #424242);
+  color: white;
+}
+
 .team1 {
   background: linear-gradient(to bottom right, #007ec2, #005c8d);
 }
