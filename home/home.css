@@ -1,3 +1,32 @@
+#splash {
+  color: white;
+  font-size: 2vw;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transition-duration: 0.2s;
+  text-shadow: 0px 2px 7px black;
+  animation-name: fade-in;
+  animation-duration: 0.4s;
+}
+
+@keyframes fade-in {
+  from {opacity: 0%}
+  to {opacity: 100%}
+}
+
+.splashImage {
+  width: 40vh;
+  height: 40vh;
+}
+
+.hideSplash {
+  opacity: 0%;
+  display: hidden;
+}
+
 .prebody {
   height: 66vh;
   width: 100%;
@@ -421,6 +450,10 @@ i.menuIcons {
 @media all and (max-width: 30em) {
   #userPhoto {
     right: 11.5%;
+  }
+  .splashImage {
+    width: 20vh;
+    height: 20vh;
   }
   .prebody {
     height: 40vh;
