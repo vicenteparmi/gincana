@@ -1,0 +1,14 @@
+{
+  "short_name": "Gincana",
+  "name": "Gincana CAQuí",
+  "theme_color": "#4A90E2",
+  "background_color": "#F7F8F9",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "files/image/CAQUI.png",
+      "type": "image/png",
+    }
+  ],
+  "start_url": "/?utm_source=launcher"
+}
