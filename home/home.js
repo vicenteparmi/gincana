@@ -48,6 +48,13 @@ function inflateLB() {
   var lbOrder = fbTeamData.sort().reverse();
   const lbHolder = document.getElementById('podiumHolder');
 
+  // Leaderboard podium
+
+  // for (var i = 0; i < 3; i++) {
+  //   document.getElementById()
+  // }
+
+  // Leaderboard list
   for (var i = 3; i < lbOrder.length; i++) {
     const lbDiv = document.createElement('div');
     const spanName = document.createElement('span');

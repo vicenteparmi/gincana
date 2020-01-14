@@ -3,6 +3,15 @@
   width: 100%;
 }
 
+canvas {
+	display: block;
+	width: 100%;
+	height: inherit;
+	margin: auto;
+  z-index: -2;
+  position: relative;
+}
+
 .podium {
   position: absolute;
   z-index: 3;
