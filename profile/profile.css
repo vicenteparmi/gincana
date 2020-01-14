@@ -94,6 +94,8 @@ tr {
 #toVerify {
   font-size: 1.2vw;
   color: #d81313;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 #teamCard {
