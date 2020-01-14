@@ -120,9 +120,17 @@ canvas {
 
 #bluebody {
   background-color: #1c3295;
-  padding: 0px 5vw 40px 5vw;
   min-height: 100vh;
   width: 100%;
+}
+
+.outter {
+  overflow-x: hidden;
+  position: relative;
+  transform: translate(0, -50%);
+  height: 50vh;
+  width: 100%;
+  z-index: -1;
 }
 
 .roundTop {
@@ -130,14 +138,15 @@ canvas {
   height: 40vw;
   max-height: 280px;
   border-radius: 100%;
-  background-color: inherit;
-  transform: translate(-13%, -50%);
-  z-index: -1;
+  background-color: #1c3295;
+  transform: translate(-50%, -50%);
   position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 #podiumHolder {
-  padding-top: 50px;
+  margin-top: -40vh;
 }
 
 .leaderBoard {
@@ -449,7 +458,7 @@ i.menuIcons {
 
 @media all and (max-width: 30em) {
   #userPhoto {
-    right: 11.5%;
+    right: 5.5%;
   }
   .splashImage {
     width: 20vh;
@@ -458,8 +467,9 @@ i.menuIcons {
   .prebody {
     height: 40vh;
   }
-  .bluebody {
-    min-height: 60vh;
+  #bluebody {
+    width: 100vw;
+    min-height: 100vh;
   }
   .leaderBoard {
     width: 90vw;
@@ -477,7 +487,7 @@ i.menuIcons {
     font-size: 2.75vh;
   }
   #podiumHolder {
-    padding-top: 34vh;
+    padding-top: 25vh;
   }
   .teamName {
     font-size: 14pt;
