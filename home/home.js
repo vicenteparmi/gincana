@@ -217,8 +217,6 @@ function loadPage() {
       });
     }
   });
-
-  loadLeaderborad();
 }
 
 function signOut() {
