@@ -23,7 +23,7 @@
 }
 
 .hideSplash {
-  opacity: 0%;
+  filter: opacity(0%);
   visibility: hidden;
 }
 
