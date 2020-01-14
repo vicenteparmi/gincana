@@ -6,7 +6,7 @@ body {
 
 #body {
   margin-top: 80px;
-  margin-left: 4vw;
+  margin-left: 5vw;
 }
 
 .unkTeamImg {
@@ -391,11 +391,10 @@ a.button3:active{
     height: 20vw;
   }
   .card {
-    width: 85vw;
+    width: 80vw;
     min-height: 33vh;
     display: block;
     margin-bottom: 5vw;
-    margin-right: 0px;
     position: absolute;
   }
   #teamImage {
