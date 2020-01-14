@@ -24,7 +24,7 @@
 
 .hideSplash {
   opacity: 0%;
-  display: hidden;
+  visibility: hidden;
 }
 
 .prebody {
