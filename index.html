@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body onscroll="headerShadow()">
-		<div id="body" onload="loadLeaderborad()">
+		<div id="body">
 			<div class="prebody">
 				<canvas id="canvas"></canvas>
 				<!-- Particle animation by djmot (https://codepen.io/djmot/pen/XNQEBy),
@@ -113,5 +113,8 @@
 
 		<script type="text/javascript" src="home/header_animation.js"></script>
 		<script type="text/javascript" src="home/home.js" onload="loadPage()"></script>
+		<script type="text/javascript">
+			loadLeaderborad();
+		</script>
 	</body>
 </html>
