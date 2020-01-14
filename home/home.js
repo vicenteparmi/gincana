@@ -28,13 +28,16 @@ function loadLeaderborad() {
     var tn = snapshot.key;
     fbTeamData[tn][1] = snapshot.val().name;
     fbTeamData[tn][0] = snapshot.val().points;
+    fbTeamData[tn][2] = tn;
     fbTeamData[tn][0] = fbTeamData[tn][0].toString().padStart(6, "0");
   });
   fbRef.on('child_changed', function(snapshot) {
     var tn = snapshot.key;
     fbTeamData[tn][1] = snapshot.val().name;
     fbTeamData[tn][0] = snapshot.val().points;
+    fbTeamData[tn][2] = tn;
     fbTeamData[tn][0] = fbTeamData[tn][0].toString().padStart(6, "0");
+
     updateLB();
   });
 
@@ -45,47 +48,90 @@ function loadLeaderborad() {
 }
 
 function inflateLB() {
-  var lbOrder = fbTeamData.sort().reverse();
-  const lbHolder = document.getElementById('podiumHolder');
+  var lbOrder = [...fbTeamData];
+  lbOrder.sort().reverse();
 
   // Leaderboard podium
 
-  // for (var i = 0; i < 3; i++) {
-  //   document.getElementById()
-  // }
+  for (var i = 1; i < 4; i++) {
+    document.getElementById('podiumImage'+i).style.backgroundImage = "url('files/teams/"+(Number(lbOrder[i-1][2])+1)+".png')";
+    document.getElementById('teamName'+i).innerHTML = lbOrder[i-1][1];
+    document.getElementById('teamPoints'+i).innerHTML = lbOrder[i-1][0].replace(/^0+/, '')+" pontos";
+    document.getElementById('p'+i).className = 'podium loaded p'+i;
+  }
 
   // Leaderboard list
   for (var i = 3; i < lbOrder.length; i++) {
-    const lbDiv = document.createElement('div');
-    const spanName = document.createElement('span');
-    const spanPoints = document.createElement('span');
-    const spanPosition = document.createElement('span');
-
-    lbDiv.className = 'leaderBoard center pos'+i;
-    spanName.innerHTML = lbOrder[i][1];
-    spanPoints.innerHTML = lbOrder[i][0].replace(/^0+/, '')+" pontos";
-    spanPosition.innerHTML = (i+1)+'º';
-
-    if (lbOrder[i][0] == '000000') {
-      spanPoints.innerHTML = "Sem pontos";
-    }
-
-    lbDiv.id = 'lbd'+i;
-
-    spanName.className = 'teamNameList';
-    spanPoints.className = 'teamPointsList';
-    spanPosition.className = 'position';
-
-    lbDiv.appendChild(spanPosition);
-    lbDiv.appendChild(spanName);
-    lbDiv.appendChild(spanPoints);
-
-    lbHolder.appendChild(lbDiv);
+    inflateLBChild(lbOrder, i);
   }
 }
 
-function updateLB() {
+function inflateLBChild(lbOrder2, child) { // Arguments: [OrderedArray, Position]
+  const lbHolder = document.getElementById('podiumHolder');
+  const lbDiv = document.createElement('div');
+  const spanName = document.createElement('span');
+  const spanPoints = document.createElement('span');
+  const spanPosition = document.createElement('span');
 
+  lbDiv.className = 'leaderBoard center pos'+child;
+  spanName.innerHTML = lbOrder2[child][1];
+  spanPoints.innerHTML = lbOrder2[child][0].replace(/^0+/, '')+" pontos";
+  spanPosition.innerHTML = (child+1)+'º';
+
+  if (lbOrder2[child][0] == '000000') {
+    spanPoints.innerHTML = "Sem pontos";
+  }
+
+  lbDiv.id = 'lbd' + lbOrder2[child][2];
+  spanPoints.id = 'lbsp' + lbOrder2[child][2];
+  spanPosition.id = 'lbspos' + lbOrder2[child][2];
+
+  spanName.className = 'teamNameList';
+  spanPoints.className = 'teamPointsList';
+  spanPosition.className = 'position';
+
+  lbDiv.appendChild(spanPosition);
+  lbDiv.appendChild(spanName);
+  lbDiv.appendChild(spanPoints);
+
+  lbHolder.appendChild(lbDiv);
+}
+
+function updateLB() {
+  var lbOrder = [...fbTeamData];
+  lbOrder.sort().reverse();
+
+  for (var i = 0; i < fbTeamData.length; i++) { // Changing the team
+    for (var i2 = 0; i2 < fbTeamData.length; i2++) { // Change the position
+      if (fbTeamData[i][2] == lbOrder[i2][2]) {
+        if (i2 <= 2) {
+          document.getElementById('podiumImage'+(i2+1)).style.backgroundImage = "url('files/teams/"+(Number(lbOrder[i2][2])+1)+".png')";
+          document.getElementById('teamName'+(i2+1)).innerHTML = lbOrder[i2][1];
+          document.getElementById('teamPoints'+(i2+1)).innerHTML = lbOrder[i2][0].replace(/^0+/, '')+" pontos";
+
+          try {
+            document.getElementById('lbd'+i).remove();
+          } catch (e) {
+            continue;
+          }
+        } else {
+          try {
+            const div = document.getElementById('lbd'+i);
+            div.className = 'leaderBoard center pos'+i2;
+            const spoints = document.getElementById('lbsp'+i);
+            spoints.innerHTML = lbOrder[i2][0].replace(/^0+/, '')+" pontos";
+            const spos = document.getElementById('lbspos'+i);
+            spos.innerHTML = (i2+1)+'º';
+          } catch (e) {
+            inflateLBChild(lbOrder, i2);
+          } finally {
+
+          }
+        }
+
+      }
+    }
+  }
 }
 
 // Background color according to teams (maybe that will go away)

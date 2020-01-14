@@ -132,6 +132,7 @@ canvas {
   margin-left: 3vw;
   margin-right: 3vw;
   color: #3f51b5;
+  transition-duration: .2s;
 }
 
 .teamPointsList {
@@ -454,7 +455,7 @@ i.menuIcons {
   .p1 {
     top: 12vh;
   }
-  #podium1stImage {
+  #podiumImage1 {
     width: 25vh;
     height: 25vh;
   }
