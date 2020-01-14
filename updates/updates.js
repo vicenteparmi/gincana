@@ -13,6 +13,58 @@ var firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
+// Sync points
+
+var fbRef = firebase.database().ref('teams');
+
+fbRef.on('child_added', function(sn) {
+  document.getElementById('points'+(Number(sn.key)+1)).innerHTML = sn.val().points;
+});
+
+// Members
+
+var fbRef1 = firebase.database().ref('users');
+
+fbRef1.on('child_added', function(snapshot) {
+  var displayName = snapshot.val().name;
+  var userTeam = snapshot.val().team;
+  buildMembers(displayName, userTeam);
+});
+
+function buildMembers(user, team) {
+  const listHolder = document.getElementById('activityList'+team);
+
+  const title = document.createElement('h3');
+  title.innerHTML = 'Componentes:';
+  title.style.margin = '0px 0px 0px 1vw';
+  listHolder.appendChild(title);
+
+  const componentsHolder = document.createElement('ul');
+  const listItem = document.createElement('li');
+  listItem.innerHTML = user;
+  componentsHolder.appendChild(listItem);
+
+  listHolder.appendChild(componentsHolder);
+}
+
+// Remove pending activities
+
+const fbRef2 = firebase.database().ref('teams');
+fbRef2.on('child_added', function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+        if (childSnapshot.key == 'tasks') {
+          childSnapshot.forEach(function(scSnap) {
+            var activity = scSnap.val().done;
+            var aNumber = scSnap.key.toString();
+
+            if (activity == 'Ok') {
+              document.getElementById('li/'+(Number(snapshot.key)+1)+'/'+aNumber).style.display = 'list-item';
+            }
+          });
+        };
+    });
+});
+
 // Header shadow
 
 headerShadow();

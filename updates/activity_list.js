@@ -1,29 +1,3 @@
-function buildMembers() {
-  for (var i = 1; i < 10; i++) {
-    const listHolder = document.getElementById('activityList'+i);
-
-    const title = document.createElement('h3');
-    title.innerHTML = 'Componentes';
-    title.style.margin = '0px 0px 0px 1vw';
-    listHolder.appendChild(title);
-
-    const componentsHolder = document.createElement('ul');
-
-    // TODO: Get components;
-
-    for (var i2 = 0; i2 < memberList.length; i2++) {
-      if (memberList[i2] != null) {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = memberList[i2];
-        componentsHolder.appendChild(listItem);
-      }
-    }
-
-    listHolder.appendChild(componentsHolder);
-
-  }
-}
-
 function buildLists() {
   for (var i = 1; i < 10; i++) {
     const listHolder = document.getElementById('activityList'+i);
@@ -31,7 +5,7 @@ function buildLists() {
     const list = document.createElement('ul');
     const title = document.createElement('h3');
 
-    title.innerHTML = 'Atividades concluídas';
+    title.innerHTML = 'Atividades concluídas:';
     title.style.margin = '0px 0px 0px 1vw';
     listHolder.appendChild(title);
 
@@ -40,6 +14,7 @@ function buildLists() {
         const listItem = document.createElement('li');
         listItem.innerHTML = activityList[i2];
         listItem.id = 'li/'+i+'/'+i2;
+        listItem.style.display = 'none';
         list.appendChild(listItem);
       }
     }
@@ -80,12 +55,4 @@ activityList[25] =  'Abraçar 10 ou mais pessoas na fila do RU';
 activityList[26] =  null
 activityList[27] =  'Raspar o cabelo';
 
-var memberList = [];
-
-memberList[0] = 'Vicente';
-memberList[1] = 'Camila';
-memberList[2] = 'Pedro';
-memberList[3] = 'Sofia';
-
-buildMembers();
 buildLists();
