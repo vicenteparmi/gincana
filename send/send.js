@@ -259,67 +259,62 @@ function testforSend() {
 
 var imageToUpload;
 
-// Load Image
-function uploadImage() {
-  var input = document.createElement('input');
-  input.type = 'file';
-  input.onchange = e => {
+function uploadImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
 
-     // getting a hold of the file reference
-     var file = e.target.files[0];
+    reader.onload = function(e) {
+      document.getElementById('insertPicture').style.backgroundImage = "url('"+e.target.result+"')";
+      document.getElementById('cameraDiv').className = "afterUpload";
+      document.getElementById('addText').innerHTML = "Alterar Imagem";
 
-     // setting up the reader
-     var reader = new FileReader();
-     reader.readAsDataURL(file); // this is reading as data url
+      imageToUpload = null;
+      imageToUpload = dataURLtoFile(e.target.result, "profile.png");
+    }
 
-     // here we tell the reader what to do when it's done reading...
-     reader.onload = readerEvent => {
-        content = readerEvent.target.result;
-        document.querySelector('#insertPicture').style.backgroundImage = "url('"+content+"')";
-        document.getElementById('cameraDiv').className = "afterUpload";
-        document.getElementById('addText').innerHTML = "Alterar Imagem";
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 
-        imageToUpload = null;
-        imageToUpload = dataURLtoFile(content, "profile.png");
-     }
-   }
-  input.click();
-};
+$("#inputFile").change(function() {
+  uploadImage(this);
+});
 
 var imagesUploaded = 0;  // This variable is only useful to set a id to the items;
 
-function uploadOneMoreImage() {
-  var input = document.createElement('input');
-  input.type = 'file';
-  input.onchange = e => {
-     var file = e.target.files[0];
-     var reader = new FileReader();
-     reader.readAsDataURL(file);
-     // here we tell the reader what to do when it's done reading...
-     reader.onload = readerEvent => {
-        content = readerEvent.target.result;
+function uploadOneMoreImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
 
-        const span = document.getElementById('toUpload');
-        const imageDiv = document.createElement('div');
-        const closeButton = document.createElement('span');
+    reader.onload = function(e) {
+      content = e.target.result;
 
-        imageDiv.className = "smallPicture";
-        imageDiv.style.backgroundImage = "url('"+content+"')";
-        imageDiv.id = "dpic/"+ imagesUploaded;
+      const span = document.getElementById('toUpload');
+      const imageDiv = document.createElement('div');
+      const closeButton = document.createElement('span');
 
-        closeButton.className = "closeSmallPic"
-        closeButton.innerHTML = "&times";
-        closeButton.id = "spic/"+ imagesUploaded;
-        closeButton.onclick = function() {closeSmallPic(this.id)};
+      imageDiv.className = "smallPicture";
+      imageDiv.style.backgroundImage = "url('"+content+"')";
+      imageDiv.id = "dpic/"+ imagesUploaded;
 
-        imageDiv.appendChild(closeButton);
-        span.appendChild(imageDiv);
+      closeButton.className = "closeSmallPic"
+      closeButton.innerHTML = "&times";
+      closeButton.id = "spic/"+ imagesUploaded;
+      closeButton.onclick = function() {closeSmallPic(this.id)};
 
-        imagesUploaded++;
-     }
-   }
-  input.click();
-};
+      imageDiv.appendChild(closeButton);
+      span.appendChild(imageDiv);
+
+      imagesUploaded++;
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#inputFile2").change(function() {
+  uploadOneMoreImage(this);
+});
 
 function closeSmallPic(id) {
   debugger;

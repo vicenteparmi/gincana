@@ -8,6 +8,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Muli:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script type="text/javascript" src="send/descriptions.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="loading" class="">
@@ -140,21 +141,24 @@
 				<h1 id="activityName"></h1>
 				<p id="description">The description will be here.</p>
 				<div id="sendOnePhoto" class="hidden">
-					<div id="insertPicture" onclick="uploadImage()">
+					<input type="file" name="file" id="inputFile">
+					<!-- <div id="insertPicture" onclick="uploadImage()"> -->
+					<label for="inputFile" id="insertPicture">
 						<div id="cameraDiv" class="">
 							<i id="camera" class="material-icons" md-48 md-light>photo_camera</i><br/>
 							<text id="addText">Adicionar Imagem</text>
 						</div>
-					</div>
+					</label>
 				</div>
 				<div id="sendMorePhotos" class="hidden">
 					<span id="toUpload"></span>
-					<div id="insertSmallPicture" onclick="uploadOneMoreImage()">
+					<input type="file" name="file2" id="inputFile2">
+					<label for="inputFile2" id="insertSmallPicture" onclick="uploadOneMoreImage()">
 						<div id="cameraDiv2" class="">
 							<i id="camera2" class="material-icons" md-48 md-light>photo_camera</i><br/>
 							<text id="addText2">Adicionar Imagem</text>
 						</div>
-					</div>
+					</label>
 				</div>
 				<div id="sendVideo" class="hidden">
 					<h3>Link do vídeo:</h4>

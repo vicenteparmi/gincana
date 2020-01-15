@@ -172,8 +172,7 @@ function changePassword() {
 function updateUserName() {
   var user = firebase.auth().currentUser;
   var name = prompt("Qual o novo nome de usuário?", user.displayName);
-  if ((name == null || name == "") && name.length <= 25) {
-    name = user.displayName;
+  if ((name != null && name != "") && name.length <= 25) {
     if (user) {
       user.updateProfile({
         displayName: name,
@@ -194,33 +193,26 @@ function updateUserName() {
 
 // Upload profile picture
 
-function uploadPhoto() {
-  var input = document.createElement('input');
-  input.type = 'file';
-
+function uploadImage(input) {
   var user = firebase.auth().currentUser;
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
 
-  input.onchange = e => {
+    reader.onload = function(e) {
+      content = e.target.result; // this is the content!
+      document.querySelector('#profileImage').style.backgroundImage = "url('"+content+"')";
 
-     // getting a hold of the file reference
-     var file = e.target.files[0];
+      var imageToUpload = dataURLtoFile(content, "profile.png");
+      storeProfileImage("user_photos/"+user.uid+extension, imageToUpload);
+    }
 
-     // setting up the reader
-     var reader = new FileReader();
-     reader.readAsDataURL(file); // this is reading as data url
+    reader.readAsDataURL(input.files[0]);
+  }
+}
 
-     // here we tell the reader what to do when it's done reading...
-     reader.onload = readerEvent => {
-        content = readerEvent.target.result; // this is the content!
-        document.querySelector('#profileImage').style.backgroundImage = "url('"+content+"')";
-
-        var imageToUpload = dataURLtoFile(content, "profile.png");
-        storeProfileImage("user_photos/"+user.uid+extension, imageToUpload);
-
-     }
-   }
-  input.click();
-};
+$("#profilePicture").change(function() {
+  uploadImage(this);
+});
 
 // Delete account
 

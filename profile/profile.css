@@ -1,3 +1,16 @@
+#profilePicture {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#profilePicture + label {
+    cursor: pointer;
+}
+
 body {
   margin: 0;
   font-family: 'Muli', sans-serif;
@@ -320,7 +333,7 @@ h2 {
 
 /* Buttons */
 
-a.button3{
+a.button3, label.button3{
   display:inline-block;
   padding:0.3em 1.0em;
   margin:0.5em 0.25em 0.25em 0;
@@ -336,14 +349,14 @@ a.button3{
   font-size: 80%;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
 }
-a.button3:hover{
+a.button3:hover, label.button3:hover{
   background-color:darkorange;
 }
-a.button3:active{
+a.button3:active, label.active{
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.25);
 }
 @media all and (max-width:30em){
-  a.button3{
+  a.button3, label.button3{
     display:block;
     margin:0.2em auto;
  }
