@@ -50,6 +50,7 @@ body {
 
 .imageToReview:hover {
   filter: opacity(0.8);
+  opacity: 80%;
 }
 
 .listItemDescription {
@@ -219,7 +220,7 @@ i.menuIcons {
 }
 
 #menu, #menuHolder {
-  display: unset;
+  display: inline;
 }
 
 /* Mobile adjustments */

@@ -2,6 +2,7 @@
 	width: 0.1px;
 	height: 0.1px;
 	opacity: 0;
+	filter: opacity(0);
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
@@ -476,7 +477,7 @@ i.menuIcons {
 }
 
 #menu, #menuHolder {
-  display: unset;
+  display: inline;
 }
 
 /* Mobile adjustments */

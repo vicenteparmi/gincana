@@ -4,6 +4,7 @@
 	width: 0.1px;
 	height: 0.1px;
 	opacity: 0;
+	filter: opacity(0);
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
@@ -92,6 +93,7 @@ tr.selected {
 
 #insertPicture:hover, #insertSmallPicture:hover {
   filter: opacity(0.8);
+	opacity: 80%;
   cursor: pointer;
 }
 
@@ -135,13 +137,15 @@ tr.selected {
 
 #cameraDiv.afterUpload {
   filter: opacity(0);
+	opacity: 0;
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
   transition-duration: 0.2s;
 }
 
 #cameraDiv.afterUpload:hover {
-  filter: opacity(100);
+  filter: opacity(1);
+	opacity: 1;
 }
 
 .closeSmallPic {
@@ -182,6 +186,7 @@ tr.selected {
 
 #errorMessage.hide {
   filter: opacity(0);
+	opacity: 0;
   display: inherit;
 }
 
@@ -292,6 +297,7 @@ tr.selected {
 .hidden, #noUser.hidden, #noTeam.hidden, #loading.hidden, #body.hidden {
   visibility: hidden;
   filter: opacity(0%);
+	opacity: 0;
   height: 0%;
   margin-top: 0%;
 }
@@ -405,6 +411,7 @@ a.button3:active{
 
 a.buttonDisabled {
   filter: opacity(0.6);
+	opacity: 60%;
 }
 
 /* Google Icons */
@@ -450,7 +457,7 @@ i.menuIcons {
 }
 
 #menu, #menuHolder {
-  display: unset;
+  display: inline;
 }
 
 /* This page's adaptative layout */

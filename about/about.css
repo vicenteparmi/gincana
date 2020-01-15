@@ -196,7 +196,7 @@ i.menuIcons {
 }
 
 #menu, #menuHolder {
-  display: unset;
+  display: inline;
 }
 
 @media all and (max-width: 70em) {

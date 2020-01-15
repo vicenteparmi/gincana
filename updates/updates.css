@@ -278,7 +278,7 @@ i.menuIcons {
 }
 
 #menu, #menuHolder {
-  display: unset;
+  display: inline;
 }
 
 /* Mobile adjustments */
