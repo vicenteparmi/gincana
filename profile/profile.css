@@ -415,6 +415,9 @@ a.button3:active{
   #teamCard {
     margin-top: 21em;
   }
+  h2 {
+    font-size: 8vw;
+  }
 }
 
 /* Google Icons */

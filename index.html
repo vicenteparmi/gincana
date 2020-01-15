@@ -6,7 +6,6 @@
 		<link rel="stylesheet" type="text/css" href="home/home.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Muli:400,700&display=swap&subset=latin-ext" rel="stylesheet">
-		<link rel="manifest" href="/manifest.json">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body onscroll="headerShadow()">
@@ -75,7 +74,7 @@
 						<span class="teamPointsList">20 pontos</span>
 					</div> -->
 				</div>
-				<p class="lastUpdatedClass center">Ultima atualização realizada no dia <span id='lastUpdated'>12/01 às 19h21</span>.</p>
+				<p class="lastUpdatedClass center">Última atualização realizada no dia <span id='lastUpdated'>12/01 às 19h21</span>.</p>
 			</div>
 		</div>
 
@@ -86,7 +85,7 @@
 			<div id="menuHolder">
 				<div id="menu">
 					<a class="menu menuSelected" href="./index.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">home</i>Início</a>
-					<a class="menu" href="./updates.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">cached</i>Equipes</a>
+					<a class="menu" href="./updates.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">people</i>Equipes</a>
 					<a class="menu" href="./send.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">input</i>Enviar Atividade</a>
 					<a class="menu" href="./about.html"><i class="menuIcons material-icons" md-24 md-light style="vertical-align: middle;padding: 10px;">info</i>Sobre</a>
 				</div>
@@ -118,16 +117,6 @@
 		<script type="text/javascript" src="home/home.js" onload="loadPage()"></script>
 		<script type="text/javascript">
 			loadLeaderborad();
-
-			 if ('serviceWorker' in navigator) {
-			    console.log("Will the service worker register?");
-			    navigator.serviceWorker.register('service-worker.js')
-			      .then(function(reg){
-			        console.log("Yes, it did.");
-			     }).catch(function(err) {
-			        console.log("No it didn't. This happened:", err)
-			    });
-			 }
 		</script>
 	</body>
 </html>
