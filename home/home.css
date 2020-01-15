@@ -16,11 +16,9 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  background-color: red;
   top: 0%;
   left: 0%;
   z-index: 1000;
-  background: linear-gradient(to bottom right, #1565C0, #1A237E)
 }
 
 @keyframes fade-in {
@@ -465,6 +463,9 @@ i.menuIcons {
   }
   .podium {
     margin-top: 17vh;
+  }
+  #splashHolder {
+    background: linear-gradient(to bottom right, #1565C0, #1A237E);
   }
 }
 
