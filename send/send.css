@@ -33,7 +33,7 @@ body {
 }
 
 #body {
-  margin-left: 8%;
+  margin-left: 5vw;
   margin-top: 20px;
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 table {
-  width: 40vw;
+  width: 41vw;
   height: 60vh;
   overflow: auto;
   text-align: left;
@@ -73,7 +73,7 @@ tr.noShadow:hover {
 }
 
 tr.selected {
-  box-shadow: inset 0px 0px 0px 1px rgb(12, 128, 36);
+  box-shadow: 0px 0px 0px 1px rgb(12, 128, 36);
 }
 
 #insertPicture {
@@ -486,7 +486,7 @@ i.menuIcons {
     margin-right: 6vw;
   }
   table {
-    min-width: 94%;
+    min-width: 90vw;
   }
   #progressbar>div {
     height: 4vw;
