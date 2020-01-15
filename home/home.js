@@ -51,7 +51,7 @@ function inflateLB() {
   var lbOrder = [...fbTeamData];
   lbOrder.sort().reverse();
 
-  document.getElementById('splash').className += 'hideSplash';
+  document.getElementById('splashHolder').className += 'hideSplash';
 
   // Leaderboard podium
 

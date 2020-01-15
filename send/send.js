@@ -317,7 +317,7 @@ $("#inputFile2").change(function() {
 });
 
 function closeSmallPic(id) {
-  debugger;
+
   var data = id.split("/");
   var id = Number(data[1]);
 
