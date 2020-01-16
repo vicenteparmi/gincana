@@ -136,7 +136,24 @@ function updateLB() {
   }
 }
 
-// Background color according to teams (maybe that will go away)
+// Last updated message;
+
+firebase.database().ref('last_updated/date').on('value', function(snaps) {
+  document.getElementById('lastUpdatedHolder').className = "lastUpdatedClass center";
+
+  var d = new Date(snaps.val());
+  const spanDate = document.getElementById('lastUpdated');
+  var day = ("0" + d.getDate()).slice(-2);
+  var month = ("0" + (d.getMonth()+1)).slice(-2);
+  var year = d.getFullYear();
+  var hours = d.getHours();
+  var minutes = ("0" + d.getMinutes()).slice(-2);
+
+  spanDate.innerHTML = day+"/"+month+"/"+year+" às "+hours+"h"+minutes;
+
+})
+
+// Background color according to teams (maybe this will go away)
 
 function defineBgColor(team) {
   document.getElementById('bluebody').style.backgroundColor = teamColors[team-1];

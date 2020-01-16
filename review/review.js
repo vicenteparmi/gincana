@@ -98,6 +98,7 @@ function validateURL(status, id, activity) {
       return tra;
     });
 
+    update();
     /*
       Obs: Some errors were happening while adding the "ok" to the activity list,
       so it has been removed from here. Maybe in the future there will be a button
@@ -123,12 +124,13 @@ function markAsDone(mode) {
         done: "Ok",
         time: Date.now()
       });
+      update();
     } else {
       firebase.database().ref('teams/'+theTeam+"/tasks/"+theActivity).remove();
     }
     alert('Atividade atualizada.');
   } else {
-    alert('Preencha os campos ao lado anted de enviar.');
+    alert('Preencha os campos ao lado antes de enviar.');
   }
 }
 
@@ -273,6 +275,8 @@ function accept(id) {
       }
     }
 
+    update();
+
   }).catch(function(error) {
     console.log(error);
   });
@@ -302,6 +306,13 @@ function deleteFile(teamActivity, ref) {
   console.log("File deleted successfully!");
   }).catch(function(error) {
     console.log("Uh-oh, an error occurred! Error:"+error);
+  });
+}
+
+function update() {
+  debugger;
+  firebase.database().ref('last_updated').set({
+  date: Date.now()
   });
 }
 

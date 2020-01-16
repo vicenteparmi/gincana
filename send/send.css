@@ -294,7 +294,7 @@ tr.selected {
   top: -1000%;
 }
 
-.hidden, #noUser.hidden, #noTeam.hidden, #loading.hidden, #body.hidden {
+.hidden, #noUser.hidden, #noTeam.hidden, #loading.hidden, #body.hidden, #noVer.hidden {
   visibility: hidden;
   filter: opacity(0%);
 	opacity: 0;

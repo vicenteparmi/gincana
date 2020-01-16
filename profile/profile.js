@@ -29,7 +29,7 @@ function selectTeam(team) {
     team: team,
     name: user.displayName,
     email: user.email
-  });
+    });
     modal.style.display = "none";
     setTeam(team);
   }
@@ -178,6 +178,9 @@ function updateUserName() {
         displayName: name,
       }).then(function() {
         document.getElementById("userName").innerHTML = name;
+        firebase.database().ref('users/' + user.uid).update({
+        name: name
+        });
       }).catch(function(error) {
         console.log(error);
       });
