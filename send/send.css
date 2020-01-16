@@ -45,10 +45,14 @@ body {
   max-width: 40vw;
 }
 
+#scrollDiv {
+	height: 60vh;
+	overflow-y: scroll;
+	transition-duration: 0.5s;
+}
+
 table {
   width: 41vw;
-  height: 60vh;
-  overflow: auto;
   text-align: left;
   display: block;
   padding: 2px;
@@ -493,7 +497,7 @@ i.menuIcons {
     margin-right: 6vw;
   }
   table {
-    min-width: 90vw;
+    width: 85vw;
   }
   #progressbar>div {
     height: 4vw;
@@ -533,7 +537,7 @@ i.menuIcons {
     text-align: left;
     transform: translate(0,0);
   }
-  table.afterClick {
+  #scrollDiv.afterClick {
     height: 20vh;
   }
 }

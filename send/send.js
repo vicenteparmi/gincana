@@ -41,8 +41,8 @@ function sti(id) {
   const somethingSelected = document.getElementById('somethingSelected');
   somethingSelected.className = "bodyItem";
 
-  const table = document.getElementById('table');
-  table.className = "afterClick";
+  const scrollDiv = document.getElementById('scrollDiv');
+  scrollDiv.className = "afterClick";
 
   try {
     document.getElementsByClassName('selected')[0].className = "";

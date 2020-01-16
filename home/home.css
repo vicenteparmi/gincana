@@ -150,6 +150,7 @@ canvas {
 
 .outter {
   overflow-x: hidden;
+  -ms-overflow-style: none;
   position: relative;
   transform: translate(0, -50%);
   height: 50vh;
