@@ -85,6 +85,18 @@ canvas {
   transition-duration: 0.3s;
 }
 
+#crown {
+  position: absolute;
+  width: 42%;
+  height: 29%;
+  transform: rotate(-11deg);
+  top: -17%;
+  left: 20%;
+  padding-top: 20px;
+  opacity: 0;
+  filter: opacity(0);
+}
+
 .p1 {
   left: 50%;
   top: 18vh;
@@ -241,7 +253,7 @@ canvas {
 
 /* Opening Animation */
 
-.podium.loaded {
+.podium.loaded, #crown.loaded {
   filter: opacity(1);
   opacity: 1;
   padding-top: 0px;

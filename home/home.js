@@ -165,7 +165,21 @@ firebase.database().ref('last_updated/date').on('value', function(snaps) {
 
   spanDate.innerHTML = day+"/"+month+"/"+year+" às "+hours+"h"+minutes;
 
+});
+
+// Do we have a winner?
+
+firebase.database().ref('settings').once('value').then(function(snapsw) {
+  if (snapsw.val().we_have_a_winner == true) {
+    confetti.start();
+    document.getElementById('crown').className = 'loaded';
+    setTimeout('stopConfetti()', 6000);
+  }
 })
+
+function stopConfetti() {
+  confetti.stop();
+}
 
 // Background color according to teams (maybe this will go away)
 
