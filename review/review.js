@@ -238,48 +238,54 @@ function getImageName(itemRef) {
 function accept(id) {
   var teamActivity = id.split('/');  // [team/activity/filename]
   teamActivity[0]++; // Be careful, this might not be useful;
-  var storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
-  storageRef.getDownloadURL().then(function(url) {
-    var a = document.createElement('a');
-    a.href = url;
-    a.target = "_blank";
-    a.download = "file";
-    a.click();
 
-    // File delete
-    setTimeout(deleteFile(teamActivity, storageRef), 5000);
-    document.getElementById(id).style.display = "none";
+  const oldRef001 = 'review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2];
+  const newRef001 = 'approved/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]
 
-    var teamRef = firebase.database().ref('teams/'+(Number(teamActivity[0])-1));
-    teamRef.transaction(function(tra) { // Update team punctuation
-      if (tra) {
-        if (tra.points) {
-          tra.points += points[(Number(teamActivity[1])-1)];
-        } else {
-          tra.points += points[(Number(teamActivity[1])-1)];
-          if (!tra.points) {
-            tra.points += points[(Number(teamActivity[1])-1)];
-          }
-        }
-      }
-      return tra;
-    })
+  moveFirebaseFile(oldRef001, newRef001);
 
-    // Move database records
-    for (var i = 0; i < 28; i++) {
-      debugger;
-      if (teamActivity[1] == needsInput[i]) {
-        var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[0]);
-        var newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[0]);
-        moveFbRecord(oldRef000, newRef000);
-      }
-    }
+  // var storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
+  // storageRef.getDownloadURL().then(function(url) {
+  //   var a = document.createElement('a');
+  //   a.href = url;
+  //   a.target = "_blank";
+  //   a.download = "file";
+  //   a.click();
+  //
+  //   // File delete
+  //   setTimeout(deleteFile(teamActivity, storageRef), 5000);
+  //   document.getElementById(id).style.display = "none";
+  //
+  //   var teamRef = firebase.database().ref('teams/'+(Number(teamActivity[0])-1));
+  //   teamRef.transaction(function(tra) { // Update team punctuation
+  //     if (tra) {
+  //       if (tra.points) {
+  //         tra.points += points[(Number(teamActivity[1])-1)];
+  //       } else {
+  //         tra.points += points[(Number(teamActivity[1])-1)];
+  //         if (!tra.points) {
+  //           tra.points += points[(Number(teamActivity[1])-1)];
+  //         }
+  //       }
+  //     }
+  //     return tra;
+  //   })
 
-    update();
-
-  }).catch(function(error) {
-    console.log(error);
-  });
+  //   // Move database records
+  //   for (var i = 0; i < 28; i++) {
+  //     debugger;
+  //     if (teamActivity[1] == needsInput[i]) {
+  //       var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[0]);
+  //       var newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[0]);
+  //       moveFbRecord(oldRef000, newRef000);
+  //     }
+  //   }
+  //
+  //   update();
+  //
+  // }).catch(function(error) {
+  //   console.log(error);
+  // });
 
   // The following code must be used only when one photo is submitted
   const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
@@ -291,6 +297,53 @@ function accept(id) {
       });
     }
   }
+}
+
+/**
+ * Moves a file in firebase storage from its current location to the destination
+ * returns the status object for the moved file.
+ * @param {String} currentPath The path to the existing file from storage root
+ * @param {String} destinationPath The desired pathe for the existing file after storage
+ */
+function moveFirebaseFile(currentPath, destinationPath) {
+    let oldRef = firebase.storage().ref().child(currentPath);
+
+    oldRef.getDownloadURL().then(url => {
+        fetch(url).then(htmlReturn => {
+            let fileArray = new Uint8Array()
+            const reader = htmlReturn.body.getReader()
+
+            //get the reader that reads the readable stream of data
+            reader
+                .read()
+                .then(function appendStreamChunk({ done, value }) {
+                    //If the reader doesn't return "done = true" append the chunk that was returned to us
+                    // rinse and repeat until it is done.
+                    if (value) {
+                        fileArray = mergeTypedArrays(fileArray, value)
+                    }
+                    if (done) {
+                        console.log(fileArray)
+                        return fileArray
+                    } else {
+                        // "Readout not complete, reading next chunk"
+                        return reader.read().then(appendStreamChunk)
+                    }
+                })
+                .then(file => {
+                    //Write the file to the new storage place
+                    let status = firebase
+                        .storage()
+                        .ref()
+                        .child(destinationPath)
+                        .put(file)
+                    //Remove the old reference
+                    oldRef.delete()
+
+                    return status
+                })
+        })
+    })
 }
 
 function reject(id) {
