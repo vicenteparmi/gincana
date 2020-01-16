@@ -59,6 +59,11 @@ function inflateLB() {
     document.getElementById('podiumImage'+i).style.backgroundImage = "url('files/teams/"+(Number(lbOrder[i-1][2])+1)+".png')";
     document.getElementById('teamName'+i).innerHTML = lbOrder[i-1][1];
     document.getElementById('teamPoints'+i).innerHTML = lbOrder[i-1][0].replace(/^0+/, '')+" pontos";
+
+    if (lbOrder[i-1][0] == '000000') {
+      document.getElementById('teamPoints'+i).innerHTML = "0 pontos";
+    }
+
     document.getElementById('p'+i).className = 'podium loaded p'+i;
   }
 
@@ -81,7 +86,7 @@ function inflateLBChild(lbOrder2, child) { // Arguments: [OrderedArray, Position
   spanPosition.innerHTML = (child+1)+'º';
 
   if (lbOrder2[child][0] == '000000') {
-    spanPoints.innerHTML = "Sem pontos";
+    spanPoints.innerHTML = "0 pontos";
   }
 
   lbDiv.id = 'lbd' + lbOrder2[child][2];
@@ -111,6 +116,10 @@ function updateLB() {
           document.getElementById('teamName'+(i2+1)).innerHTML = lbOrder[i2][1];
           document.getElementById('teamPoints'+(i2+1)).innerHTML = lbOrder[i2][0].replace(/^0+/, '')+" pontos";
 
+          if (lbOrder[i2][0] == '000000') {
+            document.getElementById('teamPoints'+(i2+1)).innerHTML = "0 pontos";
+          }
+
           try {
             document.getElementById('lbd'+i).remove();
           } catch (e) {
@@ -122,6 +131,11 @@ function updateLB() {
             div.className = 'leaderBoard center pos'+i2;
             const spoints = document.getElementById('lbsp'+i);
             spoints.innerHTML = lbOrder[i2][0].replace(/^0+/, '')+" pontos";
+
+            if (lbOrder[i2][0] == '000000') {
+              spoints.innerHTML = "0 pontos";
+            }
+
             const spos = document.getElementById('lbspos'+i);
             spos.innerHTML = (i2+1)+'º';
           } catch (e) {

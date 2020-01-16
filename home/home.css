@@ -190,6 +190,7 @@ canvas {
   margin-right: 3vw;
   color: #026602;
   font-weight: normal;
+  transition-duration: 0.3s;
 }
 
 .center {
@@ -203,6 +204,7 @@ canvas {
   color: lightgray;
   margin-top: 58vh;
   font-size: 10pt;
+  transition-duration: 0.3s;
 }
 
 /* Positions for the list */
