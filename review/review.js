@@ -151,7 +151,6 @@ for (var i = 0; i < 10; i++) { // To select the team folder
   listRefNow = listRef.child(i.toString());
   listRefNow.listAll().then(function(res) { // List all contents on team folder
     res.prefixes.forEach(function(folderRef) { // List folders on team folder
-      console.log(folderRef);
       folderRef.listAll().then(function(res1) { // Open folder on team folder
         res1.items.forEach(function(itemRef) { // Do something to each item
           itemRef.getDownloadURL().then(function(url) {
@@ -251,7 +250,7 @@ function accept(id) {
     a.click();
 
     // File delete
-    setTimeout("deleteFile("+teamActivity+","+storageRef+")", 5000);
+    setTimeout("deleteFile('"+teamActivity+"','"+storageRef.toString()+"', true)", 5000);
     document.getElementById(id).style.display = "none";
 
     var teamRef = firebase.database().ref('teams/'+(Number(teamActivity[0])-1));
@@ -271,7 +270,6 @@ function accept(id) {
 
     // Move database records
     for (var i = 0; i < 28; i++) {
-      debugger;
       if (teamActivity[1] == needsInput[i]) {
         var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[0]);
         var newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[0]);
@@ -300,12 +298,18 @@ function accept(id) {
 function reject(id) {
   var teamActivity = id.split('/');
   teamActivity[0]++;
-  const storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
-  deleteFile(teamActivity, storageRef);
+  const storageRef = 'review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2];
+  deleteFile(teamActivity, storageRef, false);
   document.getElementById(id).style.display = "none";
 }
 
-function deleteFile(teamActivity, ref) {
+function deleteFile(teamActivity, refURL, fromURL) {
+  var ref;
+  if (fromURL == true) {
+    ref = firebase.storage().refFromURL(refURL);
+  } else {
+    ref = firebase.storage().ref(refURL);
+  }
   ref.delete().then(function() {
   console.log("File deleted successfully!");
   }).catch(function(error) {
@@ -314,7 +318,6 @@ function deleteFile(teamActivity, ref) {
 }
 
 function update() {
-  debugger;
   firebase.database().ref('last_updated').set({
   date: Date.now()
   });
