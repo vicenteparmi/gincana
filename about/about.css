@@ -15,7 +15,7 @@
   animation-iteration-count: infinite;
   animation-timing-function: ease-out;
   transition-duration: 0.5s;
-  background-image: url('../files/image/CAQUI.png');
+  background-image: url('../files/image/CAQUI.webp');
 }
 
 @keyframes animation {
@@ -105,7 +105,7 @@ body {
   padding-top: 42px;
   width: 42px;
   cursor: pointer;
-  background-image: url('../files/image/unknownUser.png');
+  background-image: url('../files/image/unknownUser.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

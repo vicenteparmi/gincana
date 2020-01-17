@@ -20,7 +20,7 @@ setInterval('changeLogo()', 3000);
 
 function changeLogo() {
   const logo = document.getElementById('teamsAnimation');
-  logo.style.backgroundImage = "url('./files/teams/"+state+".png')";
+  logo.style.backgroundImage = "url('./files/teams/"+state+".webp')";
   state++;
   if (state >= 10) {
     state = 1;

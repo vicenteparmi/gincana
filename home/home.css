@@ -64,7 +64,7 @@ canvas {
 .podiumImage {
   width: 35vh;
   height: 35vh;
-  background-image: url('../files/teams/1.png');
+  background-image: url('../files/teams/1.webp');
   background-size: contain;
   transition-duration: 0.3s;
 }
@@ -329,7 +329,7 @@ body {
   padding-top: 42px;
   width: 42px;
   cursor: pointer;
-  background-image: url('../files/image/unknownUser.png');
+  background-image: url('../files/image/unknownUser.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

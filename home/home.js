@@ -56,7 +56,7 @@ function inflateLB() {
   // Leaderboard podium
 
   for (var i = 1; i < 4; i++) {
-    document.getElementById('podiumImage'+i).style.backgroundImage = "url('files/teams/"+(Number(lbOrder[i-1][2])+1)+".png')";
+    document.getElementById('podiumImage'+i).style.backgroundImage = "url('files/teams/"+(Number(lbOrder[i-1][2])+1)+".webp')";
     document.getElementById('teamName'+i).innerHTML = lbOrder[i-1][1];
     document.getElementById('teamPoints'+i).innerHTML = lbOrder[i-1][0].replace(/^0+/, '')+" pontos";
 
@@ -112,7 +112,7 @@ function updateLB() {
     for (var i2 = 0; i2 < fbTeamData.length; i2++) { // Change the position
       if (fbTeamData[i][2] == lbOrder[i2][2]) {
         if (i2 <= 2) {
-          document.getElementById('podiumImage'+(i2+1)).style.backgroundImage = "url('files/teams/"+(Number(lbOrder[i2][2])+1)+".png')";
+          document.getElementById('podiumImage'+(i2+1)).style.backgroundImage = "url('files/teams/"+(Number(lbOrder[i2][2])+1)+".webp')";
           document.getElementById('teamName'+(i2+1)).innerHTML = lbOrder[i2][1];
           document.getElementById('teamPoints'+(i2+1)).innerHTML = lbOrder[i2][0].replace(/^0+/, '')+" pontos";
 

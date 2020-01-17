@@ -117,7 +117,7 @@ function setTeam(teamNumber) {
 
     document.getElementById('teamName').innerHTML = teamName;
 
-    document.getElementById("teamImage").style.backgroundImage = "url('./files/teams/"+teamNumber+".png')"
+    document.getElementById("teamImage").style.backgroundImage = "url('./files/teams/"+teamNumber+".webp')"
     document.getElementById("teamCard").className = "card team"+teamNumber;
 
     firebase.database().ref('teams/'+(teamNumber-1)).once('value').then(function(snap) {
@@ -205,7 +205,7 @@ function uploadImage(input) {
       content = e.target.result; // this is the content!
       document.querySelector('#profileImage').style.backgroundImage = "url('"+content+"')";
 
-      var imageToUpload = dataURLtoFile(content, "profile.png");
+      var imageToUpload = dataURLtoFile(content, "profile.webp");
       storeProfileImage("user_photos/"+user.uid+extension, imageToUpload);
     }
 
@@ -291,7 +291,7 @@ function dataURLtoFile(dataurl, filename) {
     console.log(dataurl.charAt(11));
     switch (dataurl.charAt(11)) {
       case 'p':
-        extension = ".png";
+        extension = ".webp";
         break;
       case 'j':
         extension = ".jpg";

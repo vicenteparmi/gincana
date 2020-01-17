@@ -73,7 +73,7 @@ td p {
   width: 8vw;
   height: 8vw;
   border-radius: 8px;
-  background-image: url(../files/image/unknownUser.png);
+  background-image: url(../files/image/unknownUser.webp);
   background-color: lightgray;
   background-repeat: no-repeat;
   background-size: cover;
@@ -142,7 +142,7 @@ table.teamTable {
   height: 15vw;
   background-size: cover;
   background-position: center;
-  background-image: url('../files/teams/1.png');
+  background-image: url('../files/teams/1.webp');
   display: inline-block;
 }
 
