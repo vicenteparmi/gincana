@@ -22,7 +22,7 @@ function changeLogo() {
   const logo = document.getElementById('teamsAnimation');
   logo.style.backgroundImage = "url('./files/teams/"+state+".webp')";
   state++;
-  if (state >= 10) {
+  if (state >= 12) {
     state = 1;
   }
 }

@@ -107,8 +107,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 function setTeam(teamNumber) {
 
   if (teamNumber != null) {
-    const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
-    const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
+    const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio"];
     var teamName = teamNames[teamNumber-1];
 
     document.getElementById("hasTeam").className = "center";

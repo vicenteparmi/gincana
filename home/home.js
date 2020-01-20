@@ -15,11 +15,10 @@ var firebaseConfig = {
 
 // Constants
 
-const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor"];
-const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63"]
+const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio"];
 
 // Load Teams
-var fbTeamData = [[],[],[],[],[],[],[],[],[]];
+var fbTeamData = [[],[],[],[],[],[],[],[],[],[],[],[]];
 
 function loadLeaderborad() {
 
@@ -41,7 +40,7 @@ function loadLeaderborad() {
     updateLB();
   });
 
-  firebase.database().ref('/teams/8').once('value').then(function(snapshot) {
+  firebase.database().ref('/teams/11').once('value').then(function(snapshot) {
     inflateLB();
   });
 
@@ -181,12 +180,6 @@ function stopConfetti() {
   confetti.stop();
 }
 
-// Background color according to teams (maybe this will go away)
-
-function defineBgColor(team) {
-  document.getElementById('bluebody').style.backgroundColor = teamColors[team-1];
-}
-
 // Header shadow
 
 headerShadow();
@@ -258,7 +251,6 @@ function loadPage() {
       var dbRef = firebase.database().ref('users/' + currentUser.uid + "/team");
       dbRef.on('value', function(snapshot) {
         team = snapshot.val();
-        // defineBgColor(team); Still haven't decided if this will be kept
       });
     }
   });

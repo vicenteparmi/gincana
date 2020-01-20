@@ -1,5 +1,5 @@
 function buildLists() {
-  for (var i = 1; i < 10; i++) {
+  for (var i = 1; i <= 12; i++) {
     const listHolder = document.getElementById('activityList'+i);
 
     const list = document.createElement('ul');

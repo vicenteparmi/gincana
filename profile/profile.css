@@ -142,7 +142,7 @@ table.teamTable {
   height: 15vw;
   background-size: cover;
   background-position: center;
-  background-image: url('../files/teams/1.webp');
+  background-image: url('../files/teams/unknown.webp');
   display: inline-block;
 }
 
@@ -259,6 +259,15 @@ h2 {
 }
 .team9 {
   background: linear-gradient(to bottom right, #e91e63, #C2185B);
+}
+.team10 {
+  background: linear-gradient(to bottom right, #009ae8, #21649f);
+}
+.team11 {
+  background: linear-gradient(to bottom right, #9b9900, #797c02);
+}
+.team12 {
+  background: linear-gradient(to bottom right, #00a89b, #01796f);
 }
 
 /* Modal */

@@ -144,7 +144,7 @@ canvas {
 
 #bluebody {
   background-color: #1c3295;
-  min-height: 100vh;
+  min-height: 110vh;
   width: 100%;
 }
 
@@ -215,7 +215,7 @@ canvas {
 .lastUpdatedClass {
   text-align: center;
   color: lightgray;
-  margin-top: 58vh;
+  margin-top: 83vh;
   font-size: 10pt;
   transition-duration: 0.3s;
 }
@@ -250,6 +250,21 @@ canvas {
 .pos8 {
   margin-top: 300px;
   animation-duration: 1.5s;
+}
+
+.pos9 {
+  margin-top: 360px;
+  animation-duration: 1.6s;
+}
+
+.pos10 {
+  margin-top: 420px;
+  animation-duration: 1.7s;
+}
+
+.pos11 {
+  margin-top: 480px;
+  animation-duration: 1.8s;
 }
 
 /* Opening Animation */
@@ -500,7 +515,7 @@ i.menuIcons {
   }
   #bluebody {
     width: 100vw;
-    min-height: 100vh;
+    min-height: 130vh;
   }
   .leaderBoard {
     width: 90vw;
