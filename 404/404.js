@@ -22,6 +22,8 @@ if (window.innerWidth < 500) {
     document.getElementById('image').style.display = 'none';
 }
 
+// The following code is from: https://codepen.io/tholman/pen/AmptL (modified)
+
 (function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
