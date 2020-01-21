@@ -21,3 +21,8 @@ Se o parágrafo acima não esclareceu suas dúvidas ou houver algum problema com
 
 ## Problemas
 Caso haja algum problema ou dúvida sobre a utilização do site entre em contato pelo email *caquimprensa@gmail.com*. Também aceitamos seu feedback sobre erros que possam estar ocorrendo.
+
+
+
+
+> Website criado por Vicente Parmigiani em Janeiro de 2020
