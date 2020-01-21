@@ -16,7 +16,7 @@ var firebaseConfig = {
 // 404 text animation
 
 var pixelRatio = (function () {
-    var ctx = document.getElementById("canvas").getContext("2d"),
+    var ctx = document.createElement("canvas").getContext("2d"),
         dpr = window.devicePixelRatio || 1,
         bsr = ctx.webkitBackingStorePixelRatio ||
               ctx.mozBackingStorePixelRatio ||
@@ -66,7 +66,7 @@ var Nodes = {
   lineThickness: 1,
 
   points: [],
-  mouse: { x: -10000, y: -10000, down: false },
+  mouse: { x: -1000, y: -1000, down: false },
 
   animation: null,
 
@@ -82,23 +82,24 @@ var Nodes = {
   init: function() {
 
     if (window.innerWidth < 500) {
-      this.density = Math.round(window.innerWidth / 60);
+      this.density = Math.round(window.innerWidth / 20);
+      // this.width = window.innerWidth * 1.3;
+      // this.height = window.innerHeight * 1.3;
 
-      this.drawDistance = Math.round(window.innerWidth / 56);
-      this.baseRadius = Math.round(window.innerWidth / 180);
-      this.reactionSensitivity = Math.round(window.innerWidth / 180);
+      this.drawDistance = Math.round(window.innerWidth / 15);
+      this.baseRadius = Math.round(window.innerWidth / 80);
+      this.reactionSensitivity = Math.round(window.innerWidth / 30);
     };
 
     // Set up the visual canvas
     this.canvas = document.getElementById( 'canvas' );
     this.context = canvas.getContext( '2d' );
     this.context.globalCompositeOperation = "lighter";
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
+    this.canvas.width = this.width * pixelRatio;
+    this.canvas.height = this.height * pixelRatio;
     this.canvas.style.display = 'block';
     this.canvas.style.width = this.width;
     this.canvas.style.height = this.height;
-
 
     this.imageInput = document.createElement( 'input' );
     this.imageInput.setAttribute( 'type', 'file' );

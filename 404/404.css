@@ -238,7 +238,4 @@ i.menuIcons {
   h1 {
     font-size: 6.5vw;
   }
-  #canvas {
-    transform: translate(-50%, -50%) scale(1.3);
-  }
 }
