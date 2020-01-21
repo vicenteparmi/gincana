@@ -15,18 +15,6 @@ var firebaseConfig = {
 
 // 404 text animation
 
-var pixelRatio = (function () {
-    var ctx = document.createElement("canvas").getContext("2d"),
-        dpr = window.devicePixelRatio || 1,
-        bsr = ctx.webkitBackingStorePixelRatio ||
-              ctx.mozBackingStorePixelRatio ||
-              ctx.msBackingStorePixelRatio ||
-              ctx.oBackingStorePixelRatio ||
-              ctx.backingStorePixelRatio || 1;
-
-    return dpr / bsr;
-})();
-
 (function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -80,26 +68,13 @@ var Nodes = {
   bgContextPixelData: null,
 
   init: function() {
-
-    if (window.innerWidth < 500) {
-      this.density = Math.round(window.innerWidth / 20);
-      // this.width = window.innerWidth * 1.3;
-      // this.height = window.innerHeight * 1.3;
-
-      this.drawDistance = Math.round(window.innerWidth / 15);
-      this.baseRadius = Math.round(window.innerWidth / 80);
-      this.reactionSensitivity = Math.round(window.innerWidth / 30);
-    };
-
     // Set up the visual canvas
     this.canvas = document.getElementById( 'canvas' );
     this.context = canvas.getContext( '2d' );
     this.context.globalCompositeOperation = "lighter";
-    this.canvas.width = this.width * pixelRatio;
-    this.canvas.height = this.height * pixelRatio;
-    this.canvas.style.display = 'block';
-    this.canvas.style.width = this.width;
-    this.canvas.style.height = this.height;
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    this.canvas.style.display = 'block'
 
     this.imageInput = document.createElement( 'input' );
     this.imageInput.setAttribute( 'type', 'file' );
