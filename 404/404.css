@@ -6,6 +6,17 @@
   transform: translate(-50%, -50%);
 }
 
+#image {
+  width: 90vw;
+  height: 40vw;
+  display: none;
+  top: 30%;
+}
+
+.hide {
+  display: none;
+}
+
 /* Useful code */
 p {
   max-width: 40vw;

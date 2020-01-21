@@ -15,6 +15,13 @@ var firebaseConfig = {
 
 // 404 text animation
 
+if (window.innerWidth < 500) {
+    document.getElementById('canvas').style.display = 'none';
+    document.getElementById('image').style.display = 'block';
+} else {
+    document.getElementById('image').style.display = 'none';
+}
+
 (function() {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -74,7 +81,6 @@ var Nodes = {
     this.context.globalCompositeOperation = "lighter";
     this.canvas.width = this.width;
     this.canvas.height = this.height;
-    this.canvas.style.display = 'block'
 
     this.imageInput = document.createElement( 'input' );
     this.imageInput.setAttribute( 'type', 'file' );
