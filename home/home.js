@@ -153,18 +153,47 @@ function updateLB() {
 
 firebase.database().ref('last_updated/date').on('value', function(snaps) {
   document.getElementById('lastUpdatedHolder').className = "lastUpdatedClass center";
-
   var d = new Date(snaps.val());
   const spanDate = document.getElementById('lastUpdated');
-  var day = ("0" + d.getDate()).slice(-2);
-  var month = ("0" + (d.getMonth()+1)).slice(-2);
-  var year = d.getFullYear();
-  var hours = d.getHours();
-  var minutes = ("0" + d.getMinutes()).slice(-2);
-
-  spanDate.innerHTML = day+"/"+month+"/"+year+" às "+hours+"h"+minutes;
-
+  spanDate.innerHTML = handleDate(d);
 });
+
+function handleDate(date) {
+  var day = ("0" + date.getDate()).slice(-2);
+  var month = ("0" + (date.getMonth()+1)).slice(-2);
+  var year = date.getFullYear();
+  var hours = date.getHours();
+  var minutes = ("0" + date.getMinutes()).slice(-2);
+
+  return day+"/"+month+"/"+year+" às "+hours+"h"+minutes;
+}
+
+// Posts
+
+firebase.database().ref('posts').limitToLast(10).orderByKey().on('child_added', function(child) {
+  document.getElementById('pubTitle').style.display = "block";
+  const postsHolder = document.getElementById('posts');
+  var postDiv = document.createElement('div');
+  var postTitle = document.createElement('h2');
+  var postContent = document.createElement('p');
+  var postDate = document.createElement('p');
+
+  postTitle.innerHTML = child.val().title;
+  postContent.innerHTML = child.val().content;
+  postDate.innerHTML = "Enviado em " + handleDate(new Date(child.val().date));
+
+  postDiv.className = 'postCard';
+  postTitle.className = 'postTitle';
+  postDate.className = 'postDate';
+  postContent.className = 'postContent';
+
+  postDiv.appendChild(postTitle);
+  postDiv.appendChild(postDate);
+  postDiv.appendChild(postContent);
+
+  postsHolder.appendChild(postDiv);
+
+})
 
 // Do we have a winner?
 
