@@ -193,8 +193,9 @@ canvas {
 }
 
 .position {
-  margin-left: 3vw;
-  margin-right: 3vw;
+  width: 7vw;
+  text-align: center;
+  display: inline-block;
   color: #3f51b5;
   transition-duration: .2s;
 }
@@ -574,6 +575,9 @@ i.menuIcons {
   }
   .teamName {
     font-size: 14pt;
+  }
+  .position {
+    width: 12vw;
   }
   .p2, .p3 {
     top: 45vh;
