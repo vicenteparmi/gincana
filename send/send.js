@@ -516,3 +516,11 @@ const modal = document.getElementById("myModal");
 function openModal() {
   modal.style.display = "block";
 }
+
+// Send turned off
+
+firebase.database().ref('settings').once('value').then(function(snap) {
+  if (snap.val().allow_send != true) {
+    document.getElementById('mySecondModal').style.display = 'block';
+  }
+})
