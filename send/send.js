@@ -123,6 +123,7 @@ function send() {
               var bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
               var file = dataURLtoFile(bi, "filename");
               storeImage('review/'+team+'/'+itemSelected+'/'+itemSelected+file[1], file[0]);
+              recordSendFB(itemSelected, team);
             } finally {
               // Nothing to do, I guess;
             }
@@ -137,6 +138,7 @@ function send() {
               var file = dataURLtoFile(bi, "filename");
               const imageId = Math.random();
               storeImage('review/'+team+'/'+itemSelected+'/'+imageId+file[1], file[0]);
+              recordSendFB(itemSelected, team);
             }
           }
           break;
@@ -157,6 +159,7 @@ function send() {
                   url: mode2input.value
                 })
                 openModal();
+                recordSendFB(itemSelected, team);
               }
               document.getElementById('progressbar').className = "";
               document.getElementById('progressPercentage').style.width = "100%";
@@ -180,6 +183,7 @@ function send() {
               url: mode1input.value
             })
             openModal();
+            recordSendFB(itemSelected, team);
           }
           document.getElementById('progressbar').className = "";
           document.getElementById('progressPercentage').style.width = "100%";
@@ -204,6 +208,15 @@ function send() {
         }
       }
   }
+}
+
+// firebase analytics
+
+function recordSendFB(activity, team) {
+  firebase.analytics().logEvent('send_activity', {
+    activity: activity,
+    team: team
+  })
 }
 
 function testforSend() {
