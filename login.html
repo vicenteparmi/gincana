@@ -17,6 +17,16 @@
 		<div id="loader">Carregando...</div>
 		<p style="font-size: small; color: gray;">Ao continuar você indica que aceita<br/>nossa <a href='privacy_police.html'>política de privacidade.</a></p>
 
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<h1>Login e criação de contas desativados</h1>
+				<p style="text-align:justify">A criação de novas contas e o login em contas já existentes foram desativados
+				pelos administradores da página. Se você está tentando reautenticar-se para
+				excluir uma conta ou alterar informações entre em contato através das informações
+				encontradas na página 'Sobre'.</p>
+			</div>
+		</div>
+
 		<div id="header">
 			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>
 			<img src="files/image/CAQUI.webp"/ class="headerImage">
@@ -30,6 +40,7 @@
 				</div>
 			</div>
 		</div>
+
 		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
 
@@ -39,36 +50,46 @@
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 
-		<script type="text/javascript" src="home/home.js"></script>
+		<script type="text/javascript" src="login/login.js"></script>
 		<script type="text/javascript">
-			var ui = new firebaseui.auth.AuthUI(firebase.auth());
-			var uiConfig = {
-				callbacks: {
-					signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-						// User successfully signed in.
-						// Return type determines whether we continue the redirect automatically
-						// or whether we leave that to developer to handle.
-						return true;
+		// Login turned off
+
+		firebase.database().ref('settings').once('value').then(function(snap) {
+		  if (snap.val().login != true) {
+		    document.getElementById('myModal').style.display = 'block';
+		    document.getElementById('firebaseui-auth-container').innerHTML = "";
+		  } else {
+				var ui = new firebaseui.auth.AuthUI(firebase.auth());
+				var uiConfig = {
+					callbacks: {
+						signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+							// User successfully signed in.
+							// Return type determines whether we continue the redirect automatically
+							// or whether we leave that to developer to handle.
+							return true;
+						},
+						uiShown: function() {
+							// The widget is rendered.
+							// Hide the loader.
+							document.getElementById('loader').style.display = 'none';
+						}
 					},
-					uiShown: function() {
-						// The widget is rendered.
-						// Hide the loader.
-						document.getElementById('loader').style.display = 'none';
-					}
-				},
-				// Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-				signInFlow: 'popup',
-				signInSuccessUrl: './profile.html',
-				signInOptions: [
-					// Leave the lines as is for the providers you want to offer your users.
-					firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-					firebase.auth.EmailAuthProvider.PROVIDER_ID
-				],
-				// Privacy policy url.
-				privacyPolicyUrl: 'privacy_police.html'
-			};
-			// The start method will wait until the DOM is loaded.
-			ui.start('#firebaseui-auth-container', uiConfig);
+					// Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+					signInFlow: 'popup',
+					signInSuccessUrl: './profile.html',
+					signInOptions: [
+						// Leave the lines as is for the providers you want to offer your users.
+						firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+						firebase.auth.EmailAuthProvider.PROVIDER_ID
+					],
+					// Privacy policy url.
+					privacyPolicyUrl: 'privacy_police.html'
+				};
+
+				// The start method will wait until the DOM is loaded.
+				ui.start('#firebaseui-auth-container', uiConfig);
+				}
+			})
 		</script>
 	</body>
 </html>
