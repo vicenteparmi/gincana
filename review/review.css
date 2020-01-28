@@ -321,12 +321,14 @@ i.menuIcons {
   .modal-content {
     margin: 0;
     padding: 30px;
-    width: 90vw;
+    width: 84vw;
     min-width: 15em;
     border-radius: 0px;
     z-index: 100;
-    margin-top: 60px;
     min-height: -webkit-fill-available;
+  }
+  #reviewImage {
+    width: 84vw;
   }
 }
 
