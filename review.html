@@ -7,6 +7,7 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Muli:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="send/descriptions.js"></script>
 	</head>
 	<body>
 		<div id="body">
@@ -74,6 +75,34 @@
 
 			</div>
 		</div>
+
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<h1>Aprovar ou rejeitar atividade</h1>
+				<img alt="Imagem da atividade" id="reviewImage"/>
+				<h3 id="md-actnum">Atividade</h3>
+				<p id="md-actdesc">Descrição</p>
+				<h3>Dados do envio</h3>
+				<span id="sentData"></span>
+				<h3>Motivos para rejeição</h3>
+				<input type="checkbox" id="problem0">
+				<text>Integrante da equipe não aparece</text><br/>
+				<input type="checkbox" id="problem1">
+				<text>Crachá da equipe não visível</text><br/>
+				<input type="checkbox" id="problem2">
+				<text>Local de realização da atividade incorreto</text><br/>
+				<input type="checkbox" id="problem3">
+				<text>Resposta da atividade incorreta</text><br/>
+				<input type="checkbox" id="problem4">
+				<input type="text" id="expl4"></input><br/>
+				<input type="checkbox" id="problem5">
+				<input type="text" id="expl5"></input><br/><br/>
+				<button type="button" id="md-aprove">Aprovar</button>
+				<button type="button" id="md-reject">Rejeitar</button>
+				<button type="button" id="md-cancel">Cancelar</button>
+			</div>
+		</div>
+
 		<div id="header">
 			<i id="sandwich" class="menuIcons material-icons" onclick="openMenu()" md-24 md-light style="vertical-align: middle;padding: 10px; cursor:pointer;">menu</i>
 			<img src="files/image/CAQUI.webp"/ class="headerImage">

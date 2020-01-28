@@ -22,6 +22,7 @@ const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","
 const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63","#009ae6","#9e9c00","#00a89b"]
 const points = [20,700,700,0,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,0,400,30,200];
 const needsInput = [5,17,22,25];
+const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
 
 // Getting posts from activity 1 and videos
 
@@ -158,55 +159,25 @@ for (var i = 0; i <= 12; i++) { // To select the team folder
             var urlValues = url.toString().split('%2F');
             teamName = Number(urlValues[1])-1;
             activity = Number(urlValues[2]);
-
-            // teamName = Number(url.charAt(82))-1;
-            // activity = getActivity(url);
             imageName = getImageName(itemRef);
-
-            var inputValue = "Não é necessária" // For activities that need input;
-
-            for (var i = 0; i < 28; i++) {
-              if (activity == needsInput[i]) {
-                firebase.database().ref('review/Activity '+activity+'/'+(teamName+1)).once('value').then(function(snapshot) {
-                  var inputValue = snapshot.val().number;
-                  const p = document.getElementById("p/"+teamName+"/"+activity+"/"+imageName);
-                  p.innerHTML += "<br/>Resposta: " + inputValue;
-                });
-              }
-            }
 
             const activityHolder = document.getElementById('review'+activity);
 
             const listItem = document.createElement('div');
             const listItemDescription = document.createElement('p');
-            const validate = document.createElement('div');
-            const acceptButton = document.createElement('div');
-            const rejectButton = document.createElement('div');
 
             listItem.style.backgroundColor = teamColors[teamName];
             listItem.style.backgroundImage = "url('"+url+"')";
             listItem.className = "imageToReview";
-            listItem.id = teamName+"/"+activity+"/"+imageName;
 
             listItemDescription.innerHTML = "Equipe: " + teamNames[teamName];
             listItemDescription.className = "listItemDescription"
             listItemDescription.id = "p/"+teamName+"/"+activity+"/"+imageName;
 
-            validate.className = "validate";
+            listItem.id = url+"<->"+activity+"<->"+teamName+"<->"+imageName;
+            listItem.onclick = function() {inflateReview(this.id)};
 
-            acceptButton.className = "acceptButton";
-            acceptButton.id = teamName+"/"+activity+"/"+imageName;
-            acceptButton.onclick = function() {accept(this.id)};
-
-            rejectButton.className = "rejectButton";
-            rejectButton.id = teamName+"/"+activity+"/"+imageName;
-            rejectButton.onclick = function() {reject(this.id)};
-
-
-            validate.appendChild(acceptButton);
-            validate.appendChild(rejectButton);
             listItem.appendChild(listItemDescription);
-            listItem.appendChild(validate);
             activityHolder.appendChild(listItem);
           }).catch(function(error) {
             console.log(error);
@@ -217,6 +188,53 @@ for (var i = 0; i <= 12; i++) { // To select the team folder
   }).catch(function(error) {
     console.log(error);
   });
+}
+
+function inflateReview(id) {
+  const data = id.split('<->'); // url, activity, teamName, imageName
+
+  document.getElementById('reviewImage').src = data[0];
+  document.getElementById('md-actnum').innerHTML = "Atividade "+ data[1];
+  document.getElementById('md-actdesc').innerHTML = descriptions[data[1]-1];
+
+  const sentData = document.getElementById('sentData');
+  sentData.innerHTML = "";
+  const dataToFill = document.createElement('p');
+
+  firebase.database().ref('review/Activity '+data[1]+'/'+(Number(data[2])+1)).once('value').then(function(snapshot) {
+    var userNameReview = snapshot.val().sentBy;
+    var userEmailReview = snapshot.val().email;
+    var sentOnDate = snapshot.val().sentOn;
+    var answer = snapshot.val().number;
+
+    dataToFill.innerHTML = "Nome do usuário: "+userNameReview+"<br/>";
+    dataToFill.innerHTML += "Email: "+userEmailReview+"<br/>";
+
+    if (answer != null) {
+      dataToFill.innerHTML += "Resposta: " + answer +"<br/>";
+    } else {
+      dataToFill.innerHTML += "Resposta: Não é necessária<br/>";
+    }
+
+    dataToFill.innerHTML += "Data do envio: " + Date(sentOnDate);
+
+    sentData.appendChild(dataToFill);
+  });
+
+  // Make the buttons 'clickable'
+
+  const buttonA = document.getElementById('md-aprove');
+  const buttonR = document.getElementById('md-reject');
+  const buttonC = document.getElementById('md-cancel');
+
+  buttonA.name = id;
+  buttonR.name = id;
+
+  buttonA.onclick = function() {accept(this.name)};
+  buttonR.onclick = function() {reject(this.name)};
+  buttonC.onclick = function() {document.getElementById('myModal').style.display = 'none';};
+
+  openModal();
 }
 
 function getActivity(url) {
@@ -239,85 +257,96 @@ function getImageName(itemRef) {
 }
 
 function accept(id) {
-  var teamActivity = id.split('/');  // [team/activity/filename]
-  teamActivity[0]++; // Be careful, this might not be useful;
+  var teamActivity = id.split('<->');  // [team/activity/filename] // url, activity, teamName, imageName
+  teamActivity[2] = Number(teamActivity[2]);
+  teamActivity[2]++; // Be careful, this might not be useful;
 
-  const oldRef001 = 'review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2];
-  const newRef001 = 'approved/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]
+  const oldRef001 = 'review/'+teamActivity[2]+"/"+teamActivity[1]+"/"+teamActivity[3];
+  const newRef001 = 'approved/'+teamActivity[2]+"/"+teamActivity[1]+"/"+teamActivity[3];
 
-  var storageRef = firebase.storage().ref('review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2]);
-  storageRef.getDownloadURL().then(function(url) {
-    var a = document.createElement('a');
-    a.href = url;
-    a.target = "_blank";
-    a.download = "file";
-    a.click();
+  // Remove file from storage
+  var storageRef = firebase.storage().ref('review/'+teamActivity[2]+"/"+teamActivity[1]+"/"+teamActivity[3]);
+  deleteFile("review/"+teamActivity[2]+"/"+teamActivity[1]+"/"+teamActivity[3]);
 
-    // File delete
-    setTimeout("deleteFile('"+teamActivity+"','"+storageRef.toString()+"', true)", 5000);
-    document.getElementById(id).style.display = "none";
-
-    var teamRef = firebase.database().ref('teams/'+(Number(teamActivity[0])-1));
-    teamRef.transaction(function(tra) { // Update team punctuation
-      if (tra) {
-        if (tra.points) {
-          tra.points += points[(Number(teamActivity[1])-1)];
-        } else {
-          tra.points += points[(Number(teamActivity[1])-1)];
-          if (!tra.points) {
-            tra.points += points[(Number(teamActivity[1])-1)];
-          }
-        }
-      }
-      return tra;
-    })
-
-    // Move database records
-    for (var i = 0; i < 28; i++) {
-      if (teamActivity[1] == needsInput[i]) {
-        var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[0]);
-        var newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[0]);
-        moveFbRecord(oldRef000, newRef000);
-      }
-    }
-
-    update();
-
-  }).catch(function(error) {
-    console.log(error);
+  // Update points
+  var teamRef = firebase.database().ref('teams/'+(Number(teamActivity[2])-1)+'/points');
+  teamRef.transaction(function (current_value) {
+    return (current_value || 0) + points[(Number(teamActivity[1])-1)];
   });
 
+  // Move database records
+  var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[2]);
+  var newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[2]);
+  moveFbRecord(oldRef000, newRef000);
+
   // The following code must be used only when one photo is submitted
-  const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
   for (var i = 0; i < onePicMode.length; i++) {
     if (teamActivity[1] == onePicMode[i]) {
-      firebase.database().ref('teams/'+(Number(teamActivity[0])-1)+"/tasks/"+teamActivity[1]).set({
+      firebase.database().ref('teams/'+(Number(teamActivity[2])-1)+"/tasks/"+teamActivity[1]).set({
         done: "Ok",
         time: Date.now()
       });
     }
   }
+
+  document.getElementById(id).style.display = "none";
+  document.getElementById('myModal').style.display = 'none';
+  update();
 }
 
 function reject(id) {
-  var teamActivity = id.split('/');
-  teamActivity[0]++;
-  const storageRef = 'review/'+teamActivity[0]+"/"+teamActivity[1]+"/"+teamActivity[2];
-  deleteFile(teamActivity, storageRef, false);
+  var teamActivity = id.split('<->'); // [team/activity/filename] // url, activity, teamName, imageName
+  teamActivity[2] = Number(teamActivity[2]);
+  teamActivity[2]++;
+  const storageRef = 'review/'+teamActivity[2]+"/"+teamActivity[1]+"/"+teamActivity[3];
+  deleteFile(storageRef);
+
+  // Get Reasons;
+  var reasons = getReasons();
+
+  // Move database records
+  var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[2]);
+  var newRef000 = firebase.database().ref('rejected/Activity '+teamActivity[1]).push();
+
+  // Push reasons
+  oldRef000.update({reasons: reasons});
+  moveFbRecord(oldRef000, newRef000);
+
   document.getElementById(id).style.display = "none";
+
+  document.getElementById('myModal').style.display = 'none';
+  update();
 }
 
-function deleteFile(teamActivity, refURL, fromURL) {
-  var ref;
-  if (fromURL == true) {
-    ref = firebase.storage().refFromURL(refURL);
-  } else {
-    ref = firebase.storage().ref(refURL);
+const reasonsDesc = ["Integrante da equipe não aparece","Crachá da equipe não visível","Local de realização da atividade incorreto","Resposta da atividade incorreta"];
+
+function getReasons() {
+  var reasons = "";
+  for (var i = 0; i <= 3; i++) {
+    const checkbox = document.getElementById('problem'+i).checked;
+    if (checkbox == true) {
+      reasons += reasonsDesc[i];
+      reasons += "/";
+    }
   }
+  for (var i = 4; i <= 5; i++) {
+    const checkbox = document.getElementById('problem'+i).checked;
+    if (checkbox == true) {
+      reasons += document.getElementById('expl'+i).value;
+      reasons += "/";
+    }
+  }
+
+  return reasons;
+}
+
+function deleteFile(refURL) {
+  var ref = firebase.storage().ref(refURL);
+
   ref.delete().then(function() {
   console.log("File deleted successfully!");
   }).catch(function(error) {
-    console.log("Uh-oh, an error occurred! Error:"+error);
+    console.log("Uh-oh, an error occurred! Error: "+error);
   });
 }
 
@@ -413,4 +442,8 @@ function openMenu() {
     menuHolder.className = ""
     menuOpen = false;
   }
+}
+
+function openModal() {
+  document.getElementById('myModal').style.display = "block";
 }

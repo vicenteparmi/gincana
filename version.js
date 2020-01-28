@@ -1,2 +1,2 @@
-var version = '0.3.1 beta';
-var lastUpdated = '22 de Janeiro de 2020 às 13:35';
+var version = '0.4.0 beta';
+var lastUpdated = '28 de Janeiro de 2020 às 15:43';

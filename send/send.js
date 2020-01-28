@@ -197,15 +197,26 @@ function send() {
       }
 
       const taskAnswer = document.getElementById('taskAnswerValue').value;
+      var hasRecorded = false;
 
       for (var i = 0; i < 28; i++) {
         if (itemSelected == needsInput[i]) {
           firebase.database().ref('review/Activity '+itemSelected+'/'+team).set({
               number: taskAnswer,
               sentBy: currentUser.displayName,
+              email: currentUser.email,
               sentOn: Date.now(),
           })
+          hasRecorded = true;
         }
+      }
+
+      if (hasRecorded == false) {
+        firebase.database().ref('review/Activity '+itemSelected+'/'+team).set({
+            sentBy: currentUser.displayName,
+            sentOn: Date.now(),
+            email: currentUser.email
+        })
       }
   }
 }
@@ -522,6 +533,10 @@ function openMenu() {
     menuHolder.className = ""
     menuOpen = false;
   }
+}
+
+function warning() {
+  alert("Antes de enviar certifique-se de que a atividade contém os ítens necessários para sua aprovação, que podem ser encontrados na página \"Sobre\".");
 }
 
 // Modal popup

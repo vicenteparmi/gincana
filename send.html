@@ -140,7 +140,12 @@
 				<span class="selected"></span>
 			</div>
 			<div class="bodyItem hide" id="somethingSelected">
-				<h1 id="activityName"></h1>
+				<h1>
+					<span id="activityName"></span>
+					<a id="warningButton" onclick="warning()">
+					<i class="material-icons" md-24 md-light style="vertical-align: middle">warning</i>
+				</a>
+				</h1>
 				<p id="description">The description will be here.</p>
 				<div id="sendOnePhoto" class="hidden">
 					<input type="file" name="file" id="inputFile">
