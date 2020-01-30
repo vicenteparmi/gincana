@@ -23,6 +23,7 @@ const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d",
 const points = [20,700,700,0,200,400,100,300,200,300,100,100,100,100,100,300,500,500,200,200,300,500,400,0,400,30,200];
 const needsInput = [5,17,22,25];
 const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
+const somePicsMode = [2,14,26,27];
 
 // Getting posts from activity 1 and videos
 
@@ -197,29 +198,18 @@ function inflateReview(id) {
   document.getElementById('md-actnum').innerHTML = "Atividade "+ data[1];
   document.getElementById('md-actdesc').innerHTML = descriptions[data[1]-1];
 
-  const sentData = document.getElementById('sentData');
-  sentData.innerHTML = "";
-  const dataToFill = document.createElement('p');
-
-  firebase.database().ref('review/Activity '+data[1]+'/'+(Number(data[2])+1)).once('value').then(function(snapshot) {
-    var userNameReview = snapshot.val().sentBy;
-    var userEmailReview = snapshot.val().email;
-    var sentOnDate = snapshot.val().sentOn;
-    var answer = snapshot.val().number;
-
-    dataToFill.innerHTML = "Nome do usuário: "+userNameReview+"<br/>";
-    dataToFill.innerHTML += "Email: "+userEmailReview+"<br/>";
-
-    if (answer != null) {
-      dataToFill.innerHTML += "Resposta: " + answer +"<br/>";
+  for (var i = 0; i <= 28; i++) {
+    if (data[1] == somePicsMode[i]) {
+      firebase.database().ref('review/Activity '+data[1]+'/'+(Number(data[2])+1)+'/'+data[3].substring(0, data[3].length - 4)).once('value').then(function(snapshot) {
+        inflateMoreInfo(snapshot);
+      });
+      break;
     } else {
-      dataToFill.innerHTML += "Resposta: Não é necessária<br/>";
+      firebase.database().ref('review/Activity '+data[1]+'/'+(Number(data[2])+1)).once('value').then(function(snapshot) {
+        inflateMoreInfo(snapshot);
+      });
     }
-
-    dataToFill.innerHTML += "Data do envio: " + Date(sentOnDate);
-
-    sentData.appendChild(dataToFill);
-  });
+  }
 
   // Make the buttons 'clickable'
 
@@ -237,6 +227,30 @@ function inflateReview(id) {
   openModal();
 }
 
+const sentData = document.getElementById('sentData');
+sentData.innerHTML = "";
+const dataToFill = document.createElement('p');
+
+function inflateMoreInfo(snapshot) {
+  var userNameReview = snapshot.val().sentBy;
+  var userEmailReview = snapshot.val().email;
+  var sentOnDate = snapshot.val().sentOn;
+  var answer = snapshot.val().number;
+
+  dataToFill.innerHTML = "Nome do usuário: "+userNameReview+"<br/>";
+  dataToFill.innerHTML += "Email: "+userEmailReview+"<br/>";
+
+  if (answer != null) {
+    dataToFill.innerHTML += "Resposta: " + answer +"<br/>";
+  } else {
+    dataToFill.innerHTML += "Resposta: Não é necessária<br/>";
+  }
+
+  dataToFill.innerHTML += "Data do envio: " + Date(sentOnDate);
+
+  sentData.appendChild(dataToFill);
+}
+
 function getActivity(url) {
   var charAt87 = Number(url.charAt(87)).toString();
   if (charAt87 != "NaN") {
@@ -248,7 +262,7 @@ function getActivity(url) {
 }
 
 function getImageName(itemRef) {
-  var imageName = itemRef.toString().slice(-23);
+  var imageName = itemRef.toString().slice(-24);
   var split = imageName.split('/');
   if (split.length > 1) {
     imageName = split[split.length - 1];
@@ -257,7 +271,7 @@ function getImageName(itemRef) {
 }
 
 function accept(id) {
-  var teamActivity = id.split('<->');  // [team/activity/filename] // url, activity, teamName, imageName
+  var teamActivity = id.split('<->');  // url, activity, teamName, imageName
   teamActivity[2] = Number(teamActivity[2]);
   teamActivity[2]++; // Be careful, this might not be useful;
 
@@ -275,8 +289,19 @@ function accept(id) {
   });
 
   // Move database records
-  var oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[2]);
-  var newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[2]);
+  var oldRef000;
+  var newRef000;
+
+  for (var i = 0; i <= 28; i++) {
+    if (teamActivity[1] == somePicsMode[i]) {
+      oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[2]+'/'+teamActivity[3].substring(0, teamActivity[3].length - 4));
+      newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[2]).push();
+      break;
+    } else {
+      oldRef000 = firebase.database().ref('review/Activity '+teamActivity[1]+'/'+teamActivity[2]);
+      newRef000 = firebase.database().ref('approved/Activity '+teamActivity[1]+'/'+teamActivity[2]);
+    }
+  }
   moveFbRecord(oldRef000, newRef000);
 
   // The following code must be used only when one photo is submitted

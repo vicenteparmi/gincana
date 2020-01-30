@@ -99,6 +99,8 @@ var team;
 
 function send() {
 
+  var imageId = [];
+
   var allOk = false;
   if (testforSend() == true) {
     allOk = true;
@@ -136,8 +138,8 @@ function send() {
               var style = image.currentStyle || window.getComputedStyle(image, false);
               var bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
               var file = dataURLtoFile(bi, "filename");
-              const imageId = Math.random();
-              storeImage('review/'+team+'/'+itemSelected+'/'+imageId+file[1], file[0]);
+              imageId[i] = firebase.database().ref('review/'+team+'/'+itemSelected).push();
+              storeImage('review/'+team+'/'+itemSelected+'/'+imageId[i].key+file[1], file[0]);
               recordSendFB(itemSelected, team);
             }
           }
@@ -207,6 +209,17 @@ function send() {
               email: currentUser.email,
               sentOn: Date.now(),
           })
+          hasRecorded = true;
+        }
+
+        if (itemSelected == somePicsMode[i]) {
+          for (var i = 0; i < imageId.length; i++) {
+            firebase.database().ref('review/Activity '+itemSelected+'/'+team+'/'+imageId[i].key).set({
+                sentBy: currentUser.displayName,
+                email: currentUser.email,
+                sentOn: Date.now(),
+            })
+          }
           hasRecorded = true;
         }
       }
