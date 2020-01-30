@@ -172,7 +172,7 @@ for (var i = 0; i <= 12; i++) { // To select the team folder
             listItem.className = "imageToReview";
 
             listItemDescription.innerHTML = "Equipe: " + teamNames[teamName];
-            listItemDescription.className = "listItemDescription"
+            listItemDescription.className = "listItemDescription";
             listItemDescription.id = "p/"+teamName+"/"+activity+"/"+imageName;
 
             listItem.id = url+"<->"+activity+"<->"+teamName+"<->"+imageName;
@@ -457,7 +457,7 @@ function openMenu() {
     window.onclick = function() {
       if (event.target != menu && event.target != sandwich) {
         menu.className = "";
-        menuHolder.className = ""
+        menuHolder.className = "";
         menuOpen = false;
       }
     }

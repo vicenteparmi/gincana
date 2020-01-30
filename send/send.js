@@ -51,7 +51,7 @@ function sti(id) {
   }
 
   itemSelected = id.charAt(2) + id.charAt(3);
-  itemSelected = Number(itemSelected)+1
+  itemSelected = Number(itemSelected)+1;
 
   document.getElementById('activityName').innerHTML = 'Atividade '+itemSelected;
 
@@ -166,10 +166,10 @@ function send() {
               document.getElementById('progressbar').className = "";
               document.getElementById('progressPercentage').style.width = "100%";
               document.getElementById('progressInd').innerHTML = "100%";
-              document.getElementById("sendingStatus").innerHTML = "Atividade enviada"
+              document.getElementById("sendingStatus").innerHTML = "Atividade enviada";
               const dbutton2 = document.getElementById('doneButton');
-              dbutton2.className = "button3"
-              dbutton2.onclick = function() {location.reload();}
+              dbutton2.className = "button3";
+              dbutton2.onclick = function() {location.reload();};
             } finally {
               // Nothing to do, I guess;
             }});
@@ -190,10 +190,10 @@ function send() {
           document.getElementById('progressbar').className = "";
           document.getElementById('progressPercentage').style.width = "100%";
           document.getElementById('progressInd').innerHTML = "100%";
-          document.getElementById("sendingStatus").innerHTML = "Atividade enviada"
+          document.getElementById("sendingStatus").innerHTML = "Atividade enviada";
           const dbutton = document.getElementById('doneButton');
-          dbutton.className = "button3"
-          dbutton.onclick = function() {location.reload();}
+          dbutton.className = "button3";
+          dbutton.onclick = function() {location.reload();};
           break;
         default:
       }
@@ -334,16 +334,16 @@ function uploadOneMoreImage(input) {
       imageDiv.style.backgroundImage = "url('"+content+"')";
       imageDiv.id = "dpic/"+ imagesUploaded;
 
-      closeButton.className = "closeSmallPic"
+      closeButton.className = "closeSmallPic";
       closeButton.innerHTML = "&times";
       closeButton.id = "spic/"+ imagesUploaded;
-      closeButton.onclick = function() {closeSmallPic(this.id)};
+      closeButton.onclick = function() {closeSmallPic(this.id);};
 
       imageDiv.appendChild(closeButton);
       span.appendChild(imageDiv);
 
       imagesUploaded++;
-    }
+    };
 
     reader.readAsDataURL(input.files[0]);
   }
