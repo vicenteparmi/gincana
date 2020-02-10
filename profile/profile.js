@@ -104,7 +104,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 function setTeam(teamNumber) {
 
   if (teamNumber != null) {
-    const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio"];
+    const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio","Alumínio","Silício","Fósforo","Enxofre"];
     var teamName = teamNames[teamNumber-1];
 
     document.getElementById("hasTeam").className = "center";

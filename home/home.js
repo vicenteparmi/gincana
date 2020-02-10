@@ -15,10 +15,10 @@ var firebaseConfig = {
 
 // Constants
 
-const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio"];
+const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio","Alumínio","Silício","Fósforo","Enxofre"];
 
 // Load Teams
-var fbTeamData = [[],[],[],[],[],[],[],[],[],[],[],[]];
+var fbTeamData = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 
 function loadLeaderborad() {
 
@@ -40,7 +40,7 @@ function loadLeaderborad() {
     updateLB();
   });
 
-  firebase.database().ref('/teams/11').once('value').then(function(snapshot) {
+  firebase.database().ref('/teams/15').once('value').then(function(snapshot) {
     inflateLB();
   });
 

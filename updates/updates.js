@@ -24,7 +24,7 @@ fbRef.on('child_added', function(sn) {
 // Build lists
 
 function buildLists() {
-  for (var i = 1; i <= 12; i++) {
+  for (var i = 1; i <= 16; i++) {
     const listHolder = document.getElementById('activityList'+i);
 
     const list = document.createElement('ul');

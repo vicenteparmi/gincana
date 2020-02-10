@@ -18,8 +18,8 @@ var firebaseConfig = {
 // Get all images
 
 var storageRef = firebase.storage().ref().child('review');
-const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio"];
-const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63","#009ae6","#9e9c00","#00a89b"]
+const teamNames = ["Hidrogênio","Hélio","Lítio","Berílio","Boro","Carbono","Nitrogênio","Oxigênio","Flúor","Neônio","Sódio","Magnésio","Alumínio","Silício","Fósforo","Enxofre"];
+const teamColors = ["#005c8d","#00b661","#c43030","#d1ad1e","#94007e","#4d4d4d","#e7660b","#00b87e","#e91e63","#009ae6","#9e9c00","#00a89b","#a9a9a9","#172c88","#653c32","#01be87"];
 const needsInput = [5,17,22,25];
 const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
 const somePicsMode = [2,14,26,27];
@@ -148,7 +148,7 @@ function moveFbRecord(oldRef, newRef) {
 
 const listRef = firebase.storage().ref('review'); // Review path
 
-for (var i = 0; i <= 12; i++) { // To select the team folder
+for (var i = 0; i <= 16; i++) { // To select the team folder
   listRefNow = listRef.child(i.toString());
   listRefNow.listAll().then(function(res) { // List all contents on team folder
     res.prefixes.forEach(function(folderRef) { // List folders on team folder

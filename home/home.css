@@ -217,7 +217,7 @@ canvas {
 .lastUpdatedClass {
   text-align: center;
   color: lightgray;
-  margin-top: 560px;
+  margin-top: 790px;
   font-size: 10pt;
   transition-duration: 0.3s;
 }
@@ -269,10 +269,30 @@ canvas {
   animation-duration: 1.8s;
 }
 
+.pos12 {
+  margin-top: 540px;
+  animation-duration: 1.9s;
+}
+
+.pos13 {
+  margin-top: 600px;
+  animation-duration: 2.0s;
+}
+
+.pos14 {
+  margin-top: 660px;
+  animation-duration: 2.1s;
+}
+
+.pos15 {
+  margin-top: 720px;
+  animation-duration: 2.2s;
+}
+
 /* Posts */
 
 #posts {
-  margin-top: 620px;
+  margin-top: 820px;
   margin-bottom: 40px;
   position: absolute;
   left: 50%;

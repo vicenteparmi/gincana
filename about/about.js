@@ -16,13 +16,15 @@ var firebaseConfig = {
 // Logo Animation
 
 var state = 1;
-setInterval('changeLogo()', 3000);
+if (window.innerWidth > 685) {
+    setInterval('changeLogo()', 3000);
+}
 
 function changeLogo() {
   const logo = document.getElementById('teamsAnimation');
   logo.style.backgroundImage = "url('./files/teams/"+state+".webp')";
   state++;
-  if (state >= 13) {
+  if (state > 16) {
     state = 1;
   }
 }

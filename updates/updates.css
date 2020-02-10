@@ -92,6 +92,22 @@ ul {
   background: linear-gradient(to bottom right, #00a89b, #01796f);
 }
 
+.team13 {
+  background: linear-gradient(to bottom right, #aaaaaa, #8a8a8a);
+}
+
+.team14 {
+  background: linear-gradient(to bottom right, #1f3bb7, #122273);
+}
+
+.team15 {
+  background: linear-gradient(to bottom right, #7a493e, #4d2c24);
+}
+
+.team16 {
+  background: linear-gradient(to bottom right, #00c68c, #018862);
+}
+
 /* end */
 
 table {
@@ -109,7 +125,7 @@ body {
 
 #body {
   padding-left: 5%;
-  padding-top: 100px;
+  padding-top: 60px;
 }
 
 #header {
