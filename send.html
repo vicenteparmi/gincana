@@ -7,7 +7,6 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Muli:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script type="text/javascript" src="send/descriptions.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	</head>
 	<body>
@@ -34,108 +33,7 @@
 			<div class="bodyItem">
 				<h1>Selecione a atividade</h1>
 				<div id="scrollDiv">
-					<table id="table">
-						<tr id="ti0" onclick="sti(this.id)">
-							<td>1. Postar foto com as #SemanaDeBoasVindas #QuímicaUFPR</td>
-							<td class="points">+20/foto</td>
-						</tr>
-						<tr id="ti1" onclick="sti(this.id)">
-							<td>2. Doar sangue (podem ser levadas pessoas de fora da equipe)</td>
-							<td class="points">+700/pessoa</td>
-						</tr>
-						<tr id="ti2" onclick="sti(this.id)">
-							<td>3. Doar cabelos (uma pessoa por equipe)</td>
-							<td class="points">+700</td>
-						</tr>
-						<tr id="ti4" onclick="sti(this.id)">
-							<td>5. Contar os degraus do prédio da PA</td>
-							<td class="points">+200</td>
-						</tr>
-						<tr id="ti5" onclick="sti(this.id)">
-							<td>6. Vídeo cantando parabéns no RU</td>
-							<td class="points">+400</td>
-						</tr>
-						<tr id="ti6" onclick="sti(this.id)">
-							<td>7. Ir até a pré-história</td>
-							<td class="points">+100</td>
-						</tr>
-						<tr id="ti7" onclick="sti(this.id)">
-							<td>8. Encontrar a biblioteca do biológicas</td>
-							<td class="points">+300</td>
-						</tr>
-						<tr id="ti8" onclick="sti(this.id)">
-							<td>9. Tirar foto com a ferradura do PET EQ</td>
-							<td class="points">+200</td>
-						</tr>
-						<tr id="ti9" onclick="sti(this.id)">
-							<td>10. Visitar o FIBRA e tirar foto com algum experimento</td>
-							<td class="points">+300</td>
-						</tr>
-						<tr id="ti10" onclick="sti(this.id)">
-							<td>11. Fazer o cadastro na biblioteca</td>
-							<td class="points">+100</td>
-						</tr>
-						<tr id="ti11" onclick="sti(this.id)">
-							<td>12. Encontrar a CASA 3</td>
-							<td class="points">+100</td>
-						</tr>
-						<tr id="ti12" onclick="sti(this.id)">
-							<td>13. Ir no auditório Gralha Azul</td>
-							<td class="points">+100</td>
-						</tr>
-						<tr id="ti13" onclick="sti(this.id)">
-							<td>14. Encontrar as esferas do dragão no Sociais Aplicadas</td>
-							<td class="points">+100/esfera</td>
-						</tr>
-						<tr id="ti14" onclick="sti(this.id)">
-							<td>15. Tirar foto da entrada (noturno), fazer trilha da floresta (diurno)</td>
-							<td class="points">+100</td>
-						</tr>
-						<tr id="ti15" onclick="sti(this.id)">
-							<td>16. Achar o prédio da UFPR no MusA</td>
-							<td class="points">+300</td>
-						</tr>
-						<tr id="ti16" onclick="sti(this.id)">
-							<td>17. Contar as janelas do prédio Rebouças</td>
-							<td class="points">+500</td>
-						</tr>
-						<tr id="ti17" onclick="sti(this.id)">
-							<td>18. Revezamento de vídeo nas rampas do prédio D. Pedro I</td>
-							<td class="points">+500</td>
-						</tr>
-						<tr id="ti18" onclick="sti(this.id)">
-							<td>19. Tirar uma selfie no intercampi</td>
-							<td class="points">+200</td>
-						</tr>
-						<tr id="ti19" onclick="sti(this.id)">
-							<td>20. Encontrar o CA de Música</td>
-							<td class="points">+200</td>
-						</tr>
-						<tr id="ti20" onclick="sti(this.id)">
-							<td>21. Fazer embaixadinhas no campo de futebol do SEPT</td>
-							<td class="points">+300</td>
-						</tr>
-						<tr id="ti21" onclick="sti(this.id)">
-							<td>22. Medir a passarela entre o hall do ADM e a biblioteca com palito de fósforo</td>
-							<td class="points">+500</td>
-						</tr>
-						<tr id="ti22" onclick="sti(this.id)">
-							<td>23. Tirar foto com a formanda Maria D. Barbosa</td>
-							<td class="points">+400</td>
-						</tr>
-						<tr id="ti24" onclick="sti(this.id)">
-							<td>25. Contar quantos hidrantes tem no Espinha de Peixe</td>
-							<td class="points">+400</td>
-						</tr>
-						<tr id="ti25" onclick="sti(this.id)">
-							<td>26. Abraçar pessoas na fila do RU (mínimo de 10)</td>
-							<td class="points">+30/pessoa</td>
-						</tr>
-						<tr id="ti26" onclick="sti(this.id)">
-							<td>27. Raspar o cabelo</td>
-							<td class="points">+200</td>
-						</tr>
-					</table>
+					<table id="table"></table>
 				</div>
 				<span class="selected"></span>
 			</div>
@@ -248,6 +146,7 @@
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
 
-		<script type="text/javascript" src="send/send.js" onload="loadPage()"></script>
+		<script async type="text/javascript" src="tasks/activity_list.js"></script>
+		<script async type="text/javascript" src="send/send.js" onload="loadPage()"></script>
 	</body>
 </html>

@@ -46,9 +46,6 @@ var email;
 var photoUrl;
 var uid;
 
-// TODO: Delete this if everything is ok
-//var user = firebase.auth().currentUser;
-
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     user.providerData.forEach(function (profile) {
@@ -76,7 +73,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         const fbRef = firebase.database().ref('teams/'+(team-1)+'/tasks');
         fbRef.on('child_added', function(snap) {
-          var taskNumber = snap.key;
+          var taskNumber = snap.key -1;
           var done = snap.val().done;
 
           if (done == 'Ok') {
@@ -366,3 +363,29 @@ function openMenu() {
     menuOpen = false;
   }
 }
+
+// Build lists
+
+function buildLists() {
+  const listHolder = document.getElementById('activityList');
+
+  const list = document.createElement('ul');
+  const title = document.createElement('h3');
+
+  title.innerHTML = 'Atividades';
+  title.style.margin = '0px 0px 0px 1vw';
+  listHolder.appendChild(title);
+
+  for (var i2 = 0; i2 < activityList.length; i2++) {
+    if (activityList[i2] != null) {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = activityList[i2];
+      listItem.id = 'li/'+i2;
+      list.appendChild(listItem);
+    }
+  }
+
+  listHolder.appendChild(list);
+  listHolder.className = 'listHolder';
+}
+buildLists();

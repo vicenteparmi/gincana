@@ -19,10 +19,43 @@ var currentMode = null;
 var itemSelected = -1;
 
 const onePicMode = [3,5,7,8,9,10,11,12,13,15,16,17,19,20,21,22,23,25];
-const somePicsMode = [2,14,26,27];
+const somePicsMode = [2,14,26,28];
 const videoMode = [6,18];
 const urlMode = [1];
 const needsInput = [5,17,22,25];
+fullList = false;
+
+// Inflate list
+
+const listHolder = document.getElementById('table');
+const tbody = document.createElement('tbody');
+
+var numberOnList = 1;
+
+for (var i = 0; i < activityList.length; i++) {
+  if (activityList[i]) {
+    const tr = document.createElement('tr');
+    tr.id = 'ti'+i;
+    tr.onclick = function() {sti(this.id)};
+
+    const titleList = document.createElement('td');
+    const pointsList = document.createElement('td');
+
+    titleList.innerHTML = numberOnList + '. ' +activityList[i];
+    pointsList.innerHTML = "+" + getPoints(i, true); // (Activity number, with text description);
+    pointsList.className = 'points';
+
+    tr.appendChild(titleList);
+    tr.appendChild(pointsList);
+    tbody.appendChild(tr);
+
+    numberOnList++;
+  }
+}
+
+listHolder.appendChild(tbody);
+
+// Activity Selector
 
 function sti(id) {
 
@@ -53,7 +86,7 @@ function sti(id) {
   itemSelected = id.charAt(2) + id.charAt(3);
   itemSelected = Number(itemSelected)+1;
 
-  document.getElementById('activityName').innerHTML = 'Atividade '+itemSelected;
+  document.getElementById('activityName').innerHTML = activityList[itemSelected-1];
 
   for (var i = 0; i < 28; i++) {
     if (itemSelected == onePicMode[i]) {
@@ -92,8 +125,6 @@ function sti(id) {
 function helpVideo() {
   alert("Faça o upload do vídeo para algum serviço como Google Photos, YouTube ou Google Drive. Em seguida compartilhe o arquivo para obter o link. Em caso de mais dúvidas entre em contato na página 'sobre'.")
 }
-
-// Code before update
 
 var team;
 
@@ -234,7 +265,7 @@ function send() {
   }
 }
 
-// firebase analytics
+// firebase analytics (not working)
 
 function recordSendFB(activity, team) {
   firebase.analytics().logEvent('send_activity', {

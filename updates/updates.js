@@ -21,6 +21,41 @@ fbRef.on('child_added', function(sn) {
   document.getElementById('points'+(Number(sn.key)+1)).innerHTML = sn.val().points;
 });
 
+// Build lists
+
+function buildLists() {
+  for (var i = 1; i <= 12; i++) {
+    const listHolder = document.getElementById('activityList'+i);
+
+    const list = document.createElement('ul');
+    const title = document.createElement('h3');
+
+    title.innerHTML = 'Atividades concluídas:';
+    title.style.margin = '0px 0px 0px 1vw';
+    listHolder.appendChild(title);
+
+    for (var i2 = 0; i2 < activityList.length; i2++) {
+      if (activityList[i2] != null) {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = activityList[i2];
+        listItem.id = 'li/'+i+'/'+i2;
+        listItem.style.display = 'none';
+        list.appendChild(listItem);
+      }
+    }
+
+    const noActivityError = document.createElement('p');
+    noActivityError.innerHTML = "Esta equipe ainda não concluiu nenhuma atividade do site.";
+    noActivityError.id = 'noActivityError'+i;
+    noActivityError.style.margin = '1vw';
+
+    listHolder.appendChild(list);
+    listHolder.appendChild(noActivityError);
+    listHolder.className = 'listHolder';
+  }
+}
+buildLists();
+
 // Members
 
 var fbRef1 = firebase.database().ref('users');
@@ -55,10 +90,12 @@ fbRef2.on('child_added', function(snapshot) {
         if (childSnapshot.key == 'tasks') {
           childSnapshot.forEach(function(scSnap) {
             var activity = scSnap.val().done;
-            var aNumber = scSnap.key.toString();
+            var aNumber = (scSnap.key-1).toString();
+            var teamNumber = (Number(snapshot.key)+1);
 
             if (activity == 'Ok') {
-              document.getElementById('li/'+(Number(snapshot.key)+1)+'/'+aNumber).style.display = 'list-item';
+              document.getElementById('li/'+teamNumber+'/'+aNumber).style.display = 'list-item';
+              document.getElementById('noActivityError'+teamNumber).style.display = 'none';
             }
           });
         };
